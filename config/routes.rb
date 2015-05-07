@@ -1,4 +1,4 @@
-ThreebymeServer::Application.routes.draw do
+ZazoStatistics::Application.routes.draw do
   get 's3_credentials/info'
 
   resources :s3_credentials

@@ -42,8 +42,8 @@ deploy:
     - dsuket/elastic-beanstalk-deploy:
         key: $AWS_ACCESS_KEY_ID
         secret: $AWS_SECRET_ACCESS_KEY
-        app_name: $EB_APP
-        env_name: $EB_ENV
+        app_name: $eb_application
+        env_name: $eb_environment
         region: $AWS_REGION
   after-steps:
     - akelmanson/rollbar-notify:
