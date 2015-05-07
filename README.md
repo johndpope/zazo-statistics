@@ -1,7 +1,7 @@
-Zazo server
+Zazo Statistics
 ===========
 
-[![wercker status](https://app.wercker.com/status/18a4af7080985e14f7b9d7b591e75933/m "wercker status")](https://app.wercker.com/project/bykey/18a4af7080985e14f7b9d7b591e75933)
+[![wercker status](https://app.wercker.com/status/b5619d0cc05abbe5e013a9578fc338f0/m "wercker status")](https://app.wercker.com/project/bykey/b5619d0cc05abbe5e013a9578fc338f0)
 
 Stack:
 
