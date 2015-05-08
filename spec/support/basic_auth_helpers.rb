@@ -8,4 +8,7 @@ end
 
 RSpec.configure do |config|
   config.include BasicAuthHelpers, type: :controller
+  config.before(authenticate_with_http_basic: true) do
+    authenticate_with_http_basic
+  end
 end

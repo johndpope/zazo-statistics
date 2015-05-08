@@ -1,5 +1,5 @@
 ZazoStatistics::Application.routes.draw do
-  root 'dashboard#index'
+  root 'landing#index'
 
   get 'dashboard' => 'dashboard#index'
   get 's3_credentials/info'
