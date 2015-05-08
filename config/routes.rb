@@ -1,11 +1,13 @@
 ZazoStatistics::Application.routes.draw do
+  root 'dashboard#index'
+
+  get 'dashboard' => 'dashboard#index'
   get 's3_credentials/info'
 
   resources :s3_credentials
   resources :connections
   resources :users
 
-  root 'landing#index'
   get 'landing' => 'landing#index'
   get 'l/:id' => 'landing#invite'
   get 'privacy' => 'landing#privacy'

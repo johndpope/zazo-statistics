@@ -1,0 +1,5 @@
+h1 Dashboard
+
+h2 Users created by day
+
+= line_chart User.group('DAY(created_at)').count
