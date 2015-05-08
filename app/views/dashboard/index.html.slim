@@ -1,5 +1,18 @@
 h1 Dashboard
 
-h2 Users created by day
-
-= line_chart User.group('DAY(created_at)').count
+.panel.panel-default
+  .panel-heading
+    h3.panel-title Users created by day
+  .panel-body
+    = line_chart User.group_by_day(:created_at).count rescue nil
+.panel.panel-default
+  .panel-heading
+    h3.panel-title Users by device_platform
+  .panel-body
+    = pie_chart User.group(:device_platform).count
+.panel.panel-default
+  .panel-heading
+    h3.panel-title Users by status
+  .panel-body
+    = pie_chart User.group(:status).count
+    = line_chart User.group(:status).group_by_day(:updated_at).count rescue nil
