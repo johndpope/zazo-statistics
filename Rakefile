@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ThreebymeServer::Application.load_tasks
+ZazoStatistics::Application.load_tasks

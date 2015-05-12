@@ -62,10 +62,3 @@ production:
   db_name:
   db_password:
   db_username:
-
-statistics:
-  domain_name: statistics.zazoapp.com
-  db_host:
-  db_name:
-  db_password:
-  db_username:
