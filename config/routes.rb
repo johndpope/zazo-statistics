@@ -2,6 +2,7 @@ ZazoStatistics::Application.routes.draw do
   root 'landing#index'
 
   get 'dashboard' => 'dashboard#index'
+  get 'dashboard/messages_sent'
   get 's3_credentials/info'
 
   resources :s3_credentials
