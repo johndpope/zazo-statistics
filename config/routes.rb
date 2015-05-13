@@ -3,6 +3,10 @@ ZazoStatistics::Application.routes.draw do
 
   get 'dashboard' => 'dashboard#index'
   get 'dashboard/messages_sent'
+  get 'dashboard/users_created'
+  get 'dashboard/users_device_platform'
+  get 'dashboard/users_status'
+
   get 's3_credentials/info'
 
   resources :s3_credentials
