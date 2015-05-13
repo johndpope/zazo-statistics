@@ -20,7 +20,7 @@ class EventsApi
     File.join('api', "v#{API_VERSION}", '/engagement/messages_sent')
   end
 
-  def messages_sent
-    @connection.get(messages_sent_path).body
+  def messages_sent(options = {})
+    @connection.get(messages_sent_path, options).body
   end
 end
