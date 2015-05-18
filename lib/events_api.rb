@@ -23,4 +23,12 @@ class EventsApi
   def messages_sent(options = {})
     @connection.get(messages_sent_path, options).body
   end
+
+  def metric_path(metric)
+    File.join('api', "v#{API_VERSION}", 'metrics', metric.to_s)
+  end
+
+  def metric_data(metric, options = {})
+    @connection.get(metric_path(metric), options).body
+  end
 end

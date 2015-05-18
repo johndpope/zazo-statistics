@@ -17,13 +17,21 @@ class DashboardController < AdminController
   end
 
   def messages_sent
-    render json: events_api.messages_sent(group_by: @group_by)
+    events_metric :messages_sent
+  end
+
+  def active_users
+    events_metric :active_users
   end
 
   private
 
   def events_api
     EventsApi.new
+  end
+
+  def events_metric(metric)
+    render json: events_api.metric_data(metric, group_by: @group_by)
   end
 
   private
