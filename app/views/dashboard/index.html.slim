@@ -1,23 +1,9 @@
 h1 Dashboard
 
-.panel.panel-default
-  .panel-heading
-    h3.panel-title Users created by day
-  .panel-body
-    = line_chart User.group_by_day(:created_at).count rescue nil
-.panel.panel-default
-  .panel-heading
-    h3.panel-title Users by device_platform
-  .panel-body
-    = pie_chart User.group(:device_platform).count
-.panel.panel-default
-  .panel-heading
-    h3.panel-title Users by status
-  .panel-body
-    = pie_chart User.group(:status).count
-    = line_chart User.group(:status).group_by_day(:updated_at).count rescue nil
-.panel.panel-default
-  .panel-heading
-    h3.panel-title Messages sent
-  .panel-body
-    = area_chart dashboard_messages_sent_path
+section
+  .col-md-12
+    == render 'metric_panel', metric: :messages_sent, chart: :area_chart
+    == render 'metric_panel', metric: :active_users, chart: :area_chart
+    / == render 'metric_panel', metric: :users_created, chart: :line_chart
+    == render 'metric_panel', metric: :users_device_platform, chart: :pie_chart
+    == render 'metric_panel', metric: :users_status, chart: :pie_chart
