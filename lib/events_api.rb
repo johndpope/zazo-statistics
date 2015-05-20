@@ -16,19 +16,19 @@ class EventsApi
     end
   end
 
-  def messages_sent_path
-    File.join('api', "v#{API_VERSION}", '/engagement/messages_sent')
-  end
-
-  def messages_sent(options = {})
-    @connection.get(messages_sent_path, options).body
-  end
-
   def metric_path(metric)
     File.join('api', "v#{API_VERSION}", 'metrics', metric.to_s)
   end
 
   def metric_data(metric, options = {})
     @connection.get(metric_path(metric), options).body
+  end
+
+  def metric_list_path
+    File.join('api', "v#{API_VERSION}", 'metrics')
+  end
+
+  def metric_list(options = {})
+    @connection.get(metric_list_path, options).body
   end
 end
