@@ -2,17 +2,16 @@ ZazoStatistics::Application.routes.draw do
   root 'landing#index'
 
   get 'dashboard' => 'dashboard#index'
-  get 'dashboard/messages_sent'
   get 'dashboard/users_created'
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
-  get 'dashboard/active_users'
 
   get 's3_credentials/info'
 
   resources :s3_credentials
   resources :connections
   resources :users
+  resources :metrics, only: [:index, :show]
 
   get 'landing' => 'landing#index'
   get 'l/:id' => 'landing#invite'

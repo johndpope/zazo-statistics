@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: <%= base_url %>/api/v1/metrics
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"7ed633e581816753965742ff1942e036"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - eaa72c44-99da-4d38-8a76-994a8ec0a6bd
+      X-Runtime:
+      - '0.009537'
+      Date:
+      - Wed, 20 May 2015 14:22:27 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '["active_users","messages_sent","usage_by_active_users"]'
+    http_version:
+  recorded_at: Wed, 20 May 2015 14:22:27 GMT
+recorded_with: VCR 2.9.3
