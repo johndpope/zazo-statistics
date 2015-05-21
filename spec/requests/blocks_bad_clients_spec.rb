@@ -8,7 +8,7 @@ RSpec.describe 'BlocksBadClients', type: :request do
       specify 'blocks request' do
         get '/admin', nil, 'HTTP_HOST' => 'example.com',
                            'REMOTE_ADDR' => '10.0.1.5'
-        expect(response).to have_http_status(403)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -16,7 +16,7 @@ RSpec.describe 'BlocksBadClients', type: :request do
       specify 'allows request' do
         get '/', nil, 'HTTP_HOST' => 'zazo-test.10.0.1.5.xip.io',
                       'REMOTE_ADDR' => '10.0.1.5'
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe 'BlocksBadClients', type: :request do
         get '/status', nil, 'HTTP_HOST' => '172.31.2.177',
                             'REMOTE_ADDR' => '172.31.22.56',
                             'HTTP_USER_AGENT' => 'ELB-HealthChecker/1.0'
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
@@ -37,7 +37,7 @@ RSpec.describe 'BlocksBadClients', type: :request do
       specify 'allows request' do
         get '/status', nil, 'HTTP_HOST' => 'zazoapp.com',
                             'REMOTE_ADDR' => '172.31.22.56'
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe 'BlocksBadClients', type: :request do
       context host do
         specify 'allows request' do
           get '/', nil, 'HTTP_HOST' => host
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:unauthorized)
         end
         specify 'allows request' do
           expect do
