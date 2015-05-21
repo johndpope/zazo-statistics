@@ -6,9 +6,6 @@ ZazoStatistics::Application.routes.draw do
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
 
-  get 's3_credentials/info'
-
-  resources :s3_credentials
   resources :connections
   resources :users
   resources :metrics, only: [:index, :show]
