@@ -1,14 +1,10 @@
 ZazoStatistics::Application.routes.draw do
-  root 'landing#index'
+  root 'dashboard#index'
 
-  get 'dashboard' => 'dashboard#index'
   get 'dashboard/users_created'
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
 
-  get 's3_credentials/info'
-
-  resources :s3_credentials
   resources :connections
   resources :users
   resources :metrics, only: [:index, :show]
