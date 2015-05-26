@@ -75,7 +75,7 @@ RSpec.describe EventsApi do
         let(:options) { { group_by: :week } }
         around do |example|
           VCR.use_cassette('events/metrics/messages_sent/by_week', erb: {
-            base_url: Figaro.env.events_api_base_url }) { example.run }
+                             base_url: Figaro.env.events_api_base_url }) { example.run }
         end
 
         specify do

@@ -2,7 +2,7 @@ class MetricsController < AdminController
   before_action :validate_group_by, only: [:show]
 
   def index
-    @metrics = events_api.metric_list
+    @metrics = events_api.metric_list.select { |m| m['type'] == 'grouppable_by_timeframe' }
   end
 
   def show

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: <%= base_url %>/api/v1/metrics/user_activity?user_id=RxDrzAIuF9mFw7Xx9NSM
+    uri: <%= base_url %>/api/v1/metrics/user_activity?user_id=<%= user_id %>
     body:
       encoding: US-ASCII
       string: ''
