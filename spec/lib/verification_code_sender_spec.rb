@@ -65,7 +65,7 @@ RSpec.describe VerificationCodeSender do
 
     context 'on success' do
       around do |example|
-        VCR.use_cassette('twilio_message_with_success', erb: {
+        VCR.use_cassette('twilio/message/with_success', erb: {
                            twilio_ssid: Figaro.env.twilio_ssid,
                            twilio_token: Figaro.env.twilio_token,
                            from: Figaro.env.twilio_from_number,
@@ -89,7 +89,7 @@ RSpec.describe VerificationCodeSender do
       let(:error) { { code: 21_614, message: "'To' number is not a valid mobile number" } }
 
       around do |example|
-        VCR.use_cassette('twilio_message_with_error', erb: {
+        VCR.use_cassette('twilio/message/with_error', erb: {
           twilio_ssid: Figaro.env.twilio_ssid,
           twilio_token: Figaro.env.twilio_token,
           from: Figaro.env.twilio_from_number,
@@ -112,7 +112,7 @@ RSpec.describe VerificationCodeSender do
       let(:mobile_number) { '+20227368296' }
       let(:error) { { code: 14_101, message: "'To' Attribute is Invalid" } }
       around do |example|
-        VCR.use_cassette('twilio_message_with_error', erb: {
+        VCR.use_cassette('twilio/message/with_error', erb: {
           twilio_ssid: Figaro.env.twilio_ssid,
           twilio_token: Figaro.env.twilio_token,
           from: Figaro.env.twilio_from_number,
@@ -146,7 +146,7 @@ RSpec.describe VerificationCodeSender do
 
     context 'on success' do
       around do |example|
-        VCR.use_cassette('twilio_call_with_success', erb: {
+        VCR.use_cassette('twilio/call/with_success', erb: {
                            twilio_ssid: Figaro.env.twilio_ssid,
                            twilio_token: Figaro.env.twilio_token,
                            from: Figaro.env.twilio_from_number,
@@ -173,7 +173,7 @@ RSpec.describe VerificationCodeSender do
       let(:error) { { code: 21_614, message: "'To' number is not a valid mobile number" } }
 
       around do |example|
-        VCR.use_cassette('twilio_call_with_error', erb: {
+        VCR.use_cassette('twilio/call/with_error', erb: {
           twilio_ssid: Figaro.env.twilio_ssid,
           twilio_token: Figaro.env.twilio_token,
           from: Figaro.env.twilio_from_number,
@@ -208,7 +208,7 @@ RSpec.describe VerificationCodeSender do
       let(:error) { { code: 14_101, message: "'To' Attribute is Invalid" } }
 
       around do |example|
-        VCR.use_cassette('twilio_call_with_error', erb: {
+        VCR.use_cassette('twilio/call/with_error', erb: {
           twilio_ssid: Figaro.env.twilio_ssid,
           twilio_token: Figaro.env.twilio_token,
           from: Figaro.env.twilio_from_number,

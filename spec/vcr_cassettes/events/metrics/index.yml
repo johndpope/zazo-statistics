@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: <%= base_url %>/api/v1/engagement/messages_sent?group_by=week
+    uri: <%= base_url %>/api/v1/metrics
     body:
       encoding: US-ASCII
       string: ''
@@ -27,20 +27,20 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"6fbe21e50272ab28b2d4b04d428e5aed"
+      - W/"01ade733b19fdb1d6306eab2241714dd"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 4d4201f4-4ddb-459d-ae8b-ccc864908d65
+      - ace57f4d-9a5f-4623-a453-ce70d36d982c
       X-Runtime:
-      - '0.007683'
+      - '0.004486'
       Date:
-      - Wed, 13 May 2015 09:27:01 GMT
+      - Tue, 26 May 2015 12:59:45 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"2015-05-03 00:00:00 UTC":3,"2015-05-10 00:00:00 UTC":14}'
+      string: '[{"name":"Metric::ActiveUsers","metric_name":"active_users","type":"grouppable_by_timeframe"},{"name":"Metric::MessagesSent","metric_name":"messages_sent","type":"grouppable_by_timeframe"},{"name":"Metric::UsageByActiveUsers","metric_name":"usage_by_active_users","type":"grouppable_by_timeframe"},{"name":"Metric::UserActivity","metric_name":"user_activity","type":"metric"}]'
     http_version:
-  recorded_at: Wed, 13 May 2015 09:27:01 GMT
+  recorded_at: Tue, 26 May 2015 12:59:45 GMT
 recorded_with: VCR 2.9.3

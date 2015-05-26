@@ -17,7 +17,7 @@ RSpec.describe GcmServer do
     context 'on success' do
       let(:ids) { 'APA91bHzjK1yDDt91cK3sVHbHq267Sv4ny2frCjdyd5eeYQkLGgVEW0UWSWiYpBvmuf-l3nOIGfCqnNhtOtHJGeVQYxCxiXrqtk2PUeMwrKPFzeJdCgYs4Q2kEx2HK-k6pN_wcThu-iPnIAEgyMeDZ1XDmp0G6zupQ' }
       specify do
-        VCR.use_cassette('gcm_send_with_success', erb: {
+        VCR.use_cassette('gcm/send_with_success', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -25,7 +25,7 @@ RSpec.describe GcmServer do
       end
       specify do
         expect(Rollbar).to_not receive(:warning)
-        VCR.use_cassette('gcm_send_with_success', erb: {
+        VCR.use_cassette('gcm/send_with_success', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -35,7 +35,7 @@ RSpec.describe GcmServer do
     context 'with server error' do
       specify do
         expect(Rollbar).to receive(:error)
-        VCR.use_cassette('gcm_send_with_server_error', erb: {
+        VCR.use_cassette('gcm/send_with_server_error', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -60,7 +60,7 @@ RSpec.describe GcmServer do
       end
 
       specify do
-        VCR.use_cassette('gcm_send_with_error', erb: {
+        VCR.use_cassette('gcm/send_with_error', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -71,7 +71,7 @@ RSpec.describe GcmServer do
         expect(Rollbar).to receive(:warning).with(
           'GcmServer: GCM responded with errors: InvalidRegistration',
           gcm_response: response_body)
-        VCR.use_cassette('gcm_send_with_error', erb: {
+        VCR.use_cassette('gcm/send_with_error', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -81,7 +81,7 @@ RSpec.describe GcmServer do
         expect(Rollbar).to receive(:warning).with(
           'GcmServer: GCM responded non-zero canonical_ids',
           gcm_response: response_body_with_canonical_ids)
-        VCR.use_cassette('gcm_send_with_canonical_ids', erb: {
+        VCR.use_cassette('gcm/send_with_canonical_ids', erb: {
                            key: 'gcmkey', payload: payload }) do
           subject
         end
@@ -89,7 +89,7 @@ RSpec.describe GcmServer do
 
       context 'body' do
         before do
-          VCR.use_cassette('gcm_send_with_error', erb: {
+          VCR.use_cassette('gcm/send_with_error', erb: {
                              key: 'gcmkey', payload: payload }) do
             subject
           end

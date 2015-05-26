@@ -31,7 +31,7 @@ RSpec.describe UsersController, type: :controller do
 
     around do |example|
       Connection.find_or_create(user.id, sender.id)
-      VCR.use_cassette('s3_put_video', erb: {
+      VCR.use_cassette('s3/put_video', erb: {
                          region: s3_credential.region,
                          bucket: s3_credential.bucket,
                          access_key: s3_credential.access_key,

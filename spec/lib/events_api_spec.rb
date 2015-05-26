@@ -31,7 +31,7 @@ RSpec.describe EventsApi do
       context 'group by day' do
         let(:options) { { group_by: :day } }
         specify do
-          VCR.use_cassette('metrics_messages_sent_by_day', erb: {
+          VCR.use_cassette('events/metrics/messages_sent/by_day', erb: {
                              base_url: Figaro.env.events_api_base_url
                            }) do
             is_expected.to eq(
@@ -46,7 +46,7 @@ RSpec.describe EventsApi do
       context 'group by week' do
         let(:options) { { group_by: :week } }
         specify do
-          VCR.use_cassette('metrics_messages_sent_by_week', erb: {
+          VCR.use_cassette('events/metrics/messages_sent/by_week', erb: {
                              base_url: Figaro.env.events_api_base_url
                            }) do
             is_expected.to eq(
@@ -59,7 +59,7 @@ RSpec.describe EventsApi do
       context 'group by month' do
         let(:options) { { group_by: :month } }
         specify do
-          VCR.use_cassette('metrics_messages_sent_by_month', erb: {
+          VCR.use_cassette('events/metrics/messages_sent/by_month', erb: {
                              base_url: Figaro.env.events_api_base_url
                            }) do
             is_expected.to eq(
@@ -79,10 +79,21 @@ RSpec.describe EventsApi do
     subject { instance.metric_list }
 
     specify do
-      VCR.use_cassette('metrics_index', erb: {
+      VCR.use_cassette('events/metrics/index', erb: {
                          base_url: Figaro.env.events_api_base_url
                        }) do
-        is_expected.to eq(%w(active_users messages_sent usage_by_active_users))
+        is_expected.to eq([{ 'name' => 'Metric::ActiveUsers',
+                             'metric_name' => 'active_users',
+                             'type' => 'grouppable_by_timeframe' },
+                           { 'name' => 'Metric::MessagesSent',
+                             'metric_name' => 'messages_sent',
+                             'type' => 'grouppable_by_timeframe' },
+                           { 'name' => 'Metric::UsageByActiveUsers',
+                             'metric_name' => 'usage_by_active_users',
+                             'type' => 'grouppable_by_timeframe' },
+                           { 'name' => 'Metric::UserActivity',
+                             'metric_name' => 'user_activity',
+                             'type' => 'metric' }])
       end
     end
   end

@@ -12,7 +12,7 @@ RSpec.describe RegController, type: :controller do
     let(:user) { User.find_by_raw_mobile_number(mobile_number) }
 
     it 'returns http success' do
-      VCR.use_cassette('twilio_message_with_success', erb: {
+      VCR.use_cassette('twilio/message/with_success', erb: {
                          twilio_ssid: Figaro.env.twilio_ssid,
                          twilio_token: Figaro.env.twilio_token,
                          from: Figaro.env.twilio_from_number,
@@ -26,7 +26,7 @@ RSpec.describe RegController, type: :controller do
       let!(:user) { create(:user, params) }
 
       it 'returns http success' do
-        VCR.use_cassette('twilio_message_with_success', erb: {
+        VCR.use_cassette('twilio/message/with_success', erb: {
                            twilio_ssid: Figaro.env.twilio_ssid,
                            twilio_token: Figaro.env.twilio_token,
                            from: Figaro.env.twilio_from_number,
@@ -39,7 +39,7 @@ RSpec.describe RegController, type: :controller do
 
     describe 'on success' do
       it 'returns mkey and auth' do
-        VCR.use_cassette('twilio_message_with_success', erb: {
+        VCR.use_cassette('twilio/message/with_success', erb: {
                            twilio_ssid: Figaro.env.twilio_ssid,
                            twilio_token: Figaro.env.twilio_token,
                            from: Figaro.env.twilio_from_number,
@@ -51,7 +51,7 @@ RSpec.describe RegController, type: :controller do
 
       context 'status' do
         specify do
-          VCR.use_cassette('twilio_message_with_success', erb: {
+          VCR.use_cassette('twilio/message/with_success', erb: {
                              twilio_ssid: Figaro.env.twilio_ssid,
                              twilio_token: Figaro.env.twilio_token,
                              from: Figaro.env.twilio_from_number,
@@ -71,7 +71,7 @@ RSpec.describe RegController, type: :controller do
       end
 
       it 'returns failure' do
-        VCR.use_cassette('twilio_message_with_success', erb: {
+        VCR.use_cassette('twilio/message/with_success', erb: {
                            twilio_ssid: Figaro.env.twilio_ssid,
                            twilio_token: Figaro.env.twilio_token,
                            from: Figaro.env.twilio_from_number,
@@ -87,7 +87,7 @@ RSpec.describe RegController, type: :controller do
       let(:error) { { code: 21_614, message: "'To' number is not a valid mobile number" } }
 
       before do
-        VCR.use_cassette('twilio_message_with_error', erb: {
+        VCR.use_cassette('twilio/message/with_error', erb: {
           twilio_ssid: Figaro.env.twilio_ssid,
           twilio_token: Figaro.env.twilio_token,
           from: Figaro.env.twilio_from_number,
