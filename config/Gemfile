@@ -85,6 +85,7 @@ gem 'aasm'
 gem 'groupdate'
 gem 'chartkick'
 gem 'puma'
+gem 'hashie'
 
 group :development do
   gem 'better_errors'
