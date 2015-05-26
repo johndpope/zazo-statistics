@@ -6,7 +6,11 @@ ZazoStatistics::Application.routes.draw do
   get 'dashboard/users_status'
 
   resources :connections
-  resources :users
+  resources :users do
+    member do
+      get :activity
+    end
+  end
   resources :metrics, only: [:index, :show]
 
   get 'landing' => 'landing#index'

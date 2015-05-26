@@ -86,6 +86,7 @@ gem 'groupdate'
 gem 'chartkick'
 gem 'puma'
 gem 'hashie'
+gem 'neatjson'
 
 group :development do
   gem 'better_errors'

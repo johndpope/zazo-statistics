@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
-  before { authenticate_with_http_basic }
-
+RSpec.describe UsersController, type: :controller, authenticate_with_http_basic: true do
   describe 'GET #receive_test_video' do
     let(:video_id) { '1429630398758' }
     let(:connection) { create(:established_connection) }
@@ -184,6 +182,27 @@ RSpec.describe UsersController, type: :controller do
           end
         end
       end
+    end
+  end
+
+  describe 'GET #activity' do
+    let(:user) { create(:user) }
+    subject { get :activity, id: user.id }
+
+    around do |example|
+      VCR.use_cassette('events/metrics/user_activity/with_user_id', erb: {
+                         base_url: Figaro.env.events_api_base_url,
+                         user_id: user.event_id }) { example.run }
+    end
+
+    it 'calls EventsApi#metric_data with valid params' do
+      expect_any_instance_of(EventsApi).to receive(:metric_data).with(:user_activity, user_id: user.event_id).and_call_original
+      subject
+    end
+
+    it 'converts to Event instances' do
+      subject
+      expect(assigns(:events)).to all(be_a(Event))
     end
   end
 end

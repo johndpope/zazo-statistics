@@ -1,7 +1,8 @@
 class UsersController < AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy,
                                   :new_connection, :establish_connection,
-                                  :receive_test_video, :receive_corrupt_video]
+                                  :receive_test_video, :receive_corrupt_video,
+                                  :activity]
   # GET /users
   # GET /users.json
   def index
@@ -94,6 +95,11 @@ class UsersController < AdminController
 
   def receive_corrupt_video
     receive_video Rails.root.join('app/assets/images/orange-background.jpg')
+  end
+
+  def activity
+    @events = EventsApi.new.metric_data(:user_activity, user_id: @user.event_id)
+    @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
   end
 
   private
