@@ -3,4 +3,4 @@ h1 Metrics
 section
   .col-md-12
     - @metrics.each do |metric|
-      == render 'metric_panel', metric: metric.metric_name, chart: :area_chart
+      == render 'metric_panel', metric: metric.name, chart: :area_chart
