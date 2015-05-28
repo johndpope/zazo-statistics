@@ -170,6 +170,7 @@ GEM
     guard-rubocop (1.2.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
+    hashie (3.4.1)
     highline (1.7.2)
     hitimes (1.2.2)
     hitimes (1.2.2-java)
@@ -217,6 +218,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.18)
+    neatjson (0.6)
     nenv (0.2.0)
     newrelic_rpm (3.11.2.286)
     nokogiri (1.6.6.2)
@@ -445,11 +447,13 @@ DEPENDENCIES
   guard-rails
   guard-rspec
   guard-rubocop
+  hashie
   houston
   jquery-rails
   kaminari
   launchy
   mysql2
+  neatjson
   newrelic_rpm
   npb_notification!
   pry-byebug

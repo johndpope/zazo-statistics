@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
-  before { authenticate_with_http_basic }
-
+RSpec.describe UsersController, type: :controller, authenticate_with_http_basic: true do
   describe 'GET #receive_test_video' do
     let(:video_id) { '1429630398758' }
     let(:connection) { create(:established_connection) }
@@ -31,7 +29,7 @@ RSpec.describe UsersController, type: :controller do
 
     around do |example|
       Connection.find_or_create(user.id, sender.id)
-      VCR.use_cassette('s3_put_video', erb: {
+      VCR.use_cassette('s3/put_video', erb: {
                          region: s3_credential.region,
                          bucket: s3_credential.bucket,
                          access_key: s3_credential.access_key,
@@ -184,6 +182,57 @@ RSpec.describe UsersController, type: :controller do
           end
         end
       end
+    end
+  end
+
+  describe 'GET #events' do
+    let(:user) { create(:user) }
+    subject { get :events, id: user.id }
+
+    around do |example|
+      VCR.use_cassette('events/index/filter_by/reverse', erb: {
+                         base_url: Figaro.env.events_api_base_url,
+                         term: user.event_id }) { example.run }
+    end
+
+    it 'calls EventsApi#metric_data with valid params' do
+      expect_any_instance_of(EventsApi).to receive(:filter_by).with(user.event_id, reverse: true).and_call_original
+      subject
+    end
+
+    it 'converts to Event instances' do
+      subject
+      expect(assigns(:events)).to all(be_a(Event))
+    end
+  end
+
+  describe 'GET #show' do
+    let(:user) { create(:user) }
+    subject { get :show, id: user.to_param }
+
+    around do |example|
+      VCR.use_cassette('events/metrics/aggregate_messaging_info', erb: {
+                         base_url: Figaro.env.events_api_base_url,
+                         user_id: user.event_id }) { example.run }
+    end
+
+    it 'calls EventsApi#metric_data with valid params' do
+      expect_any_instance_of(EventsApi).to receive(:metric_data).with(:aggregate_messaging_info, user_id: user.event_id).and_call_original
+      subject
+    end
+
+    it 'converts to Event instances' do
+      subject
+      expect(assigns(:aggregate_messaging_info)).to eq('outgoing' => {
+                                                         'total_sent' => 0,
+                                                         'total_received' => 0,
+                                                         'undelivered_percent' => nil
+                                                       },
+                                                       'incoming' => {
+                                                         'total_sent' => 0,
+                                                         'total_received' => 0,
+                                                         'undelivered_percent' => nil
+                                                       })
     end
   end
 end

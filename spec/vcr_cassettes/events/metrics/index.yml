@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: <%= base_url %>/api/v1/engagement/messages_sent?group_by=month
+    uri: <%= base_url %>/api/v1/metrics
     body:
       encoding: US-ASCII
       string: ''
@@ -27,20 +27,20 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"b3d207468551e997da76feba23e6c6ad"
+      - W/"44c35730cf8f959d1fb7160f47d301f7"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 8dc9f858-ab25-4b7e-8825-7f73638974dc
+      - bbb0e1dc-a04f-4a30-b9af-6ef333612595
       X-Runtime:
-      - '0.008512'
+      - '4.329486'
       Date:
-      - Wed, 13 May 2015 09:29:29 GMT
+      - Thu, 28 May 2015 21:02:06 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"2015-05-01 00:00:00 UTC":17}'
+      string: '[{"name":"active_users","type":"aggregated_by_timeframe"},{"name":"aggregate_messaging_info","type":"aggregated"},{"name":"messages_sent","type":"aggregated_by_timeframe"},{"name":"usage_by_active_users","type":"aggregated_by_timeframe"},{"name":"user_activity","type":"aggregated"}]'
     http_version:
-  recorded_at: Wed, 13 May 2015 09:29:29 GMT
+  recorded_at: Thu, 28 May 2015 21:02:06 GMT
 recorded_with: VCR 2.9.3

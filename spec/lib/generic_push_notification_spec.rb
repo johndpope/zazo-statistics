@@ -54,7 +54,7 @@ RSpec.describe GenericPushNotification do
       specify do
         expect(GcmServer).to receive(:send_notification).with(attributes[:token],
                                                               attributes[:payload])
-        VCR.use_cassette('gcm_send_with_error',
+        VCR.use_cassette('gcm/send_with_error',
                          erb: { key: Figaro.env.gcm_api_key, payload: payload }) do
           subject
         end
