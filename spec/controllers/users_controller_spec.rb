@@ -190,13 +190,13 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
     subject { get :events, id: user.id }
 
     around do |example|
-      VCR.use_cassette('events/index/by_tokens/reverse', erb: {
+      VCR.use_cassette('events/index/filter_by/reverse', erb: {
                          base_url: Figaro.env.events_api_base_url,
-                         tokens: user.event_id }) { example.run }
+                         term: user.event_id }) { example.run }
     end
 
     it 'calls EventsApi#metric_data with valid params' do
-      expect_any_instance_of(EventsApi).to receive(:by_tokens).with(user.event_id, reverse: true).and_call_original
+      expect_any_instance_of(EventsApi).to receive(:filter_by).with(user.event_id, reverse: true).and_call_original
       subject
     end
 

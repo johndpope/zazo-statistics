@@ -130,15 +130,15 @@ RSpec.describe EventsApi do
   end
 
   describe '#by_token' do
-    let(:tokens) { 'RxDrzAIuF9mFw7Xx9NSM' }
-    subject { instance.by_tokens(tokens, options) }
+    let(:term) { 'RxDrzAIuF9mFw7Xx9NSM' }
+    subject { instance.filter_by(term, options) }
 
     context 'reverse' do
       let(:options) { { reverse: true } }
       around do |example|
-        VCR.use_cassette('events/index/by_tokens/reverse', erb: {
+        VCR.use_cassette('events/index/filter_by/reverse', erb: {
                            base_url: Figaro.env.events_api_base_url,
-                           tokens: tokens }) { example.run }
+                           term: term }) { example.run }
       end
 
       it { is_expected.to be_a(Array) }

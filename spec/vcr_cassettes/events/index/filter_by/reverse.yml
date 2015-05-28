@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: <%= base_url %>/api/v1/events?by_tokens=<%= tokens %>&reverse=true
+    uri: <%= base_url %>/api/v1/events?filter_by=<%= term %>&reverse=true
     body:
       encoding: US-ASCII
       string: ''
@@ -31,16 +31,16 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - c7411df9-825a-4d03-a17b-8da799f5e525
+      - c640f32b-e369-4851-9854-b5a86519fa15
       X-Runtime:
-      - '1.650036'
+      - '1.785395'
       Date:
-      - Thu, 28 May 2015 15:02:53 GMT
+      - Thu, 28 May 2015 21:38:19 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
       string: "[]"
     http_version:
-  recorded_at: Thu, 28 May 2015 15:02:53 GMT
+  recorded_at: Thu, 28 May 2015 21:38:19 GMT
 recorded_with: VCR 2.9.3

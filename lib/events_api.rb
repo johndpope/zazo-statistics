@@ -36,7 +36,7 @@ class EventsApi
     File.join('api', "v#{API_VERSION}", 'events')
   end
 
-  def by_tokens(tokens, options = {})
-    @connection.get(events_path, options.reverse_merge(by_tokens: tokens)).body
+  def filter_by(term, options = {})
+    @connection.get(events_path, options.reverse_merge(filter_by: term)).body
   end
 end

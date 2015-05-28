@@ -99,7 +99,7 @@ class UsersController < AdminController
   end
 
   def events
-    @events = EventsApi.new.by_tokens(@user.event_id, reverse: true)
+    @events = EventsApi.new.filter_by(@user.event_id, reverse: true)
     @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
   end
 
