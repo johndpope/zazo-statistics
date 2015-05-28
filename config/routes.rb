@@ -8,7 +8,7 @@ ZazoStatistics::Application.routes.draw do
   resources :connections
   resources :users do
     member do
-      get :activity
+      get :events
     end
   end
   resources :metrics, only: [:index, :show]

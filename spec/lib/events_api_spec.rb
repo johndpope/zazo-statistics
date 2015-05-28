@@ -126,4 +126,26 @@ RSpec.describe EventsApi do
       end
     end
   end
+
+  describe '#events_path' do
+    subject { instance.events_path }
+
+    it { is_expected.to eq('api/v1/events') }
+  end
+
+  describe '#by_token' do
+    let(:tokens) { 'RxDrzAIuF9mFw7Xx9NSM' }
+    subject { instance.by_tokens(tokens, options) }
+
+    context 'reverse' do
+      let(:options) { { reverse: true } }
+      around do |example|
+        VCR.use_cassette('events/index/by_tokens/reverse', erb: {
+                           base_url: Figaro.env.events_api_base_url,
+                           tokens: tokens }) { example.run }
+      end
+
+      it { is_expected.to be_a(Array) }
+    end
+  end
 end
