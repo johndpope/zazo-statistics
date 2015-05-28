@@ -103,6 +103,7 @@ group :development do
   gem 'rb-inotify', require: false
   gem 'rails_layout'
   gem 'rsense'
+  gem 'rack-mini-profiler'
 end
 
 # Testing

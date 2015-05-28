@@ -10,6 +10,9 @@ ZazoStatistics::Application.routes.draw do
     member do
       get :events
     end
+    collection do
+      get 'visualization'
+    end
   end
   resources :metrics, only: [:index, :show]
 

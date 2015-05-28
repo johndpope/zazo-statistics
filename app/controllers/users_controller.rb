@@ -103,6 +103,9 @@ class UsersController < AdminController
     @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
   end
 
+  def visualization
+  end
+
   private
 
   def receive_video(file_name)
