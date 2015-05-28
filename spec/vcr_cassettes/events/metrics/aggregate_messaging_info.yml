@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: <%= base_url %>/api/v1/metrics/aggregate_messaging_info?user_id=<%= user_id %>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"17be072ee98712c8b31982b0fce95356"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - db668089-c5a6-42a8-a1b3-df9526c4752e
+      X-Runtime:
+      - '1.667999'
+      Date:
+      - Thu, 28 May 2015 21:21:23 GMT
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"outgoing":{"total_sent":0,"total_received":0,"undelivered_percent":null},"incoming":{"total_sent":0,"total_received":0,"undelivered_percent":null}}'
+    http_version:
+  recorded_at: Thu, 28 May 2015 21:21:23 GMT
+recorded_with: VCR 2.9.3
