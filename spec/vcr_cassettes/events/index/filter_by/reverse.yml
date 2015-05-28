@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: <%= base_url %>/api/v1/metrics
+    uri: <%= base_url %>/api/v1/events?filter_by=<%= term %>&reverse=true
     body:
       encoding: US-ASCII
       string: ''
@@ -27,20 +27,20 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"7ed633e581816753965742ff1942e036"
+      - W/"d751713988987e9331980363e24189ce"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - eaa72c44-99da-4d38-8a76-994a8ec0a6bd
+      - c640f32b-e369-4851-9854-b5a86519fa15
       X-Runtime:
-      - '0.009537'
+      - '1.785395'
       Date:
-      - Wed, 20 May 2015 14:22:27 GMT
+      - Thu, 28 May 2015 21:38:19 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
-      string: '["active_users","messages_sent","usage_by_active_users"]'
+      string: "[]"
     http_version:
-  recorded_at: Wed, 20 May 2015 14:22:27 GMT
+  recorded_at: Thu, 28 May 2015 21:38:19 GMT
 recorded_with: VCR 2.9.3

@@ -9,7 +9,7 @@ RSpec.describe EventDispatcher do
     end
     subject { described_class.emit(name, params) }
     around do |example|
-      VCR.use_cassette('sqs_send_message', erb: {
+      VCR.use_cassette('sqs/send_message', erb: {
                          queue_url: described_class.queue_url,
                          region: described_class.sqs_client.config.region,
                          access_key: described_class.sqs_client.config.credentials.access_key_id }) do

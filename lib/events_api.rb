@@ -31,4 +31,12 @@ class EventsApi
   def metric_list(options = {})
     @connection.get(metric_list_path, options).body
   end
+
+  def events_path
+    File.join('api', "v#{API_VERSION}", 'events')
+  end
+
+  def filter_by(term, options = {})
+    @connection.get(events_path, options.reverse_merge(filter_by: term)).body
+  end
 end
