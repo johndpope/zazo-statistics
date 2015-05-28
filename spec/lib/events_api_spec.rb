@@ -129,7 +129,7 @@ RSpec.describe EventsApi do
     it { is_expected.to eq('api/v1/events') }
   end
 
-  describe '#by_token' do
+  describe '#filter_by' do
     let(:term) { 'RxDrzAIuF9mFw7Xx9NSM' }
     subject { instance.filter_by(term, options) }
 
