@@ -21,21 +21,17 @@ RSpec.describe EventsApi do
   describe '#metric_list' do
     subject { instance.metric_list }
 
-    specify do
+    around do |example|
       VCR.use_cassette('events/metrics/index', erb: {
-                         base_url: Figaro.env.events_api_base_url }) do
-        is_expected.to eq([{ 'name' => 'Metric::ActiveUsers',
-                             'metric_name' => 'active_users',
-                             'type' => 'grouppable_by_timeframe' },
-                           { 'name' => 'Metric::MessagesSent',
-                             'metric_name' => 'messages_sent',
-                             'type' => 'grouppable_by_timeframe' },
-                           { 'name' => 'Metric::UsageByActiveUsers',
-                             'metric_name' => 'usage_by_active_users',
-                             'type' => 'grouppable_by_timeframe' },
-                           { 'name' => 'Metric::UserActivity',
-                             'metric_name' => 'user_activity',
-                             'type' => 'metric' }])
+                         base_url: Figaro.env.events_api_base_url }) { example.run }
+    end
+
+    it { is_expected.to be_a(Array) }
+
+    context 'first' do
+      specify do
+          expect(subject.first).to eq('name' => 'active_users',
+                                      'type' => 'aggregated_by_timeframe')
       end
     end
   end

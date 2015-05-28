@@ -13,7 +13,7 @@ RSpec.describe MetricsController, type: :controller, authenticate_with_http_basi
       VCR.use_cassette('events/metrics/index', erb: {
                          base_url: Figaro.env.events_api_base_url }) do
         subject
-        expect(assigns(:metrics)).to all(be_grouppable_by_timeframe)
+        expect(assigns(:metrics)).to all(be_aggregated_by_timeframe)
       end
     end
 

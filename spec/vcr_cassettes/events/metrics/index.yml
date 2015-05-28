@@ -27,20 +27,20 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - W/"01ade733b19fdb1d6306eab2241714dd"
+      - W/"44c35730cf8f959d1fb7160f47d301f7"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - ace57f4d-9a5f-4623-a453-ce70d36d982c
+      - bbb0e1dc-a04f-4a30-b9af-6ef333612595
       X-Runtime:
-      - '0.004486'
+      - '4.329486'
       Date:
-      - Tue, 26 May 2015 12:59:45 GMT
+      - Thu, 28 May 2015 21:02:06 GMT
       Connection:
       - close
     body:
       encoding: UTF-8
-      string: '[{"name":"Metric::ActiveUsers","metric_name":"active_users","type":"grouppable_by_timeframe"},{"name":"Metric::MessagesSent","metric_name":"messages_sent","type":"grouppable_by_timeframe"},{"name":"Metric::UsageByActiveUsers","metric_name":"usage_by_active_users","type":"grouppable_by_timeframe"},{"name":"Metric::UserActivity","metric_name":"user_activity","type":"metric"}]'
+      string: '[{"name":"active_users","type":"aggregated_by_timeframe"},{"name":"aggregate_messaging_info","type":"aggregated"},{"name":"messages_sent","type":"aggregated_by_timeframe"},{"name":"usage_by_active_users","type":"aggregated_by_timeframe"},{"name":"user_activity","type":"aggregated"}]'
     http_version:
-  recorded_at: Tue, 26 May 2015 12:59:45 GMT
+  recorded_at: Thu, 28 May 2015 21:02:06 GMT
 recorded_with: VCR 2.9.3

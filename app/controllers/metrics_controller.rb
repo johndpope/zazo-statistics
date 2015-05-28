@@ -3,7 +3,7 @@ class MetricsController < AdminController
 
   def index
     @metrics = events_api.metric_list
-    @metrics.is_a?(Array) && @metrics.map! { |m| Metric.new(m) }.select!(&:grouppable_by_timeframe?)
+    @metrics.is_a?(Array) && @metrics.map! { |m| Metric.new(m) }.select!(&:aggregated_by_timeframe?)
   end
 
   def show
