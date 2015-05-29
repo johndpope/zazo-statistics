@@ -6,9 +6,15 @@ class SocialGraph
   network   = undefined
   nodes     = undefined
   edges     = undefined
+  data      = undefined
+
   options   =
     nodes:
-      shape: 'circle'
+      shape: 'dot'
+    interaction:
+      dragNodes: false
+    physics:
+      solver: 'hierarchicalRepulsion'
 
   settings:
     element: 'visualization'
@@ -17,18 +23,16 @@ class SocialGraph
 
   init: ->
     container = document.getElementById @settings.element
+    data      = JSON.parse container.getAttribute 'data-users'
     @buildNodes()
-    @buildEdges()
     @buildNetwork()
 
   buildNodes: ->
-    nodes = new vis.DataSet [
-      { id: 1, label: 'Node 1', font: { size: 24 } }
-      { id: 2, label: 'Node 2' }
-      { id: 3, label: 'Node 3' }
-      { id: 4, label: 'Node 4' }
-      { id: 5, label: 'Node 5' }
-    ]
+    nodes = new vis.DataSet _(data).map (item) ->
+      user = item.user
+      id: user.id
+      label: user.name
+      size: 25
 
   buildEdges: ->
     edges = new vis.DataSet [
