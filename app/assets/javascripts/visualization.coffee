@@ -7,14 +7,13 @@ class SocialGraph
   nodes     = undefined
   edges     = undefined
   data      = undefined
-
+  temp      =
+    nodes: []
+    edges: {}
+    connections: []
   options   =
     nodes:
       shape: 'dot'
-    interaction:
-      dragNodes: false
-    physics:
-      solver: 'hierarchicalRepulsion'
 
   settings:
     element: 'visualization'
@@ -33,23 +32,32 @@ class SocialGraph
     container = document.getElementById @settings.element
     data      = JSON.parse container.getAttribute 'data-users'
     @buildNodes()
+    @buildEdges()
     @buildNetwork()
 
   buildNodes: ->
     nodes = new vis.DataSet _(data).map (item) =>
       user = item[@settings.userKey]
+      temp.connections.push user.connections
+      temp.nodes[user.id] = true
       id: user.id
       label: user.name
       size: 25
       color: @colorByStatus user
 
   buildEdges: ->
-    edges = new vis.DataSet [
-      { from: 1, to: 3 }
-      { from: 1, to: 2 }
-      { from: 2, to: 4 }
-      { from: 2, to: 5 }
-    ]
+    prepare = []
+    _(temp.connections).each (userConnections) =>
+      _(userConnections).each (conn) =>
+        c_id = conn.creator_id
+        t_id = conn.target_id
+        if @isNodesExists(c_id, t_id) &&
+           @isConnectionFit(c_id, t_id)
+          temp.edges["#{c_id}:#{t_id}"] = true
+          prepare.push
+            from: c_id
+            to: t_id
+    edges = new vis.DataSet prepare
 
   buildNetwork: ->
     data =
@@ -62,5 +70,15 @@ class SocialGraph
     color = @settings.statusColor.else unless color
     border: 'black'
     background: color
+
+  isNodesExists: (creator, target) ->
+    temp.nodes[creator] && temp.nodes[target]
+
+  isConnectionFit: (creator, target) ->
+    if creator == target
+      false
+    else
+      !(temp.edges["#{creator}:#{target}"] ||
+        temp.edges["#{target}:#{creator}"])
 
 (new SocialGraph()).init()

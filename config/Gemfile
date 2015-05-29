@@ -105,6 +105,7 @@ group :development do
   gem 'rb-inotify', require: false
   gem 'rails_layout'
   gem 'rsense'
+  gem 'bullet'
   gem 'rack-mini-profiler'
 end
 
