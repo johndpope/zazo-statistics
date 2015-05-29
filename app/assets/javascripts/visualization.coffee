@@ -45,9 +45,3 @@ class SocialGraph
     network = new vis.Network container, data, options
 
 (new SocialGraph()).init()
-
-
-
-
-
-
