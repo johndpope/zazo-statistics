@@ -18,6 +18,14 @@ class SocialGraph
 
   settings:
     element: 'visualization'
+    userKey: 'user_visualization'
+    statusColor:
+      initialized: '#EA9999'
+      invited:     '#EA9999'
+      registered:  '#FFE599'
+      verified:    '#6D9EEB'
+      active:      '#93C47D'
+      else:        '#C7C7C7'
 
   constructor: ->
 
@@ -28,11 +36,12 @@ class SocialGraph
     @buildNetwork()
 
   buildNodes: ->
-    nodes = new vis.DataSet _(data).map (item) ->
-      user = item.user
+    nodes = new vis.DataSet _(data).map (item) =>
+      user = item[@settings.userKey]
       id: user.id
       label: user.name
       size: 25
+      color: @colorByStatus user
 
   buildEdges: ->
     edges = new vis.DataSet [
@@ -47,5 +56,11 @@ class SocialGraph
       nodes: nodes
       edges: edges
     network = new vis.Network container, data, options
+
+  colorByStatus: (user) ->
+    color = @settings.statusColor[user.status]
+    color = @settings.statusColor.else unless color
+    border: 'black'
+    background: color
 
 (new SocialGraph()).init()
