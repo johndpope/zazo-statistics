@@ -10,6 +10,9 @@ class ConnectionsController < AdminController
   # GET /connections/1
   # GET /connections/1.json
   def show
+    @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info,
+                                                          user_id: @connection.creator.event_id,
+                                                          friend_id: @connection.target.event_id)
   end
 
   # GET /connections/new
