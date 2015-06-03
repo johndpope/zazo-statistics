@@ -19,3 +19,4 @@ html
       == yield
     == javascript_include_tag '//www.google.com/jsapi', 'chartkick'
     == javascript_include_tag 'application', 'data-turbolinks-track' => true
+    == yield :page_specific_scripts

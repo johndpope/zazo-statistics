@@ -8,7 +8,6 @@
 
 #= require dashboard
 #= require metrics
-#= require visualization
 
 @Zazo ||= {
   Visualization: {}
