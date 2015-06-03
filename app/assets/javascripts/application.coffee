@@ -8,10 +8,8 @@
 
 #= require dashboard
 #= require metrics
+#= require visualization
 
-#= require visualization/block
-#= require visualization/legend_color
-#= require visualization/user_info
-#= require visualization/social_graph
-
-@Zazo ||= Visualization: {}
+@Zazo ||= {
+  Visualization: {}
+}

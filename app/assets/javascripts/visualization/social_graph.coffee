@@ -86,5 +86,3 @@ class Zazo.Visualization.SocialGraph
 
   getUserById: (id) ->
     _(data.users).find (u) -> u.id == parseInt id
-
-(new Zazo.Visualization.SocialGraph()).init()
