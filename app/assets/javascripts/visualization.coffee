@@ -81,4 +81,4 @@ class SocialGraph
       !(temp.edges["#{creator}:#{target}"] ||
         temp.edges["#{target}:#{creator}"])
 
-(new SocialGraph()).init()
+#(new SocialGraph()).init()

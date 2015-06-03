@@ -1,5 +1,5 @@
 class UsersController < AdminController
-  before_action :set_user, only: [:show, :edit, :update, :destroy,
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :visualization,
                                   :new_connection, :establish_connection,
                                   :receive_test_video, :receive_corrupt_video,
                                   :events]
