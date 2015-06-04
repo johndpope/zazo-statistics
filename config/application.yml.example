@@ -38,6 +38,7 @@ android_rollbar_access_token:
 newrelic_license_key:
 
 sqs_queue_url:
+events_api_base_url: http://zazo_sqs_worker.dev
 
 test:
   db_name: tbm_test
