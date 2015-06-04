@@ -6,10 +6,11 @@ nav.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      linkTo .navbar-brand 'index' | Zazo Statistics
+      link-to .navbar-brand 'index' | Zazo Statistics
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li Home
+        li
+          link-to 'index' | Home
 
 .container
   outlet
