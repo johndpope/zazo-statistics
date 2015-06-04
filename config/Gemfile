@@ -91,7 +91,7 @@ gem 'neatjson'
 
 gem 'ember-rails'
 gem 'ember_script-rails', github: 'ghempton/ember-script-rails'
-gem 'emblem-rails'
+gem 'ember-emblem-template'
 gem 'emblem-source', github: 'machty/emblem.js'
 
 group :development do
