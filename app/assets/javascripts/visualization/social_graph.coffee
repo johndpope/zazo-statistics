@@ -12,9 +12,20 @@ class Zazo.Visualization.SocialGraph
   options   =
     nodes:
       shape: 'dot'
+    edges:
+      font:
+        strokeColor: '#AEAEAE'
+        size: 10
+      color:
+        color: '#AEAEAE'
+
+  tmp =
+    maxMsgCount: 0
 
   settings:
     element: 'visualization'
+    maxEdgeWidth: 10
+    minEdgeWidth: 1
     statusColor:
       initialized: '#EA9999'
       invited:     '#EA9999'
@@ -58,11 +69,10 @@ class Zazo.Visualization.SocialGraph
 
   buildEdges: ->
     prepare = []
+    tmp.maxMsgCount = @calculateMaxMsgCount()
     _(data.connections).each (conn) =>
-      prepare.push {
-        from: conn.creator_id
-        to: conn.target_id
-      } if conn.creator_id != conn.target_id
+      if conn.creator_id != conn.target_id
+        prepare.push @paramsByConnection conn
     edges = new vis.DataSet prepare
 
   buildNetwork: ->
@@ -83,6 +93,31 @@ class Zazo.Visualization.SocialGraph
     color = @settings.statusColor.else unless color
     border: 'black'
     background: color
+
+  paramsByConnection: (conn) ->
+    totalMessages = conn.incoming_count + conn.outgoing_count
+    arrowsTo   = conn.incoming_count < conn.outgoing_count
+    arrowsFrom = conn.incoming_count > conn.outgoing_count
+
+    from: conn.creator_id
+    to: conn.target_id
+    label: totalMessages
+
+    width: @calculateEdgeWidth totalMessages
+
+  calculateMaxMsgCount: ->
+    _(data.connections).reduce (max, conn) ->
+      current = conn.incoming_count + conn.outgoing_count
+      if current > max
+        current
+      else
+        max
+    , 0
+
+  calculateEdgeWidth: (totalMessages) ->
+    result = +((totalMessages / tmp.maxMsgCount) * @settings.maxEdgeWidth)
+    result = @settings.minEdgeWidth if result < @settings.minEdgeWidth
+    result
 
   getUserById: (id) ->
     _(data.users).find (u) -> u.id == parseInt id
