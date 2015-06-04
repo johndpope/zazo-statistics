@@ -1,4 +1,8 @@
 class DashboardController < AdminController
+  def app
+    render layout: 'ember_application'
+  end
+
   def index
   end
 

@@ -14,7 +14,6 @@ gem 'sass-rails'
 # gem 'uglifier', '>= 1.3.0'
 gem 'uglifier'
 
-
 # Use CoffeeScript for .js.coffee assets and views
 # gem 'coffee-rails', '~> 4.0.0'
 gem 'coffee-rails'
@@ -46,7 +45,6 @@ gem 'enum_handler', github: 'asux/enum_handler'
 #   # bundle exec rake doc:rails generates the API under doc/api.
 #   gem 'sdoc', require: false
 # end
-
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -89,10 +87,18 @@ gem 'puma'
 gem 'hashie'
 gem 'neatjson'
 
+# Ember.js stuff
+
+gem 'ember-rails'
+gem 'ember_script-rails', github: 'ghempton/ember-script-rails'
+gem 'emblem-rails'
+gem 'emblem-source', github: 'machty/emblem.js'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'guard-bundler'
+  gem 'guard-livereload'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-rubocop'

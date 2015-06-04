@@ -1,6 +1,7 @@
 ZazoStatistics::Application.routes.draw do
-  root 'dashboard#index'
+  root 'dashboard#app'
 
+  get 'dashboard' => 'dashboard#index'
   get 'dashboard/users_created'
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'

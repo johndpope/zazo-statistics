@@ -36,6 +36,7 @@ module ZazoStatistics
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
       g.template_engine :slim
       g.stylesheet_engine :sass
+      g.javascript_engine :em
     end
     config.sass.preferred_syntax = :sass
     config.middleware.insert 0, Rack::Attack
