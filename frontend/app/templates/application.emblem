@@ -1,16 +1,17 @@
-nav.navbar.navbar-inverse.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-collapse"
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      link-to .navbar-brand 'index' | Zazo Statistics
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li
-          link-to 'index' | Home
-
-.container
+header
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .navbar-header
+        button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-collapse"
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        link-to .navbar-brand 'index' | Zazo Statistics
+      .collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li
+            link-to 'users' | Users
+            
+main role="main"
   outlet

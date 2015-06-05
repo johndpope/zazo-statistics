@@ -1,0 +1,35 @@
+h1 = name
+
+table.table
+  tr
+    td Id
+    td = id
+  tr
+    td First name
+    td = firstName
+  tr
+    td Last name
+    td = lastName
+  tr
+    td Mobile number
+    td = mobileNumber
+  tr
+    td Device platform
+    td = devicePlatform
+  tr
+    td Auth
+    td
+      code = auth
+  tr
+    td Mkey
+    td
+      code = mkey
+  tr
+    td Status
+    td = status
+  tr
+    td Verification code
+    td = verificationCode
+  tr
+    td Verification sent at
+    td = verificationDateTime

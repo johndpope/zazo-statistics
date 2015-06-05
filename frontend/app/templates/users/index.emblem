@@ -1,0 +1,29 @@
+h1 Listing users
+
+section
+  .col-md-12
+    table.table class=isDataAvailable:visible:hidden
+      thead
+        tr
+        th ID
+        th Name
+        th Mobile number
+        th Device platform
+        th Status
+        th Verification code
+        th Verification code sent at
+        th
+      tbody
+        each user in model
+          tr class=user.status class=user.devicePlatform
+            td = user.id
+            td = user.name
+            td = user.mobileNumber
+            td = user.devicePlatform
+            td
+              span class=user.status = user.status
+            td = user.verificationCode
+            td = user.verificationDateTime
+            td = link-to 'user', { id: user.id } | Show
+      br
+    p.text-info class=isDataAvailable:hidden:visible No users found

@@ -9,12 +9,13 @@ class UsersController < AdminController
     if params[:user_id_or_mkey].present?
       user = User.where('id = ? OR mkey = ?', params[:user_id_or_mkey], params[:user_id_or_mkey]).first
       if user.present?
-        redirect_to(user)
+        return redirect_to(user)
       else
         flash[:alert] = t('messages.user_not_found', query: params[:user_id_or_mkey])
       end
     end
     @users = User.search(params[:query]).page(params[:page])
+    respond_with @users
   end
 
   # GET /users/1

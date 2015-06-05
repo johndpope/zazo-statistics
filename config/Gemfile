@@ -86,6 +86,7 @@ gem 'chartkick'
 gem 'puma'
 gem 'hashie'
 gem 'neatjson'
+gem 'responders', '~> 2.0'
 
 # Ember.js stuff
 gem 'ember-cli-rails'
