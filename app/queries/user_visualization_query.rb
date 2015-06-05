@@ -1,25 +1,25 @@
 class UserVisualizationQuery
-  attr_accessor :user, :connections, :friends
+  attr_accessor :target, :connections, :users
 
   def initialize(user)
-    @user = user
+    @target = user
   end
 
   def execute
-    @connections = Connection.for_user_id(user.id).includes(:creator).includes(:target)
-    @friends = friends_with_connection_counts
+    @connections = Connection.for_user_id(target.id).includes(:creator).includes(:target)
+    @users = users_with_connection_counts
   end
 
 private
 
-  def get_friends_ids
+  def get_users_ids
     @connections.each_with_object([]) do |conn, memo|
-      memo << conn.target_id  if user.id != conn.target_id
-      memo << conn.creator_id if user.id != conn.creator_id
-    end.uniq
+      memo << conn.target_id  if target.id != conn.target_id
+      memo << conn.creator_id if target.id != conn.creator_id
+    end.uniq + [@target.id]
   end
 
-  def friends_with_connection_counts
+  def users_with_connection_counts
     query = <<-SQL
       SELECT users.*, COUNT(connections.id) AS connection_counts
       FROM users
@@ -29,6 +29,6 @@ private
       WHERE users.id IN ?
       GROUP BY users.id
     SQL
-    User.find_by_sql [query, get_friends_ids]
+    User.find_by_sql [query, get_users_ids]
   end
 end

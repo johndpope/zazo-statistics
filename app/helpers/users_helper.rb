@@ -7,8 +7,8 @@ module UsersHelper
     query = UserVisualizationQuery.new user
     query.execute
     data = {
-        user: (UserVisualizationSerializer.new query.user, root: false).as_json,
-        friends: (query.friends.map { |u| UserVisualizationSerializer.new(u, root: false) }).as_json,
+        target: (UserVisualizationSerializer.new query.target, root: false).as_json,
+        users: (query.users.map { |u| UserVisualizationSerializer.new(u, root: false) }).as_json,
         connections: (query.connections.map { |u| ConnectionVisualizationSerializer.new(u, root: false) }).as_json
     }
     content_tag :div, '', id: 'visualization', data: data

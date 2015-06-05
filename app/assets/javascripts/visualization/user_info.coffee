@@ -12,6 +12,7 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
     <li>Name:   <%= name %></li>
     <li>Mobile: <%= mobile %></li>
     <li>Status: <%= status %></li>
+    <li>Circle: <%= circle %> users</li>
   "
 
   settings:
@@ -23,6 +24,7 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
       name:   user.name
       mobile: user.mobile_number
       status: user.status
+      circle: user.connection_counts
     }
     @showContainer position
 

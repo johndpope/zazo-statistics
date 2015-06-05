@@ -40,11 +40,9 @@ class Zazo.Visualization.SocialGraph
     container = document.getElementById @settings.element
 
     data =
-      user:        JSON.parse container.getAttribute 'data-user'
-      friends:     JSON.parse container.getAttribute 'data-friends'
+      target:      JSON.parse container.getAttribute 'data-target'
+      users:       JSON.parse container.getAttribute 'data-users'
       connections: JSON.parse container.getAttribute 'data-connections'
-    data.users = data.friends
-    data.users.push data.user
 
     @buildNodes()
     @buildEdges()
