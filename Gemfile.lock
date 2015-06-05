@@ -25,20 +25,6 @@ GIT
   specs:
     npb_notification (0.0.4)
 
-GIT
-  remote: git://github.com/ghempton/ember-script-rails.git
-  revision: 9a1f09b0c53bf51c37c35490cc76cd7dfe461234
-  specs:
-    ember_script-rails (0.0.3)
-      ember_script (>= 0.0.4)
-      rails
-
-GIT
-  remote: git://github.com/machty/emblem.js.git
-  revision: b10ffa0945954a5dfb7dceff8cf1e0063572afcb
-  specs:
-    emblem-source (0.5.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,9 +81,6 @@ GEM
       multi_json (~> 1.0)
     aws-sdk-resources (2.0.48)
       aws-sdk-core (= 2.0.48)
-    barber (0.9.0)
-      ember-source (>= 1.0, < 2)
-      execjs (>= 1.2, < 3)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -142,28 +125,9 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    ember-data-source (1.0.0.beta.18)
-      ember-source (~> 1.8)
-    ember-emblem-template (0.2.2)
-      barber (>= 0.9.0)
-      sprockets (>= 2.1, < 3.0)
-    ember-handlebars-template (0.2.2)
-      barber (>= 0.9.0)
-      sprockets (>= 2.1, < 3.3)
-      tilt
-    ember-rails (0.18.2)
-      active_model_serializers
-      ember-data-source (>= 1.0.0.beta.5)
-      ember-handlebars-template (>= 0.1.1, < 1.0)
-      ember-source (>= 1.1.0)
-      jquery-rails (>= 1.0.17)
-      railties (>= 3.1)
-    ember-source (1.12.1)
-    ember_script (0.0.5)
-      ember_script-source (>= 0.0.2)
-      execjs
-      tilt
-    ember_script-source (0.0.14)
+    ember-cli-rails (0.3.2)
+      railties (>= 3.1, < 5)
+      sprockets (>= 2.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
     eventmachine (1.0.7-java)
@@ -496,10 +460,7 @@ DEPENDENCIES
   coffee-rails
   console_candy!
   database_cleaner
-  ember-emblem-template
-  ember-rails
-  ember_script-rails!
-  emblem-source!
+  ember-cli-rails
   enum_handler!
   factory_girl_rails
   faker

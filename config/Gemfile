@@ -88,11 +88,7 @@ gem 'hashie'
 gem 'neatjson'
 
 # Ember.js stuff
-
-gem 'ember-rails'
-gem 'ember_script-rails', github: 'ghempton/ember-script-rails'
-gem 'ember-emblem-template'
-gem 'emblem-source', github: 'machty/emblem.js'
+gem 'ember-cli-rails'
 
 group :development do
   gem 'better_errors'
