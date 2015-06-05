@@ -7,9 +7,6 @@ class ApplicationController < ActionController::Base
   attr_reader :current_user
   helper_method :current_user
 
-  def index
-  end
-
   protected
 
   # ==================
