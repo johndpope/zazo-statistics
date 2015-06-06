@@ -1,35 +1,37 @@
-h1 = name
+h1 = model.name
 
 table.table
-  tr
-    td Id
-    td = id
-  tr
-    td First name
-    td = firstName
-  tr
-    td Last name
-    td = lastName
-  tr
-    td Mobile number
-    td = mobileNumber
-  tr
-    td Device platform
-    td = devicePlatform
-  tr
-    td Auth
-    td
-      code = auth
-  tr
-    td Mkey
-    td
-      code = mkey
-  tr
-    td Status
-    td = status
-  tr
-    td Verification code
-    td = verificationCode
-  tr
-    td Verification sent at
-    td = verificationDateTime
+  tbody
+    tr
+      td Id
+      td = model.id
+    tr
+      td First name
+      td = model.first_name
+    tr
+      td Last name
+      td = model.last_name
+    tr
+      td Mobile number
+      td = model.mobile_number
+    tr
+      td Device platform
+      td = model.device_platform
+    tr
+      td Auth
+      td
+        code = model.auth
+    tr
+      td Mkey
+      td
+        code = model.mkey
+    tr
+      td Status
+      td
+        span class="status {{model.status}}" = model.status
+    tr
+      td Verification code
+      td = model.verification_code
+    tr
+      td Verification sent at
+      td = model.verification_date_time

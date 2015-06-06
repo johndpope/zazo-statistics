@@ -15,15 +15,16 @@ section
         th
       tbody
         each user in model
-          tr class=user.status class=user.devicePlatform
+          tr class=user.status class=user.device_platform
             td = user.id
             td = user.name
-            td = user.mobileNumber
-            td = user.devicePlatform
+            td = user.mobile_number
+            td = user.device_platform
             td
-              span class=user.status = user.status
-            td = user.verificationCode
-            td = user.verificationDateTime
-            td = link-to 'user', { id: user.id } | Show
+              span class="status {{user.status}}" = user.status
+            td = user.verification_code
+            td = user.verification_date_time
+            td
+              link-to 'users.show' user | Show
       br
     p.text-info class=isDataAvailable:hidden:visible No users found

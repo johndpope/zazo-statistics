@@ -1,5 +1,5 @@
 class UserShowRoute extends Ember.Route
-  model: ->
+  model: (params)->
     @store.find('user', params.id)
 
 

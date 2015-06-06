@@ -1,5 +1,5 @@
 class UsersIndexRoute extends Ember.Route
   model: ->
-    @store.findAll('user')
+    @store.find('user')
 
 `export default UsersIndexRoute`
