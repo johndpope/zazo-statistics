@@ -7,16 +7,16 @@ table.table
       td = model.id
     tr
       td First name
-      td = model.first_name
+      td = model.firstName
     tr
       td Last name
-      td = model.last_name
+      td = model.lastName
     tr
       td Mobile number
-      td = model.mobile_number
+      td = model.mobileNumber
     tr
       td Device platform
-      td = model.device_platform
+      td = model.devicePlatform
     tr
       td Auth
       td
@@ -31,7 +31,7 @@ table.table
         span class="status {{model.status}}" = model.status
     tr
       td Verification code
-      td = model.verification_code
+      td = model.verificationCode
     tr
       td Verification sent at
-      td = model.verification_date_time
+      td = model.verificationDateTime
