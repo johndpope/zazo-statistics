@@ -28,7 +28,7 @@ table.table
     tr
       td Status
       td
-        span class="status {{model.status}}" = model.status
+        render "status" model
     tr
       td Verification code
       td = model.verificationCode

@@ -21,7 +21,7 @@ section
             td = user.mobileNumber
             td = user.devicePlatform
             td
-              span class="status {{user.status}}" = user.status
+              render "status" user
             td = user.verificationCode
             td = user.verificationDateTime
             td
