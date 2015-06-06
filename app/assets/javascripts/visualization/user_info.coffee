@@ -11,21 +11,22 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
     </li>
     <li>Name:   <%= name %></li>
     <li>Mobile: <%= mobile %></li>
-    <li>Status: <%= status %></li>
-    <li>Circle: <%= circle %> users</li>
+    <li>Circle: <%= circle %> friends</li>
+    <li>Last month: <%= total %> msg</li>
+    <li>Per day: <%= average %> msg</li>
   "
 
   settings:
     element: 'user-info'
 
   show: (user, position) ->
-    @container.innerHTML = @template {
-      id:     user.id
-      name:   user.name
-      mobile: user.mobile_number
-      status: user.status
-      circle: user.connection_counts
-    }
+    @container.innerHTML = @template
+      id:      user.id
+      name:    user.name
+      mobile:  user.mobile_number
+      circle:  user.connection_counts
+      total:   user.messages_by_last_month
+      average: user.average_messages_per_day
     @showContainer position
 
   showContainer: (position) ->

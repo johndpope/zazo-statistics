@@ -1,4 +1,4 @@
-class UserVisualizationQuery
+class UserVisualizationDataQuery
   attr_accessor :target, :connections, :users
 
   def initialize(user)

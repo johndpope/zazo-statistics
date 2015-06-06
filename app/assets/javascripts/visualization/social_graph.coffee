@@ -7,6 +7,7 @@ class Zazo.Visualization.SocialGraph
   nodes     = undefined
   edges     = undefined
   userInfo  = undefined
+  calculate = undefined
   data      = {}
 
   options   =
@@ -26,6 +27,8 @@ class Zazo.Visualization.SocialGraph
     element: 'visualization'
     maxEdgeWidth: 10
     minEdgeWidth: 1
+    maxNodeSize:  50
+    minNodeSize:  20
     statusColor:
       initialized: '#EA9999'
       invited:     '#EA9999'
@@ -38,6 +41,7 @@ class Zazo.Visualization.SocialGraph
 
   init: ->
     container = document.getElementById @settings.element
+    calculate = new Zazo.Visualization.Calculate()
 
     data =
       target:      JSON.parse container.getAttribute 'data-target'
@@ -59,15 +63,20 @@ class Zazo.Visualization.SocialGraph
     legend.show @settings.statusColor
 
   buildNodes: ->
+    calculate.findCollectionMax data.users, 'users', (user) ->
+      user.average_messages_per_day
+
     nodes = new vis.DataSet _(data.users).map (user) =>
       id: user.id
       label: user.name
-      size: 25
+      size:  @calculateNodeSize user
       color: @colorByStatus user
 
   buildEdges: ->
+    calculate.findCollectionMax data.connections, 'connections', (conn) ->
+      conn.incoming_count + conn.outgoing_count
+
     prepare = []
-    tmp.maxMsgCount = @calculateMaxMsgCount()
     _(data.connections).each (conn) =>
       if conn.creator_id != conn.target_id
         prepare.push @paramsByConnection conn
@@ -94,8 +103,6 @@ class Zazo.Visualization.SocialGraph
 
   paramsByConnection: (conn) ->
     totalMessages = conn.incoming_count + conn.outgoing_count
-    arrowsTo   = conn.incoming_count < conn.outgoing_count
-    arrowsFrom = conn.incoming_count > conn.outgoing_count
 
     from: conn.creator_id
     to: conn.target_id
@@ -103,19 +110,13 @@ class Zazo.Visualization.SocialGraph
 
     width: @calculateEdgeWidth totalMessages
 
-  calculateMaxMsgCount: ->
-    _(data.connections).reduce (max, conn) ->
-      current = conn.incoming_count + conn.outgoing_count
-      if current > max
-        current
-      else
-        max
-    , 0
-
   calculateEdgeWidth: (totalMessages) ->
-    result = +((totalMessages / tmp.maxMsgCount) * @settings.maxEdgeWidth)
-    result = @settings.minEdgeWidth if result < @settings.minEdgeWidth
-    result
+    calculate.normalizeValue totalMessages,
+      'connections', @settings.minEdgeWidth, @settings.maxEdgeWidth
+
+  calculateNodeSize: (user) ->
+    calculate.normalizeValue user.average_messages_per_day,
+      'users', @settings.minNodeSize, @settings.maxNodeSize
 
   getUserById: (id) ->
     _(data.users).find (u) -> u.id == parseInt id

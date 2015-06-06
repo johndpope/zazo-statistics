@@ -12,10 +12,8 @@ class ConnectionVisualizationSerializer < ActiveModel::Serializer
 private
 
   def get_connection_info
-    @aggregate_messaging_info ||= EventsApi.new.metric_data(
-        :aggregate_messaging_info,
-        user_id: object.creator.event_id,
-        friend_id: object.target.event_id
-    )
+    @aggregate_messaging_info ||= EventsApi.new.metric_data :aggregate_messaging_info,
+                                                            user_id:   object.creator.event_id,
+                                                            friend_id: object.target.event_id
   end
 end

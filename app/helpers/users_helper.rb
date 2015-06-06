@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def visualize_social_graph(user)
-    query = UserVisualizationQuery.new user
+    query = UserVisualizationDataQuery.new user
     query.execute
     data = {
         target: (UserVisualizationSerializer.new query.target, root: false).as_json,
