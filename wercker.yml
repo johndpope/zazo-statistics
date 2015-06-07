@@ -27,17 +27,20 @@ build:
           echo "ruby version $(ruby --version) running"
           echo "from location $(which ruby)"
           echo -p "gem list: $(gem list)"
-    - npm-install:
-        options: -g ember-cli bower
     - script:
         name: emper compile
         code: |
           bin/rake ember:compile
     - script:
+        name: install bower
+        code: |
+          cd $ember_app
+          npm install bower
+    - script:
         name: bower install
         code: |
           cd $ember_app
-          bower install
+          node_modules/bower/bin install
     - script:
         name: ember test
         code: |
