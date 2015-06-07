@@ -32,10 +32,7 @@ build:
         code: |
           mkdir -p "$WERCKER_CACHE_DIR/wercker/npm"
           npm config set cache "$WERCKER_CACHE_DIR/wercker/npm"
-          cd $ember_app
-          npm install
-          bower install
-          ember build
+          bin/rake ember:compile
     - script:
         name: create rspec and coverage dir
         code: mkdir -p $WERCKER_REPORT_ARTIFACTS_DIR/rspec $WERCKER_REPORT_ARTIFACTS_DIR/coverage
