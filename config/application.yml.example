@@ -39,6 +39,7 @@ newrelic_license_key:
 
 sqs_queue_url:
 events_api_base_url: http://zazo_sqs_worker.dev
+ember_app: frontend
 
 test:
   db_name: tbm_test
