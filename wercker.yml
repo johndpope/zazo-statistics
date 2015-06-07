@@ -27,8 +27,10 @@ build:
           echo "ruby version $(ruby --version) running"
           echo "from location $(which ruby)"
           echo -p "gem list: $(gem list)"
+    - npm-install:
+      options: -g ember-cli bower
     - script:
-        name: build frontend
+        name: emper compile
         code: |
           mkdir -p "$WERCKER_CACHE_DIR/wercker/npm"
           npm config set cache "$WERCKER_CACHE_DIR/wercker/npm"
@@ -37,8 +39,7 @@ build:
         name: ember test
         code: |
           cd $ember_app
-          node_modules/.bin/ember test
-          bin/rake ember:compile
+          ember test
     - script:
         name: create rspec and coverage dir
         code: mkdir -p $WERCKER_REPORT_ARTIFACTS_DIR/rspec $WERCKER_REPORT_ARTIFACTS_DIR/coverage
