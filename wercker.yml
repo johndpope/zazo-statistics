@@ -30,6 +30,8 @@ build:
     - script:
         name: build frontend
         code: |
+          mkdir -p "$WERCKER_CACHE_DIR/wercker/npm"
+          npm config set cache "$WERCKER_CACHE_DIR/wercker/npm"
           cd $ember_app
           npm install
           bower install
