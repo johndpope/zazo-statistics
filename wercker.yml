@@ -1,4 +1,4 @@
-box: wercker/rvm
+box: team-misoca/rvm-nodejs
 # Build definition
 # See the Rails section on the wercker devcenter:
 # http://devcenter.wercker.com/articles/languages/ruby/settingup-rails4.html
@@ -27,7 +27,13 @@ build:
           echo "ruby version $(ruby --version) running"
           echo "from location $(which ruby)"
           echo -p "gem list: $(gem list)"
-
+    - script:
+        name: build frontend
+        code: |
+          cd $ember_app
+          npm install
+          bower install
+          ember build
     - script:
         name: create rspec and coverage dir
         code: mkdir -p $WERCKER_REPORT_ARTIFACTS_DIR/rspec $WERCKER_REPORT_ARTIFACTS_DIR/coverage
