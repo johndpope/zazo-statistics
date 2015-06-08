@@ -1,3 +1,8 @@
+ul.breadcrumb
+  li = link-to 'index' | Home
+  li = link-to 'users' | Users
+  li.active = model.name
+
 h1 = model.name
 
 table.table
@@ -35,3 +40,5 @@ table.table
     tr
       td Verification sent at
       td = model.verificationDateTime
+
+link-to 'users' | Back

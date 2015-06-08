@@ -1,8 +1,18 @@
-h1 Listing users
-
 section
   .col-md-12
-    table.table class=isDataAvailable:visible:hidden
+    ul.breadcrumb
+      li = link-to 'index' | Home
+      li.active Users
+    h1 Listing users
+  .col-md-12
+    form#users-filter-form.form-inline submit="search"
+      .form-group
+        = input type="text" value=query id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number" action="search"
+        button type="submit" action="search" Search user
+    br
+  .col-md-12
+    p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
+    table.table class=isDataAvailable::hidden
       thead
         tr
         th ID
@@ -27,4 +37,4 @@ section
             td
               link-to 'users.show' user | Show
       br
-    p.text-info class=isDataAvailable:hidden:visible No users found
+    p.text-info class=isDataAvailable:hidden No users found
