@@ -21,7 +21,7 @@ section
             td = user.mobileNumber
             td = user.devicePlatform
             td
-              render "status" user
+              view "status" status=user.status
             td = user.verificationCode
             td = user.verificationDateTime
             td

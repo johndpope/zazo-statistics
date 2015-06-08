@@ -1,1 +1,1 @@
-span class="status {{model.status}}" = model.status
+span class="status {{view.status}}" = view.status

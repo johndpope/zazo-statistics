@@ -28,7 +28,7 @@ table.table
     tr
       td Status
       td
-        render "status" model
+        view "status" status=model.status
     tr
       td Verification code
       td = model.verificationCode
