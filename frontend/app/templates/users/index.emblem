@@ -8,11 +8,18 @@ section
     form#users-filter-form.form-inline submit="search"
       .form-group
         = input type="text" value=query id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number" action="search"
-        button type="submit" action="search" Search user
+        button.btn.btn-primary click="search" Search user
+      .form-group
+        span.or or
+      .form-group
+        = input type="text" value=userIdOrMkey id="user_id_or_mkey" class="form-control" placeholder="enter id or mkey"
+        button.btn.btn-primary click="showUser" Go to user
     br
   .col-md-12
-    p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
+    = debug
     table.table class=isDataAvailable::hidden
+      p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
+      p.text-info Listed #{total} records of #{totalCount} total
       thead
         tr
         th ID

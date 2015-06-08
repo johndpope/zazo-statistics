@@ -7,15 +7,20 @@ class UsersController < AdminController
   # GET /users.json
   def index
     if params[:user_id_or_mkey].present?
-      user = User.where('id = ? OR mkey = ?', params[:user_id_or_mkey], params[:user_id_or_mkey]).first
-      if user.present?
-        return redirect_to(user)
-      else
-        flash[:alert] = t('messages.user_not_found', query: params[:user_id_or_mkey])
+      @user = User.where('id = ? OR mkey = ?', params[:user_id_or_mkey], params[:user_id_or_mkey]).first
+      respond_to do |format|
+        format.html do
+          if @user
+            return redirect_to(@user)
+          else
+            flash[:alert] = t('messages.user_not_found', query: params[:user_id_or_mkey])
+          end
+        end
+        format.json { return render json: @user }
       end
     end
     @users = User.search(params[:query]).page(params[:page])
-    respond_with @users
+    respond_with @users, meta: { count: @users.count, total_count: @users.total_count }
   end
 
   # GET /users/1
