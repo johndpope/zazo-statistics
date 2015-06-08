@@ -32,16 +32,6 @@ build:
         code: |
           bin/rake ember:compile
     - script:
-        name: npm install bower
-        code: |
-          cd $ember_app
-          npm install bower
-    - script:
-        name: bower install
-        code: |
-          cd $ember_app
-          node_modules/bower/bin/bower install
-    - script:
         name: ember test
         code: |
           bin/rake ember:test
