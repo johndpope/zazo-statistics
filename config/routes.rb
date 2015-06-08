@@ -9,6 +9,7 @@ ZazoStatistics::Application.routes.draw do
   resources :users do
     member do
       get :events
+      get :visualization
     end
   end
   resources :metrics, only: [:index, :show]

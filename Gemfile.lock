@@ -48,6 +48,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    active_model_serializers (0.9.3)
+      activemodel (>= 3.2)
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)
@@ -91,6 +93,9 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (4.0.5)
       columnize (= 0.9.0)
     capybara (2.4.4)
@@ -259,6 +264,8 @@ GEM
     rack (1.6.0)
     rack-attack (4.2.0)
       rack
+    rack-mini-profiler (0.9.3)
+      rack (>= 1.1.3)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -411,6 +418,8 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.8.2)
+    uniform_notifier (1.9.0)
     vcr (2.9.3)
     webmock (1.21.0)
       addressable (>= 2.3.6)
@@ -424,11 +433,13 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  active_model_serializers
   awesome_print
   aws-sdk (~> 2)
   better_errors
   binding_of_caller
   bootstrap-sass
+  bullet
   capybara
   chartkick
   coffee-rails
@@ -463,6 +474,7 @@ DEPENDENCIES
   puma
   quiet_assets
   rack-attack
+  rack-mini-profiler
   rails
   rails_layout
   rb-fchange
@@ -482,5 +494,6 @@ DEPENDENCIES
   turbolinks
   twilio-ruby
   uglifier
+  underscore-rails
   vcr
   webmock
