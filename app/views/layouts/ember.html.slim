@@ -10,8 +10,8 @@ html
       = content_for?(:title) ? yield(:title) : 'Zazo'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Zazo'}"
     == stylesheet_link_tag 'application', media: 'all'
-    == javascript_include_tag '//www.google.com/jsapi', 'chartkick'
-    == include_ember_script_tags :frontend
     == csrf_meta_tags
   body
     = yield
+    == javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+    == include_ember_script_tags :frontend
