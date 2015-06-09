@@ -29,6 +29,7 @@ private
       WHERE users.id IN ?
       GROUP BY users.id
     SQL
-    User.find_by_sql [query, get_users_ids]
+    result = User.find_by_sql [query, get_users_ids]
+    result.empty? ? [target] : result
   end
 end

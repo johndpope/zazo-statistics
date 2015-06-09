@@ -5,6 +5,7 @@ class Zazo.Visualization.Calculate
   store = {}
 
   normalizeValue: (val, storeKey, min, max) ->
+    return min unless store[storeKey]
     val / store[storeKey] * (max - min) + min
 
   findCollectionMax: (collection, storeKey, calculateMax) ->
