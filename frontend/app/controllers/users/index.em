@@ -1,11 +1,12 @@
 class UsersIndexController extends Ember.ArrayController
-  query: ''
+  queryParams: ['query']
+  term: ''
   userIdOrMkey: ''
 
   isDataAvailable: ~>
     @model.length > 0
   isSearch: ~>
-    Ember.isPresent(@query)
+    Ember.isPresent(@term)
   meta: ~>
     @store.metadataFor('user')
 
@@ -15,6 +16,7 @@ class UsersIndexController extends Ember.ArrayController
   gotoUser: ->
     controller = this
     transitionToUser = (user) ->
+      controller.userIdOrMkey = ''
       controller.transitionToRoute('users.show', user)
     onFailure = (response) ->
       alert(response.statusText)
@@ -25,6 +27,6 @@ class UsersIndexController extends Ember.ArrayController
       if Ember.isPresent(@userIdOrMkey)
         @gotoUser()
       else
-        @model.content = @store.find('user', { query: @query })
+        @transitionToRoute(queryParams: { query: @term })
 
 `export default UsersIndexController`

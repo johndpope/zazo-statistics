@@ -7,7 +7,7 @@ section
   .col-md-12
     form#users-filter-form.form-inline submit="search"
       .form-group
-        = input type="text" value=query id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number"
+        = input type="text" value=term id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number"
         button.btn.btn-primary click="search" Search user
       .form-group
         span.or or
@@ -16,7 +16,7 @@ section
         button.btn.btn-primary click="search" Go to user
     br
   .col-md-12 class=isDataAvailable::hidden
-    p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
+    p.text-info class=isSearch::hidden Search results for <strong>#{term}</strong>
     p.text-info Listed #{count} records of #{totalCount} total
     table.table
       thead
