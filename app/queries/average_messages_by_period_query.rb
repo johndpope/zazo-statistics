@@ -4,31 +4,46 @@ class AverageMessagesByPeriodQuery
 
   attr_accessor :total, :average
 
-  def initialize(user, options={})
-    @user   = user
+  def initialize(users, options={})
+    @users  = users
     @period = options[:period] || DEFAULT_PERIOD
     @since  = options[:since]  || DEFAULT_SINCE
     @total, @average = 0, 0
   end
 
   def execute
-    @user.name
-    if @user.status == 'verified'
-      data = EventsApi.new.metric_data :messages_count_by_period,
-                                       user_id:  @user.mkey,
-                                       group_by: @period,
-                                       since:    @since
-      calculate_total_and_average data
-    end
+    data = EventsApi.new.metric_data :messages_count_by_period,
+                                     users_ids: select_users,
+                                     group_by:  @period,
+                                     since:     @since
+    calculate_for_each_user data
   end
 
 private
 
-  def calculate_total_and_average(data)
-    if data.size > 0
-      data.keys.each { |date| @total += data[date] }
-      days_between = (Date.today - Date.parse(data.keys.first)).round
-      @average = (@total.to_f / days_between).round 2
+  def select_users
+    @users.each_with_object([]) do |user, memo|
+      memo << user.mkey if user.status == 'verified'
     end
+  end
+
+  def calculate_for_each_user(data)
+    data.keys.each_with_object({}) do |mkey, memo|
+      total, average = calculate_total_and_average data[mkey]
+      memo[mkey] = {
+          total:   total,
+          average: average
+      }
+    end
+  end
+
+  def calculate_total_and_average(data)
+    total, average = 0, 0
+    if data.size > 0
+      data.keys.each { |date| total += data[date] }
+      days_between = (Date.today - Date.parse(data.keys.first)).round
+      average = (total.to_f / days_between).round 2
+    end
+    return total, average
   end
 end

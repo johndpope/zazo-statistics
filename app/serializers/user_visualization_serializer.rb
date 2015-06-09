@@ -22,9 +22,10 @@ private
 
   def calculate_messages_count
     unless @average_messages_by_period
-      @average_messages_by_period = AverageMessagesByPeriodQuery.new object
-      @average_messages_by_period.execute
+      ##@average_messages_by_period = AverageMessagesByPeriodQuery.new object
+      ##@average_messages_by_period.execute
     end
-    @average_messages_by_period
+
+    #@average_messages_by_period
   end
 end
