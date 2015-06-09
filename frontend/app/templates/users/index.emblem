@@ -7,19 +7,18 @@ section
   .col-md-12
     form#users-filter-form.form-inline submit="search"
       .form-group
-        = input type="text" value=query id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number" action="search"
+        = input type="text" value=query id="query" class="form-control" placeholder="enter part of first_name, last_name or mobile_number"
         button.btn.btn-primary click="search" Search user
       .form-group
         span.or or
       .form-group
         = input type="text" value=userIdOrMkey id="user_id_or_mkey" class="form-control" placeholder="enter id or mkey"
-        button.btn.btn-primary click="showUser" Go to user
+        button.btn.btn-primary click="search" Go to user
     br
-  .col-md-12
-    = debug
-    table.table class=isDataAvailable::hidden
-      p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
-      p.text-info Listed #{total} records of #{totalCount} total
+  .col-md-12 class=isDataAvailable::hidden
+    p.text-info class=isSearch::hidden Search results for <strong>#{query}</strong>
+    p.text-info Listed #{count} records of #{totalCount} total
+    table.table
       thead
         tr
         th ID
@@ -44,4 +43,6 @@ section
             td
               link-to 'users.show' user | Show
       br
-    p.text-info class=isDataAvailable:hidden No users found
+
+  .col-md-12 class=isDataAvailable:hidden
+    p.text-info No users found

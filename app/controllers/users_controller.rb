@@ -6,27 +6,28 @@ class UsersController < AdminController
   # GET /users
   # GET /users.json
   def index
-    if params[:user_id_or_mkey].present?
-      @user = User.where('id = ? OR mkey = ?', params[:user_id_or_mkey], params[:user_id_or_mkey]).first
+    if params[:user_id_or_mkey]
+      term = params[:user_id_or_mkey]
       respond_to do |format|
-        format.html do
-          if @user
-            return redirect_to(@user)
-          else
-            flash[:alert] = t('messages.user_not_found', query: params[:user_id_or_mkey])
-          end
+        format.html { return redirect_to(user_path(term)) }
+        format.json do
+          @users = User.where('id = ? OR mkey = ?', term, term)
+          return render json: @users, meta: { count: @users.count }
         end
-        format.json { return render json: @user }
       end
     end
-    @users = User.search(params[:query]).page(params[:page])
-    respond_with @users, meta: { count: @users.count, total_count: @users.total_count }
+    @users = User.search(params[:query]).page(params[:page]).per(params[:per_page])
+    respond_with @users, meta: { count: @users.count,
+                                 total_count: @users.total_count,
+                                 total_pages: @users.total_pages }
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
+    if params[:format] == 'html'
+      @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
+    end
     respond_with @user
   end
 
@@ -147,7 +148,7 @@ class UsersController < AdminController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.where('id = ? OR mkey = ?', params[:id], params[:id]).first!
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

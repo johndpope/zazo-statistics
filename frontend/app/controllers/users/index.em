@@ -5,28 +5,26 @@ class UsersIndexController extends Ember.ArrayController
   isDataAvailable: ~>
     @model.length > 0
   isSearch: ~>
-    @query != ''
-  count: ~>
-    @model.count
-  totalCount: ~>
-    @model.totalCount
+    Ember.isPresent(@query)
+  meta: ~>
+    @store.metadataFor('user')
 
-  findByIdOrMkey: ->
+  count: Ember.computed.alias('meta.count')
+  totalCount: Ember.computed.alias('meta.total_count')
+
+  gotoUser: ->
     controller = this
     transitionToUser = (user) ->
-      if user.id is undefined
-        console.log "user.id is undefined: #{user}"
-      else
-        controller.transitionToRoute('users.show', user)
-    @store.find('user', { user_id_or_mkey: @userIdOrMkey }).then(transitionToUser)
+      controller.transitionToRoute('users.show', user)
+    onFailure = (response) ->
+      alert(response.statusText)
+    @store.find('user', @userIdOrMkey).then(transitionToUser, onFailure)
 
   actions:
     search: ->
-      if @userIdOrMkey != ''
-        @findByIdOrMkey()
+      if Ember.isPresent(@userIdOrMkey)
+        @gotoUser()
       else
-        @model = @store.find('user', { query: @query })
-    showUser: ->
-      @findByIdOrMkey()
+        @model.content = @store.find('user', { query: @query })
 
 `export default UsersIndexController`

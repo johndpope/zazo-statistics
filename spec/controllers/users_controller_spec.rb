@@ -159,7 +159,7 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
 
         specify do
           get :index, params
-          expect(response).to redirect_to(user)
+          expect(response).to redirect_to(user_path(user.id))
         end
       end
 
@@ -168,18 +168,7 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
 
         specify do
           get :index, params
-          expect(response).to redirect_to(user)
-        end
-      end
-
-      context 'when no user found' do
-        let(:params) { { user_id_or_mkey: 'fooo' } }
-
-        describe 'alert' do
-          specify do
-            get :index, params
-            expect(flash[:alert]).to be_present
-          end
+          expect(response).to redirect_to(user_path(user.mkey))
         end
       end
     end
@@ -207,32 +196,72 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
   end
 
   describe 'GET #show' do
-    let(:user) { create(:user) }
-    subject { get :show, id: user.to_param }
+    let(:format) { :html }
+    subject { get :show, id: user_id, format: format }
 
-    around do |example|
-      VCR.use_cassette('events/metrics/aggregate_messaging_info', erb: {
-                         base_url: Figaro.env.events_api_base_url,
-                         user_id: user.event_id }) { example.run }
+    context 'when user exists' do
+      let(:user) { create(:user) }
+      let(:user_id) { user.id }
+
+      around do |example|
+        VCR.use_cassette('events/metrics/aggregate_messaging_info', erb: {
+                           base_url: Figaro.env.events_api_base_url,
+                           user_id: user.event_id }) { example.run }
+      end
+
+      it 'calls EventsApi#metric_data with valid params' do
+        expect_any_instance_of(EventsApi).to receive(:metric_data).with(:aggregate_messaging_info, user_id: user.event_id).and_call_original
+        subject
+      end
+
+      it 'converts to Event instances' do
+        subject
+        expect(assigns(:aggregate_messaging_info)).to eq('outgoing' => {
+                                                           'total_sent' => 0,
+                                                           'total_received' => 0,
+                                                           'undelivered_percent' => nil
+                                                         },
+                                                         'incoming' => {
+                                                           'total_sent' => 0,
+                                                           'total_received' => 0,
+                                                           'undelivered_percent' => nil
+                                                         })
+      end
+
+      context 'by mkey' do
+        let(:user_id) { user.mkey }
+
+        context 'as html' do
+          it 'finds user' do
+            expect(assigns(:user)).to eq(user)
+          end
+
+          specify do
+            expect(response).to render_template('show')
+          end
+        end
+
+        context 'as json' do
+          let(:format) { :json }
+
+          it 'finds user' do
+            expect(assigns(:user)).to eq(user)
+          end
+
+          it 'have http status :success' do
+            expect(response).to have_http_status(:success)
+          end
+        end
+      end
     end
 
-    it 'calls EventsApi#metric_data with valid params' do
-      expect_any_instance_of(EventsApi).to receive(:metric_data).with(:aggregate_messaging_info, user_id: user.event_id).and_call_original
-      subject
+    context 'when user not exists' do
+      let(:user_id) { 'foo' }
+
+      specify do
+        expect(response).to have_http_status(:not_found)
+      end
     end
 
-    it 'converts to Event instances' do
-      subject
-      expect(assigns(:aggregate_messaging_info)).to eq('outgoing' => {
-                                                         'total_sent' => 0,
-                                                         'total_received' => 0,
-                                                         'undelivered_percent' => nil
-                                                       },
-                                                       'incoming' => {
-                                                         'total_sent' => 0,
-                                                         'total_received' => 0,
-                                                         'undelivered_percent' => nil
-                                                       })
-    end
   end
 end
