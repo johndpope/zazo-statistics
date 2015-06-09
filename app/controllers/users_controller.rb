@@ -1,5 +1,5 @@
 class UsersController < AdminController
-  before_action :set_user, only: [:show, :edit, :update, :destroy,
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :visualization,
                                   :new_connection, :establish_connection,
                                   :receive_test_video, :receive_corrupt_video,
                                   :events]
@@ -101,6 +101,9 @@ class UsersController < AdminController
   def events
     @events = EventsApi.new.filter_by(@user.event_id, reverse: true)
     @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
+  end
+
+  def visualization
   end
 
   private

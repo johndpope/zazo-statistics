@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
 
   def connections
-    Connection.for_user_id(id)
+    Connection.for_user_id(id).includes(:creator).includes(:target)
   end
 
   def live_connection_count
@@ -124,6 +124,7 @@ class User < ActiveRecord::Base
   # =====================
   # = Verification code =
   # =====================
+
   def reset_verification_code
     set_verification_code if verification_code.blank? || verification_code_will_expire_in?(2)
   end
