@@ -1,5 +1,4 @@
 class MessagesCountBetweenUsersQuery
-
   def initialize(user_mkey, friends_ids)
     @user_mkey   = user_mkey
     @friends_ids = friends_ids.map { |f| f[:mkey] }

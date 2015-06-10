@@ -83,7 +83,6 @@ gem 'newrelic_rpm'
 gem 'kaminari'
 gem 'aasm'
 
-gem 'active_model_serializers'
 gem 'groupdate'
 gem 'chartkick'
 gem 'puma'
