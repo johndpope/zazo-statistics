@@ -2,7 +2,7 @@ class AverageMessagesByPeriodQuery
   DEFAULT_SINCE  = Date.today - 1.month
   DEFAULT_PERIOD = 'day'
 
-  def initialize(users, options={})
+  def initialize(users, options = {})
     @users  = users
     @period = options[:period] || DEFAULT_PERIOD
     @since  = options[:since]  || DEFAULT_SINCE
@@ -16,7 +16,7 @@ class AverageMessagesByPeriodQuery
     calculate_for_each_user data
   end
 
-private
+  private
 
   def select_users
     @users.select(&:verified?).map(&:mkey)
@@ -36,6 +36,6 @@ private
       days_between = (Date.today - Date.parse(data.keys.first)).round
       average = (total.to_f / days_between).round 2
     end
-    return total, average
+    [total, average]
   end
 end

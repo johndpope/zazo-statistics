@@ -11,7 +11,7 @@ class UserVisualizationDataQuery
     @target = @users.find { |u| u[:id] == @user.id }
   end
 
-private
+  private
 
   def get_users
     users    = UsersWithConnectionCountsQuery.new(get_users_ids).execute
@@ -26,7 +26,7 @@ private
     ConnectionsVisualizationSerializer.new(connections, counts: counts).serialize
   end
 
-  def get_users_ids(with_target=true, connections=nil)
+  def get_users_ids(with_target = true, connections = nil)
     connections  = @connections unless connections
     @users_ids ||= connections.each_with_object([]) do |conn, memo|
       memo << { id: conn.target_id,  mkey: conn.target.event_id }  if @user.id != conn.target_id

@@ -10,7 +10,7 @@ class PackSerializer
     @collection.map { |m| serialize_member m }
   end
 
-protected
+  protected
 
   def serialize_member(member)
     self.class::ATTRIBUTES.each_with_object({}) do |attr, memo|

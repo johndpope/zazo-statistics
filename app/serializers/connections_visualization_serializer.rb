@@ -1,7 +1,7 @@
 class ConnectionsVisualizationSerializer < PackSerializer
   ATTRIBUTES = [:creator_id, :target_id, :outgoing_count, :incoming_count]
 
-private
+  private
 
   def member_outgoing_count(conn)
     get_outgoing_or_incoming_count conn, :outgoing
@@ -12,7 +12,7 @@ private
   end
 
   def get_outgoing_or_incoming_count(conn, key)
-    order = %w{sender receiver}
+    order = %w(sender receiver)
     order.reverse! if key == :incoming
     result = @options[:counts].find do |r|
       r[order.first] == conn.creator.event_id &&
