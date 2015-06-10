@@ -52,19 +52,27 @@ table.table
 h4
   ' Connected users
   span.badge = @user.connected_users.count
+
+- statuses = %w{verified registered invited initialized}
+p
+  - statuses.each do |status|
+    = "#{status} [#{@connected_users[status].size}] "
+
 table.table border="0" cellspacing="5" cellpadding="5"
-  - @user.connected_users.each do |u|
-    - connection = Connection.live_between(@user.id, u.id).first
-    tr
-      td = u.id
-      td = link_to u.name, user_path(u)
-      td
-        = link_to 'Destroy', connection, method: :delete, data: { confirm: 'Are you sure?' }
-        '  |
-        = link_to 'Test Video', receive_test_video_path(id: @user.id, sender_id: u.id)
-        '  |
-        = link_to 'Corrupt Video', receive_corrupt_video_path(id: @user.id, sender_id: u.id)
-        
+  - statuses.each do |status|
+    - @connected_users[status].each do |u|
+      - connection = Connection.live_between(@user.id, u.id).first
+      tr
+        td = u.id
+        td = u.status
+        td = link_to u.name, user_path(u)
+        td
+          = link_to 'Destroy', connection, method: :delete, data: {confirm: 'Are you sure?'}
+          '  |
+          = link_to 'Test Video', receive_test_video_path(id: @user.id, sender_id: u.id)
+          '  |
+          = link_to 'Corrupt Video', receive_corrupt_video_path(id: @user.id, sender_id: u.id)
+
 h4
   ' Connections
   span.badge = @user.connections.count

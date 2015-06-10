@@ -78,6 +78,13 @@ class User < ActiveRecord::Base
     User.where ['id IN ?', connected_user_ids]
   end
 
+  def group_connected_by_status
+    initial = {'verified'=>[], 'registered'=>[], 'invited'=>[], 'initialized'=>[]}
+    User.where(id: connected_user_ids).each_with_object(initial) do |user, memo|
+      memo[user.status] << user
+    end
+  end
+
   def connections
     Connection.for_user_id(id).includes(:creator).includes(:target)
   end
