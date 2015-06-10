@@ -233,10 +233,12 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
 
         context 'as html' do
           it 'finds user' do
+            subject
             expect(assigns(:user)).to eq(user)
           end
 
           specify do
+            subject
             expect(response).to render_template('show')
           end
         end
@@ -245,10 +247,12 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
           let(:format) { :json }
 
           it 'finds user' do
+            subject
             expect(assigns(:user)).to eq(user)
           end
 
           it 'have http status :success' do
+            subject
             expect(response).to have_http_status(:success)
           end
         end
@@ -259,7 +263,7 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
       let(:user_id) { 'foo' }
 
       specify do
-        expect(response).to have_http_status(:not_found)
+        expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
