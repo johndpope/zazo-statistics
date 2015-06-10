@@ -1,5 +1,6 @@
 class UsersIndexController extends Ember.ArrayController
   queryParams: ['query']
+  query: ''
   term: ''
   userIdOrMkey: ''
 
@@ -9,24 +10,27 @@ class UsersIndexController extends Ember.ArrayController
     Ember.isPresent(@term)
   meta: ~>
     @store.metadataFor('user')
-
-  count: Ember.computed.alias('meta.count')
-  totalCount: Ember.computed.alias('meta.total_count')
-
+  title: ~>
+    count = @meta*.count
+    totalCount = @meta*.total_count
+    if @isSearch
+      Ember.String.htmlSafe "Search results for <strong>#{@term}</strong> (listed #{count} records of #{totalCount} total)"
+    else
+      Ember.String.htmlSafe "Listed #{count} records of #{totalCount} total"
   gotoUser: ->
     controller = this
     transitionToUser = (user) ->
       controller.userIdOrMkey = ''
       controller.transitionToRoute('users.show', user)
-    onFailure = (response) ->
-      alert(response.statusText)
-    @store.find('user', @userIdOrMkey).then(transitionToUser, onFailure)
-
+    @store.find('user', @userIdOrMkey).then(transitionToUser)
+  search: (term) ->
+    @model = @store.find('user', { query: @query })
   actions:
     search: ->
       if Ember.isPresent(@userIdOrMkey)
         @gotoUser()
       else
-        @transitionToRoute(queryParams: { query: @term })
+        @query = @term
+        @search()
 
 `export default UsersIndexController`

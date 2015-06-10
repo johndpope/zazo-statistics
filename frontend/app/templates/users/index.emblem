@@ -16,8 +16,7 @@ section
         button.btn.btn-primary click="search" Go to user
     br
   .col-md-12 class=isDataAvailable::hidden
-    p.text-info class=isSearch::hidden Search results for <strong>#{term}</strong>
-    p.text-info Listed #{count} records of #{totalCount} total
+    p.text-info = title
     table.table
       thead
         tr
