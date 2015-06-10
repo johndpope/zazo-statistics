@@ -8,9 +8,7 @@ class UsersVisualizationSerializer
   end
 
   def serialize
-    @users.each_with_object([]) do |user, memo|
-      memo << serialize_user(user)
-    end
+    @users.map { |u| serialize_user u }
   end
 
 private
