@@ -3,7 +3,9 @@ class MetricsController < AdminController
 
   def index
     @metrics = events_api.metric_list
-    @metrics.is_a?(Array) && @metrics.map! { |m| Metric.new(m) }.select!(&:aggregated_by_timeframe?)
+    @metrics.is_a?(Array) && @metrics.select! do |m|
+      %w(active_users messages_sent usage_by_active_users).include?(m['name'])
+    end.map! { |m| Metric.new(m) }
   end
 
   def show
