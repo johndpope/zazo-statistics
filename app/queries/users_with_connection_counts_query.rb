@@ -2,7 +2,7 @@ class UsersWithConnectionCountsQuery
   attr_accessor :result
 
   def initialize(users_ids)
-    @users_ids = users_ids
+    @users_ids = users_ids.map { |u| u[:id] }
   end
 
   def execute

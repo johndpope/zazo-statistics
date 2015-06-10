@@ -2,13 +2,10 @@ class AverageMessagesByPeriodQuery
   DEFAULT_SINCE  = Date.today - 1.month
   DEFAULT_PERIOD = 'day'
 
-  attr_accessor :total, :average
-
   def initialize(users, options={})
     @users  = users
     @period = options[:period] || DEFAULT_PERIOD
     @since  = options[:since]  || DEFAULT_SINCE
-    @total, @average = 0, 0
   end
 
   def execute
@@ -30,10 +27,7 @@ private
   def calculate_for_each_user(data)
     data.keys.each_with_object({}) do |mkey, memo|
       total, average = calculate_total_and_average data[mkey]
-      memo[mkey] = {
-          total:   total,
-          average: average
-      }
+      memo[mkey] = { total: total, average: average }
     end
   end
 
