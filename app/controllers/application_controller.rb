@@ -72,4 +72,8 @@ class ApplicationController < ActionController::Base
                                             video_id: video_id,
                                             host: request.host })
   end
+
+  def render_error(error)
+    render json: { error: error }, status: :unprocessable_entity
+  end
 end

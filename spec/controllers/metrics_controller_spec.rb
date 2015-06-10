@@ -44,6 +44,21 @@ RSpec.describe MetricsController, type: :controller, authenticate_with_http_basi
           expect(response).to have_http_status(:success)
         end
       end
+
+      context 'by foo' do
+        let(:group_by) { :foo }
+
+        it 'not calls EventsApi#metric_data' do
+          expect_any_instance_of(EventsApi).to_not receive(:metric_data)
+          subject
+        end
+
+        it 'returns http unprocessable_entity' do
+          allow_any_instance_of(EventsApi).to receive(:metric_data).and_return({})
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
     end
   end
 end
