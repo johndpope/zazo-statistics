@@ -6,16 +6,26 @@ class UserVisualizationDataQuery
   end
 
   def execute
-    @connections = Connection.for_user_id(target.id).includes(:creator).includes(:target)
-    @users = UsersWithConnectionCountsQuery get_users_ids
-    @users = [target] if @users.empty?
-    puts AverageMessagesByPeriodQuery.new(@users).execute
+    @connections = get_connections
+    @users  = get_users
+    @target = @users.find { |u| u[:id] == @target.id }
   end
 
 private
 
+  def get_users
+    users    = UsersWithConnectionCountsQuery.new(get_users_ids).execute
+    users    = [target] if users.empty?
+    messages = AverageMessagesByPeriodQuery.new(users).execute
+    UsersVisualizationSerializer.new(users, messages: messages).serialize
+  end
+
+  def get_connections
+    Connection.for_user_id(target.id).includes(:creator).includes(:target)
+  end
+
   def get_users_ids
-    @users_ids ||= @connections.each_with_object([]) do |conn, memo|
+    @connections.each_with_object([]) do |conn, memo|
       memo << conn.target_id  if target.id != conn.target_id
       memo << conn.creator_id if target.id != conn.creator_id
     end.uniq + [@target.id]
