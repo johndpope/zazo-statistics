@@ -2,10 +2,7 @@
 # More info at https://github.com/guard/guard#readme
 
 ## Uncomment and set this to only include directories you want to watch
-ember_apps = %w(app config public vendor bower_components node_modules).sort.map do |dir|
-   "frontend/#{dir}"
-end
-directories %w(app lib config spec) + ember_apps
+directories %w(app lib config spec frontend/app)
 
 ## Uncomment to clear the screen before every task
 # clearing :on
