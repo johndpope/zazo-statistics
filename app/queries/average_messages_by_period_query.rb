@@ -19,9 +19,7 @@ class AverageMessagesByPeriodQuery
 private
 
   def select_users
-    @users.each_with_object([]) do |user, memo|
-      memo << user.mkey if user.status == 'verified'
-    end
+    @users.select(&:verified?).map(&:mkey)
   end
 
   def calculate_for_each_user(data)
