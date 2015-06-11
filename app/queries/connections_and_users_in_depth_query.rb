@@ -19,7 +19,19 @@ class ConnectionsAndUsersInDepthQuery
       end
       depth -= 1
     end
-    stretch_users
+  end
+
+  def stretched_users
+    @users.each_with_object([]) do |pack, memo|
+      memo << pack[:target]
+      pack[:friends].each { |u| memo << u }
+    end.uniq
+  end
+
+  def stretched_connections
+    @connections.keys.each_with_object([]) do |key, memo|
+      @connections[key].each { |c| memo << c }
+    end.uniq
   end
 
   private
@@ -44,13 +56,6 @@ class ConnectionsAndUsersInDepthQuery
     copy = @accumulator
     @accumulator = []
     copy
-  end
-
-  def stretch_users
-    @users = @users.each_with_object([]) do |pack, memo|
-      memo << pack[:target]
-      pack[:friends].each { |u| memo << u }
-    end.uniq
   end
 
   def get_users_ids(user_data, connections)
