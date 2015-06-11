@@ -1,11 +1,11 @@
 class ConnectionsAndUsersInDepthQuery
-  attr_reader :connections, :users
+  attr_reader :users
 
   def initialize(user, depth)
     @user  = user
     @depth = depth
     @users = []
-    @connections = {}
+    @connections = []
   end
 
   def execute
@@ -13,12 +13,18 @@ class ConnectionsAndUsersInDepthQuery
                         get_and_store_connections(@user.id)
     depth = @depth - 1
     while depth > 0
-      copy_accumulator.each do |user|
+      accumulator.each do |user|
         get_and_store_users user[:id], user[:mkey],
                             get_and_store_connections(user[:id])
       end
       depth -= 1
     end
+  end
+
+  def connections
+    @connections.each_with_object([]) do |nested, memo|
+      nested.each { |c| memo << c }
+    end.uniq
   end
 
   def stretched_users
@@ -28,17 +34,12 @@ class ConnectionsAndUsersInDepthQuery
     end.uniq
   end
 
-  def stretched_connections
-    @connections.keys.each_with_object([]) do |key, memo|
-      @connections[key].each { |c| memo << c }
-    end.uniq
-  end
-
   private
 
   def get_and_store_connections(user_id)
     connections = Connection.for_user_id(user_id).includes(:creator).includes(:target)
-    @connections[@user.id] = connections
+    @connections << connections
+    connections
   end
 
   def get_and_store_users(user_id, user_mkey, connections)
@@ -52,7 +53,7 @@ class ConnectionsAndUsersInDepthQuery
     @accumulator += ids[:friends]
   end
 
-  def copy_accumulator
+  def accumulator
     copy = @accumulator
     @accumulator = []
     copy
