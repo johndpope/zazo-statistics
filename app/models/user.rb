@@ -75,12 +75,12 @@ class User < ActiveRecord::Base
   end
 
   def connected_users
-    User.where ['id IN ?', connected_user_ids]
+    User.where id: connected_user_ids
   end
 
   def group_connected_by_status
-    initial = {'verified'=>[], 'registered'=>[], 'invited'=>[], 'initialized'=>[]}
-    User.where(id: connected_user_ids).each_with_object(initial) do |user, memo|
+    initial = {'verified' => [], 'registered' => [], 'invited' => [], 'initialized' => []}
+    connected_users.each_with_object(initial) do |user, memo|
       memo[user.status] << user
     end
   end
