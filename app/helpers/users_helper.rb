@@ -3,8 +3,8 @@ module UsersHelper
     render 'event', user: user, event: event
   end
 
-  def visualize_social_graph(user)
-    query = UserVisualizationDataQuery.new user
+  def visualize_social_graph(user, settings = {})
+    query = UserVisualizationDataQuery.new user, settings
     query.execute
     data = {
       target:      (query.target).as_json,

@@ -1,8 +1,11 @@
 class UserVisualizationDataQuery
   attr_accessor :target, :connections, :users
 
-  def initialize(user)
-    @user = user
+  def initialize(user, settings = {})
+    @user     = user
+    @settings = {
+      depth: settings[:depth] || 1
+    }
   end
 
   def execute
@@ -26,8 +29,9 @@ class UserVisualizationDataQuery
     ConnectionsVisualizationSerializer.new(connections, counts: counts).serialize
   end
 
+
   def get_users_ids(with_target = true, connections = nil)
-    connections  = @connections unless connections
+    connections = @connections unless connections
     @users_ids ||= connections.each_with_object([]) do |conn, memo|
       memo << { id: conn.target_id,  mkey: conn.target.event_id }  if @user.id != conn.target_id
       memo << { id: conn.creator_id, mkey: conn.creator.event_id } if @user.id != conn.creator_id

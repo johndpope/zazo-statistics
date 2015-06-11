@@ -9,9 +9,9 @@ class ConnectionsAndUsersInDepthQuery
   end
 
   def execute
-    depth = @depth - 1
     get_and_store_users @user.id, @user.mkey,
                         get_and_store_connections(@user.id)
+    depth = @depth - 1
     while depth > 0
       copy_accumulator.each do |user|
         get_and_store_users user[:id], user[:mkey],
