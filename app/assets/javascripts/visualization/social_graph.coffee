@@ -57,12 +57,11 @@ class Zazo.Visualization.SocialGraph
     @showBlocks()
 
   showBlocks: ->
-    settings.show()
-
     userInfo = new Zazo.Visualization.UserInfo container
-    userInfo.show()
-
     legend = new Zazo.Visualization.LegendColor container
+
+    settings.show()
+    userInfo.show()
     legend.show @settings.statusColor
 
   buildNodes: ->
