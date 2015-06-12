@@ -52,8 +52,10 @@ class Zazo.Visualization.SocialGraph
     @buildEdges()
     @buildNetwork()
     @initEvents()
-    @showLegend()
     @initUserInfo()
+
+    @showLegend()
+    @showSettings()
 
   initUserInfo: ->
     userInfo  = new Zazo.Visualization.UserInfo container
@@ -62,13 +64,17 @@ class Zazo.Visualization.SocialGraph
     legend = new Zazo.Visualization.LegendColor container
     legend.show @settings.statusColor
 
+  showSettings: ->
+    settings  = new Zazo.Visualization.Settings container
+    settings.show()
+
   buildNodes: ->
     calculate.findCollectionMax data.users, 'users', (user) ->
       user.average_messages_per_day
 
     nodes = new vis.DataSet _(data.users).map (user) =>
       id: user.id
-      label: user.name
+      label: @getLabelByUser user
       size:  @calculateNodeSize user
       color: @colorByStatus user
 
@@ -120,3 +126,8 @@ class Zazo.Visualization.SocialGraph
 
   getUserById: (id) ->
     _(data.users).find (u) -> u.id == parseInt id
+
+  getLabelByUser: (user) ->
+    "#{user.name}\n
+    cc:#{user.connection_counts}
+    mm:#{user.messages_by_last_month}"

@@ -1,5 +1,5 @@
 class UserVisualizationDataQuery
-  attr_reader :target, :connections, :users
+  attr_reader :target, :connections, :users, :settings
 
   def initialize(user, settings = {})
     @user     = user
@@ -26,7 +26,7 @@ class UserVisualizationDataQuery
   end
 
   def serialized_connections
-    counts = MessagesCountBetweenUsersQuery.new(@in_depth.users).execute
+    counts = []#MessagesCountBetweenUsersQuery.new(@in_depth.users).execute
     ConnectionsVisualizationSerializer.new(@in_depth.connections, counts: counts).serialize
   end
 end

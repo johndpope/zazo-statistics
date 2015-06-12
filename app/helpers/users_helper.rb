@@ -9,7 +9,8 @@ module UsersHelper
     data = {
       target:      (query.target).as_json,
       users:       (query.users).as_json,
-      connections: (query.connections).as_json
+      connections: (query.connections).as_json,
+      settings:    (query.settings).as_json
     }
     content_tag :div, '', id: 'visualization', data: data
   end
