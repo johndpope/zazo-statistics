@@ -98,6 +98,11 @@ class Zazo.Visualization.SocialGraph
       else
         userInfo.hide()
 
+    network.on 'hold', (e) =>
+      userInfo.hide()
+      if e.nodes.length == 1
+        @visualizeAnotherUser e.nodes[0]
+
   colorByStatus: (user) ->
     color = @settings.statusColor[user.status]
     color = @settings.statusColor.else unless color
@@ -129,3 +134,7 @@ class Zazo.Visualization.SocialGraph
     cc:#{user.connection_counts}
     mm:#{user.messages_by_last_month}
     mw:#{user.messages_by_last_week}"
+
+  visualizeAnotherUser: (userId) ->
+    href = window.location.href.split('?')[0]
+    window.location = href.replace /\/[0-9]+\//, "/#{userId}/"
