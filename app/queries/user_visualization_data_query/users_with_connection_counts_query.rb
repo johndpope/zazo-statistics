@@ -1,6 +1,4 @@
-class UsersWithConnectionCountsQuery
-  attr_accessor :result
-
+class UserVisualizationDataQuery::UsersWithConnectionCountsQuery
   def initialize(users_ids)
     @users_ids = users_ids.map { |u| u[:id] }
   end
@@ -15,6 +13,6 @@ class UsersWithConnectionCountsQuery
       WHERE users.id IN ?
       GROUP BY users.id
     SQL
-    @result = User.find_by_sql [query, @users_ids]
+    User.find_by_sql [query, @users_ids]
   end
 end

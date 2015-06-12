@@ -8,6 +8,7 @@ class Zazo.Visualization.SocialGraph
   edges     = undefined
   userInfo  = undefined
   calculate = undefined
+  settings  = undefined
   data      = {}
 
   options   =
@@ -42,6 +43,7 @@ class Zazo.Visualization.SocialGraph
   init: ->
     container = document.getElementById @settings.element
     calculate = new Zazo.Visualization.Calculate()
+    settings  = new Zazo.Visualization.Settings container
 
     data =
       target:      JSON.parse container.getAttribute 'data-target'
@@ -52,14 +54,14 @@ class Zazo.Visualization.SocialGraph
     @buildEdges()
     @buildNetwork()
     @initEvents()
-    @showLegend()
-    @initUserInfo()
+    @showBlocks()
 
-  initUserInfo: ->
-    userInfo  = new Zazo.Visualization.UserInfo container
-
-  showLegend: ->
+  showBlocks: ->
+    userInfo = new Zazo.Visualization.UserInfo container
     legend = new Zazo.Visualization.LegendColor container
+
+    settings.show()
+    userInfo.show()
     legend.show @settings.statusColor
 
   buildNodes: ->
@@ -68,7 +70,7 @@ class Zazo.Visualization.SocialGraph
 
     nodes = new vis.DataSet _(data.users).map (user) =>
       id: user.id
-      label: user.name
+      label: @getLabelByUser user
       size:  @calculateNodeSize user
       color: @colorByStatus user
 
@@ -91,9 +93,14 @@ class Zazo.Visualization.SocialGraph
   initEvents: ->
     network.on 'select', (e) =>
       if e.nodes.length == 1
-        userInfo.show @getUserById(e.nodes[0]), e.pointer.DOM
+        userInfo.showUser @getUserById(e.nodes[0]), e.pointer.DOM
       else
         userInfo.hide()
+
+    network.on 'hold', (e) =>
+      userInfo.hide()
+      if e.nodes.length == 1
+        @visualizeAnotherUser e.nodes[0]
 
   colorByStatus: (user) ->
     color = @settings.statusColor[user.status]
@@ -106,7 +113,7 @@ class Zazo.Visualization.SocialGraph
 
     from: conn.creator_id
     to: conn.target_id
-    label: totalMessages
+    label: if settings.get().between then totalMessages else ''
 
     width: @calculateEdgeWidth totalMessages
 
@@ -120,3 +127,13 @@ class Zazo.Visualization.SocialGraph
 
   getUserById: (id) ->
     _(data.users).find (u) -> u.id == parseInt id
+
+  getLabelByUser: (user) ->
+    "#{user.name}\n
+    cc:#{user.connection_counts}
+    mm:#{user.messages_by_last_month}
+    mw:#{user.messages_by_last_week}"
+
+  visualizeAnotherUser: (userId) ->
+    href = window.location.href.split('?')[0]
+    window.location = href.replace /\/[0-9]+\//, "/#{userId}/"
