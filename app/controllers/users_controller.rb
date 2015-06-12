@@ -104,7 +104,7 @@ class UsersController < AdminController
   end
 
   def visualization
-    allowed = [:depth]
+    allowed = UserVisualizationDataQuery::ALLOWED_SETTINGS
     @settings = allowed.each_with_object({}) do |attr, memo|
       memo[attr] = params[attr]
     end

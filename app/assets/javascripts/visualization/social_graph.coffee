@@ -8,6 +8,7 @@ class Zazo.Visualization.SocialGraph
   edges     = undefined
   userInfo  = undefined
   calculate = undefined
+  settings  = undefined
   data      = {}
 
   options   =
@@ -42,6 +43,7 @@ class Zazo.Visualization.SocialGraph
   init: ->
     container = document.getElementById @settings.element
     calculate = new Zazo.Visualization.Calculate()
+    settings  = new Zazo.Visualization.Settings container
 
     data =
       target:      JSON.parse container.getAttribute 'data-target'
@@ -52,21 +54,16 @@ class Zazo.Visualization.SocialGraph
     @buildEdges()
     @buildNetwork()
     @initEvents()
-    @initUserInfo()
+    @showBlocks()
 
-    @showLegend()
-    @showSettings()
+  showBlocks: ->
+    settings.show()
 
-  initUserInfo: ->
-    userInfo  = new Zazo.Visualization.UserInfo container
+    userInfo = new Zazo.Visualization.UserInfo container
+    userInfo.show()
 
-  showLegend: ->
     legend = new Zazo.Visualization.LegendColor container
     legend.show @settings.statusColor
-
-  showSettings: ->
-    settings  = new Zazo.Visualization.Settings container
-    settings.show()
 
   buildNodes: ->
     calculate.findCollectionMax data.users, 'users', (user) ->
@@ -97,7 +94,7 @@ class Zazo.Visualization.SocialGraph
   initEvents: ->
     network.on 'select', (e) =>
       if e.nodes.length == 1
-        userInfo.show @getUserById(e.nodes[0]), e.pointer.DOM
+        userInfo.showUser @getUserById(e.nodes[0]), e.pointer.DOM
       else
         userInfo.hide()
 
@@ -112,7 +109,7 @@ class Zazo.Visualization.SocialGraph
 
     from: conn.creator_id
     to: conn.target_id
-    label: totalMessages
+    label: if settings.get().between then totalMessages else ''
 
     width: @calculateEdgeWidth totalMessages
 

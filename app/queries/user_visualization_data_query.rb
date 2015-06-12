@@ -1,11 +1,11 @@
 class UserVisualizationDataQuery
+  ALLOWED_SETTINGS = [:depth, :between]
+
   attr_reader :target, :connections, :users, :settings
 
   def initialize(user, settings = {})
     @user     = user
-    @settings = {
-      depth: settings.key?(:depth) ? settings[:depth].to_i : 1
-    }
+    @settings = prepare_settings settings
     @in_depth = ConnectionsAndUsersInDepthQuery.new user, @settings[:depth]
   end
 
@@ -26,7 +26,15 @@ class UserVisualizationDataQuery
   end
 
   def serialized_connections
-    counts = []#MessagesCountBetweenUsersQuery.new(@in_depth.users).execute
+    counts = []
+    counts = MessagesCountBetweenUsersQuery.new(@in_depth.users).execute if @settings[:between]
     ConnectionsVisualizationSerializer.new(@in_depth.connections, counts: counts).serialize
+  end
+
+  def prepare_settings(settings)
+    {
+      depth: settings[:depth] ? settings[:depth].to_i : 1,
+      between: settings[:between] ? ActiveRecord::Type::Boolean.new.type_cast_from_user(settings[:between]) : true
+    }
   end
 end

@@ -19,7 +19,7 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
   settings:
     element: 'user-info'
 
-  show: (user, position) ->
+  showUser: (user, position) ->
     @container.innerHTML = @template
       id:      user.id
       name:    user.name

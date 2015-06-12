@@ -2,11 +2,10 @@
 
 class Zazo.Visualization.Block
 
-  constructor: (parent) ->
+  constructor: (@parent) ->
     @template  = _.template @template
-    @createContainer parent
 
-  createContainer: (parent) ->
+  show: ->
     @container = document.createElement 'div'
     @container.setAttribute 'id', @settings.element
-    parent.appendChild @container
+    @parent.appendChild @container
