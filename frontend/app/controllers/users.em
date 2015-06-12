@@ -1,4 +1,4 @@
-class UsersIndexController extends Ember.ArrayController
+class UsersController extends Ember.ArrayController
   queryParams: ['query']
   query: ''
   term: ''
@@ -21,7 +21,7 @@ class UsersIndexController extends Ember.ArrayController
     controller = this
     transitionToUser = (user) ->
       controller.userIdOrMkey = ''
-      controller.transitionToRoute('users.show', user)
+      controller.transitionToRoute('user', user)
     @store.find('user', @userIdOrMkey).then(transitionToUser)
   search: (term) ->
     @model = @store.find('user', { query: @query })
@@ -33,4 +33,4 @@ class UsersIndexController extends Ember.ArrayController
         @query = @term
         @search()
 
-`export default UsersIndexController`
+`export default UsersController`

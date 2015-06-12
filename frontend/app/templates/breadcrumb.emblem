@@ -1,0 +1,12 @@
+ul.breadcrumb
+    li
+      link-to 'index' | Zazo Statistics
+    li
+      link-to 'users' | Users
+    if view.pageTitle
+      li
+        link-to 'user.index'
+          = user.name
+      li.active = view.pageTitle
+    else
+      li.active = model.name

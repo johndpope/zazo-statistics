@@ -1,4 +1,4 @@
-class UsersIndexRoute extends Ember.Route
+class UsersRoute extends Ember.Route
   model: (params) ->
     @store.find 'user', params
   setupController: (controller, model) ->
@@ -8,4 +8,4 @@ class UsersIndexRoute extends Ember.Route
     else
       @_super(controller, model)
 
-`export default UsersIndexRoute`
+`export default UsersRoute`

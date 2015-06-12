@@ -1,0 +1,4 @@
+view 'breadcrumb'
+link-to 'users' | Back
+span.divider &nbsp;
+link-to 'user.aggregate-messaging-info' model | Aggregate Messaging Info

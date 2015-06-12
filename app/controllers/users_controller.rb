@@ -2,7 +2,7 @@ class UsersController < AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :visualization,
                                   :new_connection, :establish_connection,
                                   :receive_test_video, :receive_corrupt_video,
-                                  :events]
+                                  :events, :aggregate_messaging_info]
   # GET /users
   # GET /users.json
   def index
@@ -29,6 +29,10 @@ class UsersController < AdminController
       @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
     end
     respond_with @user
+  end
+
+  def aggregate_messaging_info
+    render json: EventsApi.new.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
   end
 
   # GET /users/new

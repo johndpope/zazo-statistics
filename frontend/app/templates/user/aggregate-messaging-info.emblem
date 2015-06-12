@@ -1,0 +1,27 @@
+view 'breadcrumb' pageTitle="Aggregate Messaging Info"
+
+h4 Aggregate Messaging Info
+
+table.table
+  caption Outgoing
+  tr
+    th Total sent
+    th Total received
+    th % undelivered
+  tr
+    td = model.outgoing.total_sent
+    td = model.outgoing.total_received
+    td = model.outgoing.undelivered_percent
+
+table.table
+  caption Incoming
+  tr
+    th Total sent
+    th Total received
+    th % undelivered
+  tr
+    td = model.incoming.total_sent
+    td = model.incoming.total_received
+    td = model.incoming.undelivered_percent
+
+link-to 'user' user | Back

@@ -11,6 +11,7 @@ ZazoStatistics::Application.routes.draw do
     member do
       get :events
       get :visualization
+      get :aggregate_messaging_info
     end
   end
   resources :metrics, only: [:index, :show]

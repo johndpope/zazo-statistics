@@ -2,7 +2,7 @@
 
 # (ember)
 
-moduleFor 'route:users.show', 'UserShowRoute', {
+moduleFor 'route:users', 'UserRoute', {
   # Specify the other units that are required for this test.
   # needs: ['controller:foo']
 }

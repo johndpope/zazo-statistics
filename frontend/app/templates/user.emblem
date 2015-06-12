@@ -1,0 +1,43 @@
+section
+  .col-md-6
+    h1 = model.name
+
+section
+  .col-md-4
+    table.table
+      tbody
+        tr
+          td Id
+          td = model.id
+        tr
+          td First name
+          td = model.firstName
+        tr
+          td Last name
+          td = model.lastName
+        tr
+          td Mobile number
+          td = model.mobileNumber
+        tr
+          td Device platform
+          td = model.devicePlatform
+        tr
+          td Auth
+          td
+            code = model.auth
+        tr
+          td Mkey
+          td
+            code = model.mkey
+        tr
+          td Status
+          td
+            view "status" status=model.status
+        tr
+          td Verification code
+          td = model.verificationCode
+        tr
+          td Verification sent at
+          td = model.verificationDateTime
+  .col-md-8
+    = outlet

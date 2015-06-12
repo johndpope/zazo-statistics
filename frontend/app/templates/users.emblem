@@ -4,6 +4,7 @@ section
       li = link-to 'index' | Home
       li.active Users
     h1 Listing users
+section
   .col-md-12
     form#users-filter-form.form-inline submit="search"
       .form-group
@@ -14,7 +15,7 @@ section
       .form-group
         = input type="text" value=userIdOrMkey id="user_id_or_mkey" class="form-control" placeholder="enter id or mkey"
         button.btn.btn-primary click="search" Go to user
-    br
+section
   .col-md-12 class=isDataAvailable::hidden
     p.text-info = title
     table.table
@@ -40,7 +41,7 @@ section
             td = user.verificationCode
             td = user.verificationDateTime
             td
-              link-to 'users.show' user | Show
+              link-to 'user' user | Show
       br
 
   .col-md-12 class=isDataAvailable:hidden

@@ -2,12 +2,11 @@
 
 # (ember)
 
-moduleFor 'controller:users.index', 'UsersIndexController', {
+moduleFor 'route:users', 'UsersRoute', {
   # Specify the other units that are required for this test.
   # needs: ['controller:foo']
 }
 
-# Replace this with your real tests.
 test 'it exists', ->
-  controller = @subject()
-  ok controller
+  route = @subject()
+  ok route
