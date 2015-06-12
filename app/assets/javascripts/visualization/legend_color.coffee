@@ -14,6 +14,7 @@ class Zazo.Visualization.LegendColor extends Zazo.Visualization.Block
     element: 'legend-info'
 
   show: (colors) ->
+    super
     memo = ''
     for key in Object.keys colors
       memo += @template {
