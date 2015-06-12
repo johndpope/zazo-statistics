@@ -1,6 +1,7 @@
 class UsersVisualizationSerializer < PackSerializer
-  ATTRIBUTES = [:id, :name, :mobile_number, :status, :connection_counts,
-                :messages_by_last_month, :average_messages_per_day]
+  ATTRIBUTES = [:id, :name, :mobile_number, :status,
+                :connection_counts, :messages_by_last_month,
+                :messages_by_last_week, :average_messages_per_day]
 
   private
 
@@ -9,20 +10,24 @@ class UsersVisualizationSerializer < PackSerializer
   end
 
   def member_status(user)
-    get_total_or_average_messages(user, :total) > 0 ? 'active' : user.status
+    get_total_or_average_messages(user, :month, :total) > 0 ? 'active' : user.status
   end
 
   def member_messages_by_last_month(user)
-    get_total_or_average_messages user, :total
+    get_total_or_average_messages user, :month, :total
+  end
+
+  def member_messages_by_last_week(user)
+    get_total_or_average_messages user, :week, :total
   end
 
   def member_average_messages_per_day(user)
-    get_total_or_average_messages user, :average
+    get_total_or_average_messages user, :month, :average
   end
 
-  def get_total_or_average_messages(user, key)
-    @options && @options[:messages] &&
-      @options[:messages][user.mkey]  &&
-      @options[:messages][user.mkey][key] || 0
+  def get_total_or_average_messages(user, period, key)
+    @options && @options[period] &&
+      @options[period][user.mkey] &&
+      @options[period][user.mkey][key] || 0
   end
 end
