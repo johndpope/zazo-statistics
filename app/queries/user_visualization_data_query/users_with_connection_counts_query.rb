@@ -1,4 +1,4 @@
-class UsersWithConnectionCountsQuery
+class UserVisualizationDataQuery::UsersWithConnectionCountsQuery
   def initialize(users_ids)
     @users_ids = users_ids.map { |u| u[:id] }
   end

@@ -1,4 +1,4 @@
-class ConnectionsAndUsersInDepthQuery
+class UserVisualizationDataQuery::ConnectionsAndUsersInDepthQuery
   attr_reader :users
 
   def initialize(user, depth)

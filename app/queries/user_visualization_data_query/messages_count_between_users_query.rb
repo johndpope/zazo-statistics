@@ -1,4 +1,4 @@
-class MessagesCountBetweenUsersQuery
+class UserVisualizationDataQuery::MessagesCountBetweenUsersQuery
   def initialize(users_packs)
     @users = prepare_users users_packs
   end

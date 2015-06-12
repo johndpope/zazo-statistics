@@ -1,4 +1,4 @@
-class AverageMessagesByPeriodQuery
+class UserVisualizationDataQuery::AverageMessagesByPeriodQuery
   DEFAULT_SINCE  = Date.today - 1.month
   DEFAULT_PERIOD = 'day'
 
