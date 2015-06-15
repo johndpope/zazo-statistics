@@ -1,11 +1,12 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: <%= base_url %>/api/v1/metrics/aggregate_messaging_info?user_id=<%= user_id %>
+    method: post
+    uri: <%= base_url %>/api/v1/metrics/aggregate_messaging_info
     body:
       encoding: US-ASCII
       string: ''
+      user_id: <%= user_id %>
     headers:
       User-Agent:
       - Faraday v0.9.1
