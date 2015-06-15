@@ -1,7 +1,7 @@
 ---
 http_interactions:
 - request:
-    method: get
+    method: post
     uri: <%= base_url %>/api/v1/metrics/aggregate_messaging_info?friend_id=<%= friend_id %>&user_id=<%= user_id %>
     body:
       encoding: US-ASCII

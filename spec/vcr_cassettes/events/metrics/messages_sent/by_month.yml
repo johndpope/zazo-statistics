@@ -1,7 +1,7 @@
 ---
 http_interactions:
 - request:
-    method: get
+    method: post
     uri: <%= base_url %>/api/v1/metrics/messages_sent?group_by=month
     body:
       encoding: US-ASCII
