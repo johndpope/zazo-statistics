@@ -2,10 +2,11 @@
 http_interactions:
 - request:
     method: post
-    uri: <%= base_url %>/api/v1/metrics/messages_sent?group_by=day
+    uri: <%= base_url %>/api/v1/metrics/messages_sent
     body:
       encoding: US-ASCII
       string: ''
+      group_by: day
     headers:
       User-Agent:
       - Faraday v0.9.1
