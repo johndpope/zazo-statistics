@@ -21,7 +21,7 @@ class EventsApi
   end
 
   def metric_data(metric, options = {})
-    @connection.get(metric_path(metric), options).body
+    @connection.post(metric_path(metric), options).body
   end
 
   def metric_list_path
