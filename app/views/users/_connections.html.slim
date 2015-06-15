@@ -1,0 +1,17 @@
+h4
+  ' Connections
+  span.badge = user.connections.count
+
+table.table
+  tr
+    th Creator
+    th Target
+    th Active?
+    th Link
+  - user.connections.each do |connection|
+    tr
+      td = link_to "#{connection.creator.name} (#{connection.creator.mobile_number})", connection.creator
+      td = link_to "#{connection.target.name} (#{connection.target.mobile_number})", connection.target
+      td
+        span class="#{connection.active?}-value"
+      td = link_to 'Show', connection

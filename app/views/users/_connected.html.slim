@@ -1,0 +1,24 @@
+- connected_users = user.group_connected_by_status
+
+h4
+  ' Connected users
+  span.badge = user.connected_users.count
+
+p
+  - User::STATES.each do |state|
+    = "#{state} [#{connected_users[state].size}] "
+
+table.table border="0" cellspacing="5" cellpadding="5"
+  - User::STATES.each do |state|
+    - connected_users[state].each do |friend|
+      - connection = Connection.live_between(user.id, friend.id).first
+      tr
+        td = friend.id
+        td = friend.status
+        td = link_to friend.name, user_path(friend)
+        td
+          = link_to 'Destroy', connection, method: :delete, data: {confirm: 'Are you sure?'}
+          '  |
+          = link_to 'Test Video', receive_test_video_path(id: user.id, sender_id: friend.id)
+          '  |
+          = link_to 'Corrupt Video', receive_corrupt_video_path(id: user.id, sender_id: friend.id)
