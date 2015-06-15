@@ -1,7 +1,7 @@
 ---
 http_interactions:
 - request:
-    method: post
+    method: get
     uri: <%= base_url %>/api/v1/metrics
     body:
       encoding: US-ASCII

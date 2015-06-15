@@ -29,7 +29,7 @@ class EventsApi
   end
 
   def metric_list(options = {})
-    @connection.post(metric_list_path, options).body
+    @connection.get(metric_list_path, options).body
   end
 
   def events_path
