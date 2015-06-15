@@ -1,17 +1,19 @@
 h4
   ' Connections
-  span.badge = user.connections.count
+  span.badge = user.connections_counts
+
+p = user.connections_counts_by_groups
 
 table.table
   tr
-    th Creator
-    th Target
+    th{style='width: 28%;'} User
+    th Direction
     th Active?
     th Link
-  - user.connections.each do |connection|
+  - user.grouped_connections.each do |conn|
     tr
-      td = link_to "#{connection.creator.name} (#{connection.creator.mobile_number})", connection.creator
-      td = link_to "#{connection.target.name} (#{connection.target.mobile_number})", connection.target
+      td = conn.friend_info user.id
+      td = conn.direction_arrow user.id
       td
-        span class="#{connection.active?}-value"
-      td = link_to 'Show', connection
+        span class="#{conn.active?}-value"
+      td = link_to 'Show', conn
