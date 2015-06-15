@@ -16,7 +16,9 @@ class UserDecorator < Draper::Decorator
     end
   end
 
-  def connection_between(friend)
-    Connection.live_between(object.id, friend.id).first
+  def connected_counts
+    User::STATES.inject(0) do |memo, state|
+      memo += connected_by_states[state].size
+    end
   end
 end

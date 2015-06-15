@@ -1,6 +1,6 @@
 h4
   ' Connected users
-  span.badge = user.connected_users.count
+  span.badge = user.connected_counts
 
 p = user.connected_counts_by_states
 
@@ -12,8 +12,6 @@ table.table border="0" cellspacing="5" cellpadding="5"
         td = friend.status
         td = link_to friend.name, user_path(friend)
         td
-          = link_to 'Destroy', user.connection_between(friend), method: :delete, data: {confirm: 'Are you sure?'}
-          '  |
           = link_to 'Test Video', receive_test_video_path(id: user.id, sender_id: friend.id)
           '  |
           = link_to 'Corrupt Video', receive_corrupt_video_path(id: user.id, sender_id: friend.id)
