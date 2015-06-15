@@ -82,6 +82,7 @@ gem 'rack-attack'
 gem 'newrelic_rpm'
 gem 'kaminari'
 gem 'aasm'
+gem 'draper'
 
 gem 'groupdate'
 gem 'chartkick'

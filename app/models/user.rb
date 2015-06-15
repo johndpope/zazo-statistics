@@ -79,15 +79,6 @@ class User < ActiveRecord::Base
     User.where id: connected_user_ids
   end
 
-  def group_connected_by_status
-    initial = STATES.each_with_object({}) do |state, memo|
-      memo[state] = []
-    end
-    connected_users.each_with_object(initial) do |user, memo|
-      memo[user.status.to_sym] << user
-    end
-  end
-
   def connections
     Connection.for_user_id(id).includes(:creator).includes(:target)
   end
