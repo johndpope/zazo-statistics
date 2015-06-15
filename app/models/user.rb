@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
 
   before_save :strip_emoji, :set_keys
 
+  scope :states, -> { aasm.states.map(&:name) - [:failed_to_register] }
+
   def self.find_by_raw_mobile_number(value)
     find_by_mobile_number GlobalPhone.normalize(value)
   end
@@ -79,9 +81,11 @@ class User < ActiveRecord::Base
   end
 
   def group_connected_by_status
-    initial = {'verified' => [], 'registered' => [], 'invited' => [], 'initialized' => []}
+    initial = self.class.states.each_with_object({}) do |state, memo|
+      memo[state] = []
+    end
     connected_users.each_with_object(initial) do |user, memo|
-      memo[user.status] << user
+      memo[user.status.to_sym] << user
     end
   end
 
