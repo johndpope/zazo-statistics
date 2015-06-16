@@ -15,9 +15,10 @@ class UserDecorator < Draper::Decorator
   end
 
   def connected_counts_by_states
-    User::STATES.inject('') do |memo, state|
-      memo + "#{state} [#{connected_by_states[state].size}] "
-    end
+    list = User::STATES.map do |state|
+      %(#{h.status_tag(state)} <span class="badge status #{state}">#{connected_by_states[state].size}</span>)
+    end.join(' | ')
+    h.raw list
   end
 
   def connected_counts
@@ -52,7 +53,9 @@ class UserDecorator < Draper::Decorator
     grouped_connections.each do |conn|
       conn.creator.id == object.id ? invitees += 1 : inviters += 1
     end
-    "active [#{active}] invited by user [#{invitees}] invited by friend [#{inviters}]"
+    h.raw %(<span class="status active">active</span> <span class="badge">#{active}</span> |
+      <span class="status invited">invited by user</span> <span class="badge">#{invitees}</span> |
+      <span class="status invited">invited by friend</span> <span class="badge">#{inviters}</span>)
   end
 
   def connections_counts
