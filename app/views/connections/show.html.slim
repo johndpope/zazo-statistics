@@ -22,6 +22,8 @@ table.table
       
 == render 'application/aggregate_messaging_info'
 
+= link_to 'Back', connections_path, class: 'btn btn-default'
+' &nbsp;
 = link_to 'Edit', edit_connection_path(@connection), class: 'btn btn-default'
 ' &nbsp;
-= link_to 'Back', connections_path, class: 'btn btn-default'
+= link_to 'Messages', messages_connection_path(@connection), class: 'btn btn-default'

@@ -5,7 +5,9 @@ ZazoStatistics::Application.routes.draw do
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
 
-  resources :connections
+  resources :connections do
+    get :messages, on: :member
+  end
   resources :users do
     member do
       get :events

@@ -39,4 +39,12 @@ class EventsApi
   def filter_by(term, options = {})
     @connection.get(events_path, options.reverse_merge(filter_by: term)).body
   end
+
+  def messages_path
+    File.join('api', "v#{API_VERSION}", 'messages')
+  end
+
+  def messages(options = {})
+    @connection.get(messages_path, options).body
+  end
 end

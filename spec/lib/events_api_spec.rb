@@ -144,4 +144,12 @@ RSpec.describe EventsApi do
       it { is_expected.to be_a(Array) }
     end
   end
+
+  describe '#messages' do
+    pending 'TODO: implement'
+  end
+
+  describe '#message' do
+    pending 'TODO: implement'
+  end
 end

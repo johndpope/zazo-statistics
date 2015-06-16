@@ -1,0 +1,6 @@
+tr
+  td = message.filename
+  td title=message.date = time_ago_in_words message.date
+  td = number_to_human_size message.file_size
+  td = status_tag message.status
+  td class="#{message.delivered?}-value"

@@ -1,5 +1,5 @@
 class ConnectionsController < AdminController
-  before_action :set_connection, only: [:show, :edit, :update, :destroy]
+  before_action :set_connection, only: [:show, :edit, :update, :destroy, :messages]
 
   # GET /connections
   # GET /connections.json
@@ -10,9 +10,9 @@ class ConnectionsController < AdminController
   # GET /connections/1
   # GET /connections/1.json
   def show
-    @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info,
-                                                          user_id: @connection.creator.event_id,
-                                                          friend_id: @connection.target.event_id)
+    @aggregate_messaging_info = event_api.metric_data(:aggregate_messaging_info,
+                                                      user_id: @connection.creator.event_id,
+                                                      friend_id: @connection.target.event_id)
   end
 
   # GET /connections/new
@@ -64,6 +64,17 @@ class ConnectionsController < AdminController
     end
   end
 
+  def messages
+    @creator_to_target_messages = event_api.messages(
+      sender_id: @connection.creator.event_id,
+      receiver_id: @connection.target.event_id,
+      reverse: true).map { |m| Message.new(m) }
+    @target_to_creator_messages = event_api.messages(
+      sender_id: @connection.target.event_id,
+      receiver_id: @connection.creator.event_id,
+      reverse: true).map { |m| Message.new(m) }
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -74,5 +85,9 @@ class ConnectionsController < AdminController
   # Never trust parameters from the scary internet, only allow the white list through.
   def connection_params
     params.require(:connection).permit(:creator_id, :target_id, :status)
+  end
+
+  def event_api
+    EventsApi.new
   end
 end
