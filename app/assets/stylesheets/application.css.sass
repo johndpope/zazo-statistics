@@ -27,6 +27,8 @@
     @extend .label-primary
   &.verified
     @extend .label-success
+  &.active
+    @extend .label-success
   &.failed_to_register
     @extend .label-danger
   &.established
@@ -55,3 +57,6 @@ input[type='submit']
 .false-value
   @extend .glyphicon
   @extend .glyphicon-remove
+
+.statuses
+  list-style: none
