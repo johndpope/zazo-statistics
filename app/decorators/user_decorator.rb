@@ -65,6 +65,6 @@ class UserDecorator < Draper::Decorator
   private
 
   def sort_connections(conns)
-    conns.sort_by { |c| c.creator.id == object.id ? 1 : 0 }
+    conns.sort_by { |c| c.creator.id <=> object.id }
   end
 end
