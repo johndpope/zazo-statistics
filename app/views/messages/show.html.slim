@@ -6,8 +6,8 @@ section
   .col-md-12
     table.table
       tr
-        td Filename
-        td = @message.filename  
+        td File name
+        td = @message.file_name  
       tr
         td Sender
         td = @message.sender
@@ -15,8 +15,8 @@ section
         td Receiver
         td = @message.receiver
       tr
-        td Date
-        td = @message.date
+        td Uploaded at
+        td = @message.uploaded_at
       tr
         td File size
         td = @message.file_size

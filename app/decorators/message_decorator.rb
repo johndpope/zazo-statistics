@@ -1,12 +1,12 @@
 class MessageDecorator < Draper::Decorator
   delegate_all
 
-  def date
-    h.content_tag :span, h.time_ago_in_words(object.date), title: object.date.to_datetime.to_s(:rfc822)
+  def uploaded_at
+    h.content_tag :span, h.time_ago_in_words(object.uploaded_at), title: object.uploaded_at.to_datetime.to_s(:rfc822)
   end
 
   def file_size
-    h.content_tag :span, h.number_to_human_size(object.size), title: object.size
+    h.content_tag :span, h.number_to_human_size(object.file_size), title: object.file_size
   end
 
   def status
