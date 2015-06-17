@@ -9,8 +9,10 @@ class UserVisualizationDataQuery::AverageMessagesByPeriodQuery
   end
 
   def execute
+    selected = select_users
+    return {} if selected.empty?
     data = EventsApi.new.metric_data :messages_count_by_period,
-                                     users_ids: select_users,
+                                     users_ids: selected,
                                      group_by:  @period,
                                      since:     @since
     calculate_for_each_user data

@@ -19,8 +19,8 @@ class UserVisualizationDataQuery
   private
 
   def serialized_users
-    users    = UsersWithConnectionCountsQuery.new(@in_depth.stretched_users).execute
-    users    = [target] if users.empty?
+    users = UsersWithConnectionCountsQuery.new(@in_depth.stretched_users).execute
+    users = [@user] if users.empty?
     messages_by_month = AverageMessagesByPeriodQuery.new(users).execute
     messages_by_week  = AverageMessagesByPeriodQuery.new(users, since: Date.today - 1.week).execute
     UsersVisualizationSerializer.new(users, month: messages_by_month, week: messages_by_week).serialize
