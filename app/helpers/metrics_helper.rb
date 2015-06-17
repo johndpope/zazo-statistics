@@ -7,9 +7,7 @@ module MetricsHelper
 
   def onboarding_info_chart
     data = EventsApi.new.metric_data :onboarding_info
-    data = data.keys.map do |key|
-      { name: key, data: data[key] }
-    end
+    data = data.keys.map { |key| { name: key, data: data[key] } }
     line_chart data, height: '800px', min: -5, max: 100
   end
 end
