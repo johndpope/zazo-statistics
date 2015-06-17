@@ -101,7 +101,7 @@ class UsersController < AdminController
 
   def events
     @events = EventsApi.new.filter_by(@user.event_id, reverse: true)
-    @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
+    @events.is_a?(Array) && @events.map! { |e| EventDecorator.new(Event.new(e)) }
   end
 
   def visualization

@@ -68,11 +68,11 @@ class ConnectionsController < AdminController
     @creator_to_target_messages = event_api.messages(
       sender_id: @connection.creator.event_id,
       receiver_id: @connection.target.event_id,
-      reverse: true).map { |m| Message.new(m) }
+      reverse: true).map { |m| MessageDecorator.new(Message.new(m)) }
     @target_to_creator_messages = event_api.messages(
       sender_id: @connection.target.event_id,
       receiver_id: @connection.creator.event_id,
-      reverse: true).map { |m| Message.new(m) }
+      reverse: true).map { |m| MessageDecorator.new(Message.new(m)) }
   end
 
   private

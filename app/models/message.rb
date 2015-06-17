@@ -1,5 +1,7 @@
-class Message < Hashie::Mash
-  def file_size
-    fetch('size', 0)
-  end
+class Message
+  include ActiveModel::Model
+  attr_accessor :id, :filename, :sender_id, :receiver_id,
+                :date, :size, :status, :delivered
+
+  alias_method :delivered?, :delivered
 end
