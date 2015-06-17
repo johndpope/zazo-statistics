@@ -14,7 +14,6 @@ section
           th Target ID
           th Data
           th Raw Params
-        - @events.each do |event|
-          tr = render_event(@user, event)
+        == render collection: @events, partial: 'event'
     - else
-      .alert.alert-info role="alert" No user activity found
+      .alert.alert-info role="alert" No message activity found

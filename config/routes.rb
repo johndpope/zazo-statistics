@@ -15,6 +15,7 @@ ZazoStatistics::Application.routes.draw do
     end
   end
   resources :metrics, only: [:index, :show]
+  resources :messages, only: [:show]
 
   get 'landing' => 'landing#index'
   get 'l/:id' => 'landing#invite'

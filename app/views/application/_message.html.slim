@@ -1,6 +1,6 @@
 tr
-  td = message.filename
-  td title=message.date = message.date
+  td = link_to message.filename, message_path(message.id)
+  td = message.date
   td = message.file_size
   td = message.status
-  td class="#{message.delivered}-value"
+  td = message.delivered_mark

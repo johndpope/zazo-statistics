@@ -10,7 +10,7 @@ class ConnectionsController < AdminController
   # GET /connections/1
   # GET /connections/1.json
   def show
-    @aggregate_messaging_info = event_api.metric_data(:aggregate_messaging_info,
+    @aggregate_messaging_info = events_api.metric_data(:aggregate_messaging_info,
                                                       user_id: @connection.creator.event_id,
                                                       friend_id: @connection.target.event_id)
   end
@@ -65,14 +65,16 @@ class ConnectionsController < AdminController
   end
 
   def messages
-    @creator_to_target_messages = event_api.messages(
+    @creator_to_target_messages = events_api.messages(
       sender_id: @connection.creator.event_id,
       receiver_id: @connection.target.event_id,
-      reverse: true).map { |m| MessageDecorator.new(Message.new(m)) }
-    @target_to_creator_messages = event_api.messages(
+      reverse: true).map { |m| Message.new(m) }
+    @creator_to_target_messages = MessageDecorator.decorate_collection(@creator_to_target_messages)
+    @target_to_creator_messages = events_api.messages(
       sender_id: @connection.target.event_id,
       receiver_id: @connection.creator.event_id,
-      reverse: true).map { |m| MessageDecorator.new(Message.new(m)) }
+      reverse: true).map { |m| Message.new(m) }
+    @target_to_creator_messages = MessageDecorator.decorate_collection(@target_to_creator_messages)
   end
 
   private
@@ -85,9 +87,5 @@ class ConnectionsController < AdminController
   # Never trust parameters from the scary internet, only allow the white list through.
   def connection_params
     params.require(:connection).permit(:creator_id, :target_id, :status)
-  end
-
-  def event_api
-    EventsApi.new
   end
 end
