@@ -4,7 +4,7 @@ class MetricsController < AdminController
   def index
     @metrics = events_api.metric_list
     @metrics.is_a?(Array) && @metrics.select! do |m|
-      %w(active_users messages_sent usage_by_active_users).include?(m['name'])
+      %w(active_users messages_sent usage_by_active_users onboarding_info).include?(m['name'])
     end.map! { |m| Metric.new(m) }
   end
 
