@@ -1,9 +1,3 @@
 h1 Metrics
 
-section
-  .col-md-12
-    - @metrics.each do |metric|
-      - if MetricsHelper::UNIQUE.include? metric.name
-        == render 'metric_custom', metric: metric.name
-      - else
-        == render 'metric_panel', metric: metric.name, chart: :area_chart
+== cell :metric, collection: @metrics

@@ -83,6 +83,8 @@ gem 'newrelic_rpm'
 gem 'kaminari'
 gem 'aasm'
 
+gem 'cells'
+gem 'cells-slim'
 gem 'groupdate'
 gem 'chartkick'
 gem 'puma'
