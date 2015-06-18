@@ -1,12 +1,12 @@
 class MetricCell < Cell::ViewModel
   include Chartkick::Helper
 
-  layout :_layout
+  layout :layout
   property :type
   property :name
 
   def show
-    render type
+    render '_' + type
   rescue Cell::TemplateMissingError
     render :show
   end
