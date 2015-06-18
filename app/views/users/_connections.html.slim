@@ -1,0 +1,19 @@
+h4
+  ' Connections
+  span.badge = user.connections_counts
+
+p = user.connections_counts_by_groups
+
+table.table
+  tr
+    th{style='width: 28%;'} User
+    th Direction
+    th Active?
+    th Link
+  - user.grouped_connections.each do |conn|
+    tr
+      td = conn.friend_info user.id
+      td = conn.direction_arrow user.id
+      td
+        span class="#{conn.active?}-value"
+      td = link_to 'Show', conn

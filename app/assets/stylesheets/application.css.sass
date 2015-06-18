@@ -21,11 +21,21 @@
   @extend .label
   &.initialized
     @extend .label-default
+  &.uploaded
+    @extend .label-default
   &.invited
+    @extend .label-info
+  &.received
     @extend .label-info
   &.registered
     @extend .label-primary
+  &.downloaded
+    @extend .label-primary
   &.verified
+    @extend .label-success
+  &.viewed
+    @extend .label-success
+  &.active
     @extend .label-success
   &.failed_to_register
     @extend .label-danger
@@ -55,3 +65,6 @@ input[type='submit']
 .false-value
   @extend .glyphicon
   @extend .glyphicon-remove
+
+.statuses
+  list-style: none

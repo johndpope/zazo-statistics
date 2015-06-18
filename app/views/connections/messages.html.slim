@@ -1,0 +1,34 @@
+section
+  .col-md-12
+    h1 Messages
+    
+section
+  .col-md-12
+    table.table
+      caption
+        ' From #{link_to(@connection.creator.info, @connection.creator)} 
+        ' to #{link_to(@connection.target.info, @connection.target)}
+        ' (last 100 in reverse-chronological order)
+      thead
+        tr
+          th File name
+          th Uploaded at
+          th File size
+          th Status
+          th Delivered?
+      tbody
+        == render collection: creator_to_target_messages, partial: 'message'
+    table.table
+      caption
+        ' From #{link_to(@connection.target.info, @connection.target)} 
+        ' to #{link_to(@connection.creator.info, @connection.creator)}
+        ' (last 100 in reverse-chronological order)
+      thead
+        tr
+          th Filename
+          th Uploaded at
+          th File size
+          th Status
+          th Delivered?
+      tbody
+        == render collection: target_to_creator_messages, partial: 'message'
