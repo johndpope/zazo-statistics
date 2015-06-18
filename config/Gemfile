@@ -84,6 +84,8 @@ gem 'kaminari'
 gem 'aasm'
 gem 'draper'
 
+gem 'cells'
+gem 'cells-slim'
 gem 'groupdate'
 gem 'chartkick'
 gem 'puma'
