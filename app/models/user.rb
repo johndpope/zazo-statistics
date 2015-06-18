@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
 
   before_save :strip_emoji, :set_keys
 
+  attr_accessor :events
+
   def self.find_by_raw_mobile_number(value)
     find_by_mobile_number GlobalPhone.normalize(value)
   end

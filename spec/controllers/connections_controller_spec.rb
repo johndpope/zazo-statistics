@@ -33,4 +33,8 @@ RSpec.describe ConnectionsController, type: :controller, authenticate_with_http_
                                                        })
     end
   end
+
+  describe 'GET #messages' do
+    pending 'TODO: implement'
+  end
 end

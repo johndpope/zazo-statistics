@@ -3,6 +3,8 @@ class UsersController < AdminController
                                   :new_connection, :establish_connection,
                                   :receive_test_video, :receive_corrupt_video,
                                   :events]
+  decorates_assigned :user
+
   # GET /users
   # GET /users.json
   def index
@@ -20,8 +22,7 @@ class UsersController < AdminController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = @user.decorate
-    @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
+    @aggregate_messaging_info = events_api.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
   end
 
   # GET /users/new
@@ -100,8 +101,8 @@ class UsersController < AdminController
   end
 
   def events
-    @events = EventsApi.new.filter_by(@user.event_id, reverse: true)
-    @events.is_a?(Array) && @events.map! { |e| Event.new(e) }
+    @user.events = events_api.filter_by(@user.event_id, reverse: true)
+    @user.events.map! { |e| Event.new(e) }
   end
 
   def visualization

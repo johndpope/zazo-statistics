@@ -202,7 +202,7 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
 
     it 'converts to Event instances' do
       subject
-      expect(assigns(:events)).to all(be_a(Event))
+      expect(assigns(:user).events).to all(be_a(Event))
     end
   end
 

@@ -5,7 +5,9 @@ ZazoStatistics::Application.routes.draw do
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
 
-  resources :connections
+  resources :connections do
+    get :messages, on: :member
+  end
   resources :users do
     member do
       get :events
@@ -13,6 +15,7 @@ ZazoStatistics::Application.routes.draw do
     end
   end
   resources :metrics, only: [:index, :show]
+  resources :messages, only: [:show]
 
   get 'landing' => 'landing#index'
   get 'l/:id' => 'landing#invite'

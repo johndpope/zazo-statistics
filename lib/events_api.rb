@@ -16,8 +16,12 @@ class EventsApi
     end
   end
 
+  def namespace
+    "api/v#{API_VERSION}"
+  end
+
   def metric_path(metric)
-    File.join('api', "v#{API_VERSION}", 'metrics', metric.to_s)
+    File.join(namespace, 'metrics', metric.to_s)
   end
 
   def metric_data(metric, options = {})
@@ -25,7 +29,7 @@ class EventsApi
   end
 
   def metric_list_path
-    File.join('api', "v#{API_VERSION}", 'metrics')
+    File.join(namespace, 'metrics')
   end
 
   def metric_list(options = {})
@@ -33,10 +37,34 @@ class EventsApi
   end
 
   def events_path
-    File.join('api', "v#{API_VERSION}", 'events')
+    File.join(namespace, 'events')
   end
 
   def filter_by(term, options = {})
     @connection.get(events_path, options.reverse_merge(filter_by: term)).body
+  end
+
+  def messages_path
+    File.join(namespace, 'messages')
+  end
+
+  def messages(options = {})
+    @connection.get(messages_path, options).body
+  end
+
+  def message_path(id)
+    File.join(namespace, 'messages', id)
+  end
+
+  def message(id, options = {})
+    @connection.get(message_path(id), options).body
+  end
+
+  def message_events_path(id)
+    File.join(namespace, 'messages', id, 'events')
+  end
+
+  def message_events(id, options = {})
+    @connection.get(message_events_path(id), options).body
   end
 end

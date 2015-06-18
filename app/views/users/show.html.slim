@@ -1,6 +1,6 @@
-== render @user
-== render 'connected',   user: @user
-== render 'connections', user: @user
+== render user
+== render 'connected',   user: user
+== render 'connections', user: user
 == render 'application/aggregate_messaging_info'
 
 = link_to 'Add a connection', "/users/new_connection/#{@user.id}", class: 'btn btn-default'

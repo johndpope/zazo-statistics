@@ -16,10 +16,6 @@ class MetricsController < AdminController
 
   private
 
-  def events_api
-    EventsApi.new
-  end
-
   def events_metric(metric)
     render json: events_api.metric_data(metric, group_by: @group_by)
   end

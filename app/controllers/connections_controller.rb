@@ -1,5 +1,6 @@
 class ConnectionsController < AdminController
-  before_action :set_connection, only: [:show, :edit, :update, :destroy]
+  before_action :set_connection, only: [:show, :edit, :update, :destroy, :messages]
+  decorates_assigned :creator_to_target_messages, :target_to_creator_messages
 
   # GET /connections
   # GET /connections.json
@@ -10,9 +11,9 @@ class ConnectionsController < AdminController
   # GET /connections/1
   # GET /connections/1.json
   def show
-    @aggregate_messaging_info = EventsApi.new.metric_data(:aggregate_messaging_info,
-                                                          user_id: @connection.creator.event_id,
-                                                          friend_id: @connection.target.event_id)
+    @aggregate_messaging_info = events_api.metric_data(:aggregate_messaging_info,
+                                                      user_id: @connection.creator.event_id,
+                                                      friend_id: @connection.target.event_id)
   end
 
   # GET /connections/new
@@ -62,6 +63,17 @@ class ConnectionsController < AdminController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def messages
+    @creator_to_target_messages = events_api.messages(
+      sender_id: @connection.creator.event_id,
+      receiver_id: @connection.target.event_id,
+      reverse: true).map { |m| Message.new(m) }
+    @target_to_creator_messages = events_api.messages(
+      sender_id: @connection.target.event_id,
+      receiver_id: @connection.creator.event_id,
+      reverse: true).map { |m| Message.new(m) }
   end
 
   private
