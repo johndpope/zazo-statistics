@@ -17,7 +17,7 @@ section
           th Status
           th Delivered?
       tbody
-        == render collection: @creator_to_target_messages, partial: 'message'
+        == render collection: creator_to_target_messages, partial: 'message'
     table.table
       caption
         ' From #{link_to(@connection.target.info, @connection.target)} 
@@ -31,4 +31,4 @@ section
           th Status
           th Delivered?
       tbody
-        == render collection: @target_to_creator_messages, partial: 'message'
+        == render collection: target_to_creator_messages, partial: 'message'

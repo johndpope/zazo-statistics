@@ -1,5 +1,6 @@
 class Message
   include ActiveModel::Model
+  include Draper::Decoratable
   attr_accessor :id, :sender_id, :receiver_id, :uploaded_at,
                 :file_name, :file_size, :status, :delivered, :events
 

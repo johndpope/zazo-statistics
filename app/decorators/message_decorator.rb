@@ -1,5 +1,6 @@
 class MessageDecorator < Draper::Decorator
   delegate_all
+  decorates_association :events
 
   def uploaded_at
     h.content_tag :span, h.time_ago_in_words(object.uploaded_at), title: object.uploaded_at.to_datetime.to_s(:rfc822)

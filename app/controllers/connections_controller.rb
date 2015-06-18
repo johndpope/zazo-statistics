@@ -1,5 +1,6 @@
 class ConnectionsController < AdminController
   before_action :set_connection, only: [:show, :edit, :update, :destroy, :messages]
+  decorates_assigned :creator_to_target_messages, :target_to_creator_messages
 
   # GET /connections
   # GET /connections.json
@@ -69,12 +70,10 @@ class ConnectionsController < AdminController
       sender_id: @connection.creator.event_id,
       receiver_id: @connection.target.event_id,
       reverse: true).map { |m| Message.new(m) }
-    @creator_to_target_messages = MessageDecorator.decorate_collection(@creator_to_target_messages)
     @target_to_creator_messages = events_api.messages(
       sender_id: @connection.target.event_id,
       receiver_id: @connection.creator.event_id,
       reverse: true).map { |m| Message.new(m) }
-    @target_to_creator_messages = MessageDecorator.decorate_collection(@target_to_creator_messages)
   end
 
   private
