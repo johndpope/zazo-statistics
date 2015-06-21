@@ -32,6 +32,10 @@ class MetricCell < Cell::ViewModel
     line_chart data, height: '800px', min: -5, max: 100, id: chart_id
   end
 
+  def invitation_funnel(*)
+    EventsApi.new.metric_data :invitation_funnel
+  end
+
   def chart_id
     "chart-#{SecureRandom.hex}"
   end

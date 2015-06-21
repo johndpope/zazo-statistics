@@ -1,0 +1,74 @@
+- data = chart
+
+.row
+
+  .col-md-3
+    table.table.table-striped
+      thead
+        tr
+          th colspan='2' Verified (non marketing) sent invitations
+      tbody
+        tr
+          td Total verified
+          td = data['verified_sent_invitations']['total_verified']
+        tr
+          td Verified sent invitations
+          td = data['verified_sent_invitations']['verified_sent_invitations']
+        tr
+          td Sent invitations rate
+          td = (data['verified_sent_invitations']['verified_sent_invitations'].to_f * 100 / data['verified_sent_invitations']['total_verified'].to_f).round 2
+        tr
+          td Average delay
+          td = "#{data['verified_sent_invitations']['avg_delay_in_hours']} hours"
+
+  .col-md-3
+    table.table.table-striped
+      thead
+        tr
+          th Week after becoming verified
+          th Average invitations count
+      tbody
+        - data['average_invitations_count'].each do |row|
+          tr
+            td = row['week_after_verified']
+            td = row['avg_invitations_count']
+
+  .col-md-3
+    table.table.table-striped
+      thead
+        tr
+          th colspan='2' Invited becoming registered
+      tbody
+        tr
+          td Total invited
+          td = data['invited_to_registered']['total_invited']
+        tr
+          td Invited that registered
+          td = data['invited_to_registered']['invited_that_register']
+        tr
+          td Becoming registered rate
+          td = (data['invited_to_registered']['invited_that_register'].to_f * 100 / data['invited_to_registered']['total_invited'].to_f).round 2
+        tr
+          td Average delay
+          td = "#{data['invited_to_registered']['avg_delay_in_hours']} hours"
+
+  .col-md-3
+    table.table.table-striped
+      thead
+        tr
+          th colspan='2' Registered (non marketing) becoming verified
+      tbody
+        tr
+          td Total registered
+          td = data['registered_to_verified']['total_registered']
+        tr
+          td Registered that verified
+          td = data['registered_to_verified']['registered_that_verify']
+        tr
+          td Becoming verified rate
+          td = (data['registered_to_verified']['registered_that_verify'].to_f * 100 / data['registered_to_verified']['total_registered'].to_f).round 2
+        tr
+          td Average delay
+          td = "#{data['registered_to_verified']['avg_delay_in_minutes']} minutes"
+
+
