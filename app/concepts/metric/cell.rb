@@ -1,4 +1,4 @@
-class MetricCell < Cell::ViewModel
+class Metric::Cell < Cell::Concept
   include Chartkick::Helper
 
   layout :layout
@@ -33,7 +33,11 @@ class MetricCell < Cell::ViewModel
   end
 
   def invitation_funnel(*)
-    EventsApi.new.metric_data :invitation_funnel
+    data = EventsApi.new.metric_data :invitation_funnel
+    data.keys.each_with_object({}) do |key, memo|
+      klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
+      memo[key] = klass.nil? ? data[key] : klass.new(data[key])
+    end
   end
 
   def chart_id
