@@ -8,6 +8,11 @@ class UserVisualizationDataQuery::AverageMessagesByPeriodQuery
     @since  = options[:since]  || DEFAULT_SINCE
   end
 
+  def total
+    @since = DateTime.strptime '0', '%s'
+    self
+  end
+
   def execute
     selected = select_users
     return {} if selected.empty?

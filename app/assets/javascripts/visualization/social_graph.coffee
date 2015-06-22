@@ -131,6 +131,7 @@ class Zazo.Visualization.SocialGraph
   getLabelByUser: (user) ->
     "\n#{user.name}\n
     cc:#{user.connection_counts}
+    mt:#{user.total_messages}
     mm:#{user.messages_by_last_month}
     mw:#{user.messages_by_last_week}\n
     #{user.device_platform}"

@@ -23,7 +23,9 @@ class UserVisualizationDataQuery
     users = [@user] if users.empty?
     messages_by_month = AverageMessagesByPeriodQuery.new(users).execute
     messages_by_week  = AverageMessagesByPeriodQuery.new(users, since: Date.today - 1.week).execute
-    UsersVisualizationSerializer.new(users, month: messages_by_month, week: messages_by_week).serialize
+    total_messages    = AverageMessagesByPeriodQuery.new(users).total.execute
+    UsersVisualizationSerializer.new(users, month: messages_by_month,
+                                     week: messages_by_week, total: total_messages).serialize
   end
 
   def serialized_connections
