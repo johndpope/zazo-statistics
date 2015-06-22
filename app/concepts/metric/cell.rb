@@ -34,9 +34,9 @@ class Metric::Cell < Cell::Concept
 
   def invitation_funnel(*)
     data = EventsApi.new.metric_data :invitation_funnel
-    data.keys.each_with_object({}) do |key, memo|
+    data.keys.map do |key|
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
-      memo[key] = klass.nil? ? data[key] : klass.new(data[key])
+      klass.nil? ? { name: key, data: data[key] } : klass.new(data[key])
     end
   end
 

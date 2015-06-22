@@ -1,6 +1,6 @@
-- data = chart
+.row == concept 'metric/invitation_funnel/cell', collection: chart
 
-.row
+/.row
 
   .col-md-3
     table.table.table-striped
@@ -28,7 +28,7 @@
           th Week after becoming verified
           th Average invitations count
       tbody
-        - data['average_invitations_count'].each do |row|
+        - data['average_invitations_count'].data.each do |row|
           tr
             td = row['week_after_verified']
             td = row['avg_invitations_count']
