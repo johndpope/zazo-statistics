@@ -14,7 +14,9 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
     <li>Circle: <%= circle %> friends</li>
     <li>Last month: <%= totalMonth %> msg</li>
     <li>Last week:  <%= totalWeek %> msg</li>
-    <li>Per day: <%= average %> msg</li>
+    <li>Per day last month: <%= average %> msg</li>
+    <%= device ? '<li>' + device + '</li>': '' %>
+
   "
 
   settings:
@@ -29,6 +31,7 @@ class Zazo.Visualization.UserInfo extends Zazo.Visualization.Block
       totalMonth: user.messages_by_last_month
       totalWeek:  user.messages_by_last_week
       average:    user.average_messages_per_day
+      device:     user.device_platform
     @showContainer position
 
   showContainer: (position) ->

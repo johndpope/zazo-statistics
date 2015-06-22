@@ -1,9 +1,13 @@
 class UsersVisualizationSerializer < PackSerializer
-  ATTRIBUTES = [:id, :name, :mobile_number, :status,
+  ATTRIBUTES = [:id, :name, :mobile_number, :status, :device_platform,
                 :connection_counts, :messages_by_last_month,
                 :messages_by_last_week, :average_messages_per_day]
 
   private
+
+  def member_device_platform(user)
+    user.device_platform.nil? ? '' : "##{user.device_platform} device"
+  end
 
   def member_connection_counts(user)
     user.respond_to?(:connection_counts) ? user.connection_counts : 0
