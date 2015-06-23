@@ -3,8 +3,7 @@ class MetricsController < AdminController
 
   def index
     metrics_list = events_api.metric_list
-    allowed_metrics = %w(active_users messages_sent usage_by_active_users onboarding_info invitation_funnel)
-    @metrics = metrics_list.is_a?(Array) && allowed_metrics.each_with_object([]) do |name, memo|
+    @metrics = metrics_list.is_a?(Array) && Settings.allowed_metrics.each_with_object([]) do |name, memo|
       metric = metrics_list.find { |m| m['name'] == name }
       memo << Metric.new(metric) if metric
     end
