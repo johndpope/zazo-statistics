@@ -30,6 +30,13 @@ defaults: &settings
     - nz
     - se
   default_per_page: 100
+  allowed_metrics:
+    - active_users
+    - messages_sent
+    - usage_by_active_users
+    - onboarding_info
+    - invitation_funnel
+    - upload_duplications
 
 development:
   <<: *settings
