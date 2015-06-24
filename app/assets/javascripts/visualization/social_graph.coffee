@@ -129,12 +129,13 @@ class Zazo.Visualization.SocialGraph
     _(data.users).find (u) -> u.id == parseInt id
 
   getLabelByUser: (user) ->
-    "\n#{user.name}\n
+    "#{user.name}\n
+    #{user.device_platform}
     cc:#{user.connection_counts}
     mt:#{user.total_messages}
     mm:#{user.messages_by_last_month}
-    mw:#{user.messages_by_last_week}\n
-    #{user.device_platform}"
+    mw:#{user.messages_by_last_week}"
+
 
   visualizeAnotherUser: (userId) ->
     href = window.location.href.split('?')[0]
