@@ -6,7 +6,7 @@ class UsersVisualizationSerializer < PackSerializer
   private
 
   def member_device_platform(user)
-    user.device_platform.nil? ? '' : "##{user.device_platform} device"
+    user.device_platform.nil? ? '' : user.device_platform[0]
   end
 
   def member_connection_counts(user)
