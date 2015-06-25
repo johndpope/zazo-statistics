@@ -4,9 +4,9 @@ class Metric::InvitationFunnel::VerifiedSentInvitation < Metric::InvitationFunne
              delay:   'avg_delay_in_hours',
              delay_meas: 'hours'
 
-  titles metric_title:  'Verified (non marketing) sent invitations',
+  titles metric_title:  'Invites by Non Marketing Verified Users (NMVs)',
          total_title:   'Total verified',
          reduced_title: 'Verified sent invitations',
-         rate_title:    'Sent invitations rate',
+         rate_title:    'Invites per NMV',
          delay_title:   'Average delay'
 end
