@@ -4,7 +4,7 @@ class Metric::InvitationFunnel::VerifiedToActive < Metric::InvitationFunnel::Rat
              delay:   'avg_delay_in_minutes',
              delay_meas: 'minutes'
 
-  titles metric:  'NMV Becoming Active',
+  titles metric:  'NMV becoming Active',
          total:   'Total NMVs',
          reduced: 'Active NMVs',
          rate:    'Becoming active rate',
