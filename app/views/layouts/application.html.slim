@@ -9,7 +9,9 @@ html
     title
       = content_for?(:title) ? yield(:title) : 'Zazo'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Zazo'}"
-    == stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => false
+    == stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => true
+    == javascript_include_tag '//www.google.com/jsapi', 'chartkick'
+    == javascript_include_tag 'application', 'data-turbolinks-track' => true
     == csrf_meta_tags
   body
     header
@@ -17,6 +19,4 @@ html
     main role="main"
       == render 'layouts/messages'
       == yield
-    == javascript_include_tag '//www.google.com/jsapi', 'chartkick'
-    == javascript_include_tag 'application', 'data-turbolinks-track' => false
     == yield :page_specific_scripts
