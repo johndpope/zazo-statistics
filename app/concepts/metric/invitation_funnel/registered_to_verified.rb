@@ -4,9 +4,9 @@ class Metric::InvitationFunnel::RegisteredToVerified < Metric::InvitationFunnel:
              delay:   'avg_delay_in_minutes',
              delay_meas: 'minutes'
 
-  titles metric_title:  'Registered (non marketing) becoming verified',
-         total_title:   'Total registered',
-         reduced_title: 'Registered that verified',
-         rate_title:    'Becoming verified rate',
-         delay_title:   'Average delay'
+  titles metric:  'NMR becoming verified',
+         total:   'Total NMRs',
+         reduced: 'Verified NMRs',
+         rate:    'Becoming verified rate',
+         delay:   'Average delay'
 end
