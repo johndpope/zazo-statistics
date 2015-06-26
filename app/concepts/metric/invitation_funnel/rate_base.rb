@@ -3,23 +3,18 @@ module Metric::InvitationFunnel
     TYPE = :rate_base
 
     class << self
-      attr_accessor :total_key, :reduced_key, :delay_key,
-                    :delay_meas, :metric_title, :total_title,
-                    :reduced_title, :rate_title, :delay_title
+      attr_writer :titles, :properties
 
-      def properties(props)
-        self.total_key   = props[:total]
-        self.reduced_key = props[:reduced]
-        self.delay_key   = props[:delay]
-        self.delay_meas  = props[:delay_meas]
+      def properties(props = {})
+        props.empty? ? @properties : self.properties = props
       end
 
-      def titles(props)
-        self.metric_title  = props[:metric_title]
-        self.total_title   = props[:total_title]
-        self.reduced_title = props[:reduced_title]
-        self.rate_title    = props[:rate_title]
-        self.delay_title   = props[:delay_title]
+      def titles(props = {})
+        props.empty? ? @titles : self.titles = props
+      end
+
+      def property(key)
+        properties[key]
       end
     end
 
@@ -27,28 +22,34 @@ module Metric::InvitationFunnel
       @data = data
     end
 
+    def title(key)
+      self.class.titles[key]
+    end
+
     def total
-      @data[self.class.total_key].to_i
+      @data[self.class.property :total].to_i
     end
 
     def reduced
-      @data[self.class.reduced_key].to_i
-    end
-
-    def rate
-      (reduced * 100.0 / total).round 2
+      reduced_with_rate @data[self.class.property :reduced].to_i
     end
 
     def delay
-      @data[self.class.delay_key]
+      @data[self.class.property :delay]
     end
 
-    def method_missing(method, *)
-      self.class.respond_to?(method) ? self.class.send(method) : super
+    def delay_meas
+      self.class.property :delay_meas
     end
 
-    def respond_to?(method, *)
-      self.class.public_methods.include?(method) || super
+    protected
+
+    def rate_by_total(reduced)
+      (reduced * 100.0 / total).round 2
+    end
+
+    def reduced_with_rate(reduced)
+      "#{reduced} = #{rate_by_total reduced}%"
     end
   end
 end

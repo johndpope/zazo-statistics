@@ -5,7 +5,7 @@ class Metric::InvitationFunnel::Cell < Cell::Concept
 
   private
 
-  def method_missing(method, *)
-    self.model.respond_to?(method) ? self.model.send(method) : super
+  def method_missing(method, *arguments, &block)
+    self.model.respond_to?(method) ? self.model.send(method, *arguments) : super
   end
 end
