@@ -17,6 +17,8 @@
 @import vis.min
 @import visualization
 
+$label-active-bg: #af1ddb !default
+
 .status
   @extend .label
   &.initialized
@@ -36,7 +38,7 @@
   &.viewed
     @extend .label-success
   &.active
-    @extend .label-success
+    @include label-variant($label-active-bg)
   &.failed_to_register
     @extend .label-danger
   &.established

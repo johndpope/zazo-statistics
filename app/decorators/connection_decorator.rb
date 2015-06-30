@@ -13,4 +13,10 @@ class ConnectionDecorator < Draper::Decorator
     end
     h.link_to "#{user.name} (#{user.mobile_number})", user
   end
+
+
+  def status(user)
+    new_status = object.active? ? :active : user.status
+    h.status_tag new_status
+  end
 end

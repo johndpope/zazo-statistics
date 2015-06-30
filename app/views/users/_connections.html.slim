@@ -6,14 +6,26 @@ p = user.connections_counts_by_groups
 
 table.table
   tr
-    th{style='width: 28%;'} User
-    th Direction
-    th Active?
+    th Friend
+    th Status
+    th To
+    th To Incomplete
+    th To Unviewed
+    th From
+    th From Incomplete
+    th From Unviewed
     th Link
   - user.grouped_connections.each do |conn|
     tr
-      td = conn.friend_info user.id
-      td = conn.direction_arrow user.id
       td
-        span class="#{conn.active?}-value"
+        = conn.friend_info user.id
+        ' &nbsp;
+        = conn.direction_arrow user.id
+      td = conn.status user
+      td
+      td
+      td
+      td
+      td
+      td
       td = link_to 'Show', conn
