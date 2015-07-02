@@ -16,16 +16,19 @@ table.table
     th From Unviewed
     th Link
   - user.grouped_connections.each do |conn|
+    - message_statuses = events_api.metric_data(:messages_statuses_between_users,
+        user_id: user.event_id,
+        friend_id: conn.connected_user(user.id).event_id)
     tr
       td
         = conn.friend_info user.id
         ' &nbsp;
         = conn.direction_arrow user.id
       td = conn.status user
-      td
-      td
-      td
-      td
-      td
-      td
+      td = message_statuses['outgoing']['sent']
+      td = part_and_percentage message_statuses['outgoing']['sent'], message_statuses['outgoing']['incomplete']
+      td = part_and_percentage message_statuses['outgoing']['sent'], message_statuses['outgoing']['unviewed']
+      td = message_statuses['incoming']['sent']
+      td = part_and_percentage message_statuses['incoming']['sent'], message_statuses['incoming']['incomplete']
+      td = part_and_percentage message_statuses['incoming']['sent'], message_statuses['incoming']['unviewed']
       td = link_to 'Show', conn

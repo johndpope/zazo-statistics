@@ -22,7 +22,6 @@ class UsersController < AdminController
   # GET /users/1
   # GET /users/1.json
   def show
-    @aggregate_messaging_info = events_api.metric_data(:aggregate_messaging_info, user_id: @user.event_id)
   end
 
   # GET /users/new

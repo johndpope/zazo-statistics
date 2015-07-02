@@ -2,9 +2,12 @@ class Message
   include ActiveModel::Model
   include Draper::Decoratable
   attr_accessor :id, :sender_id, :receiver_id, :uploaded_at,
-                :file_name, :file_size, :status, :delivered, :events
+                :file_name, :file_size, :status, :delivered, :events,
+                :completed, :viewed, :missing_events
 
   alias_method :delivered?, :delivered
+  alias_method :completed?, :completed
+  alias_method :viewed?, :viewed
   alias_method :to_s, :file_name
 
   def events

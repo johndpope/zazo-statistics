@@ -64,6 +64,14 @@ class Connection < ActiveRecord::Base
     ckey
   end
 
+  def connected_user(user_id)
+    if creator_id == user_id
+      target
+    else
+      creator
+    end
+  end
+
   private
 
   def key_search(sender, receiver)
