@@ -16,19 +16,20 @@ table.table
     th From Unviewed
     th Link
   - user.grouped_connections.each do |conn|
+    - connected_user = conn.connected_user(user.id)
     - message_statuses = events_api.metric_data(:messages_statuses_between_users,
         user_id: user.event_id,
-        friend_id: conn.connected_user(user.id).event_id)
+        friend_id: connected_user.event_id)
     tr
       td
         = conn.friend_info user.id
         ' &nbsp;
         = conn.direction_arrow user.id
       td = conn.status user
-      td = message_statuses['outgoing']['sent']
-      td = part_and_percentage message_statuses['outgoing']['sent'], message_statuses['outgoing']['incomplete']
-      td = part_and_percentage message_statuses['outgoing']['sent'], message_statuses['outgoing']['unviewed']
-      td = message_statuses['incoming']['sent']
-      td = part_and_percentage message_statuses['incoming']['sent'], message_statuses['incoming']['incomplete']
-      td = part_and_percentage message_statuses['incoming']['sent'], message_statuses['incoming']['unviewed']
+      td = link_to message_statuses['outgoing']['sent'], messages_path(sender_id: user.event_id, receiver_id: connected_user.event_id, reverse: true, per: 1000)
+      td = link_to part_and_percentage(message_statuses['outgoing']['sent'], message_statuses['outgoing']['incomplete']), messages_path(sender_id: user.event_id, receiver_id: connected_user.event_id, filter: :incomplete, reverse: true, per: 1000)
+      td = link_to part_and_percentage(message_statuses['outgoing']['sent'], message_statuses['outgoing']['unviewed']), messages_path(sender_id: user.event_id, receiver_id: connected_user.event_id, filter: :unviewed, reverse: true, per: 1000)
+      td = link_to message_statuses['incoming']['sent'], messages_path(sender_id: user.event_id, receiver_id: connected_user.event_id, reverse: true, per: 1000)
+      td = link_to part_and_percentage(message_statuses['incoming']['sent'], message_statuses['incoming']['incomplete']), messages_path(sender_id: connected_user.event_id, receiver_id: user.event_id, filter: :incomplete, reverse: true, per: 1000)
+      td = link_to part_and_percentage(message_statuses['incoming']['sent'], message_statuses['incoming']['unviewed']), messages_path(sender_id: connected_user.event_id, receiver_id: user.event_id, filter: :unviewed, reverse: true, per: 1000)
       td = link_to 'Show', conn
