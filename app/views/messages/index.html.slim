@@ -1,0 +1,20 @@
+section
+  .col-md-12
+    h1 Messages
+    
+section
+  .col-md-12
+    table.table
+      caption
+        ' From #{link_to(@sender.info, @sender)} 
+        ' to #{link_to(@receiver.info, @receiver)}
+        ' (last 100 in reverse-chronological order)
+      thead
+        tr
+          th File name
+          th Uploaded at
+          th File size
+          th Status
+          th Delivered?
+      tbody
+        == render @messages
