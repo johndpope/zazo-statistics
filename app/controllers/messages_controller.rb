@@ -3,7 +3,12 @@ class MessagesController < AdminController
     raw = events_api.messages(messages_params)
     @sender = User.find_by_mkey(messages_params[:sender_id])
     @receiver = User.find_by_mkey(messages_params[:receiver_id])
-    @messages = raw.map { |m| Message.new(m).decorate }
+    @messages = raw.map { |m| Message.new(m) }
+    filter = params[:filter]
+    if filter && Message.new.respond_to?(:"#{filter}?")
+      @messages.select!(&:"#{filter}?")
+    end
+    @messages = MessageDecorator.decorate_collection(@messages)
   end
 
   def show

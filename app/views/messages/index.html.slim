@@ -8,7 +8,9 @@ section
       caption
         ' From #{link_to(@sender.info, @sender)} 
         ' to #{link_to(@receiver.info, @receiver)}
-        ' (last 100 in reverse-chronological order)
+        ' last #{params.fetch(:per, 100)} items
+        - if params[:reverse]
+          ' in reverse order
       thead
         tr
           th File name
@@ -16,5 +18,8 @@ section
           th File size
           th Status
           th Delivered?
+          th Complete?
+          th Viewed?
+          th Missing events
       tbody
         == render @messages
