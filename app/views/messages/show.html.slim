@@ -26,6 +26,15 @@ section
       tr
         td Delivered?
         td = @message.delivered_mark
+      tr
+        td Complete?
+        td = @message.complete_mark  
+      tr
+        td Viewed?
+        td = @message.viewed_mark
+      tr
+        td Missing events
+        td = @message.missing_events
         
 section
   .col-md-12

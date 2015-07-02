@@ -4,9 +4,9 @@ class MessagesController < AdminController
     @sender = User.find_by_mkey(messages_params[:sender_id])
     @receiver = User.find_by_mkey(messages_params[:receiver_id])
     @messages = raw.map { |m| Message.new(m) }
-    filter = params[:filter]
-    if filter && Message.new.respond_to?(:"#{filter}?")
-      @messages.select!(&:"#{filter}?")
+    @filter = params[:filter]
+    if @filter && Message.new.respond_to?(:"#{@filter}?")
+      @messages.select!(&:"#{@filter}?")
     end
     @messages = MessageDecorator.decorate_collection(@messages)
   end

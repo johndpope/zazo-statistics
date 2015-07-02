@@ -11,6 +11,8 @@ section
         ' last #{params.fetch(:per, 100)} items
         - if params[:reverse]
           ' in reverse order
+        - if @filter
+          ' with <strong>#{@filter}</strong> filter
       thead
         tr
           th File name
