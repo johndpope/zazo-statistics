@@ -22,6 +22,9 @@ class UsersController < AdminController
   # GET /users/1
   # GET /users/1.json
   def show
+    @message_statuses = events_api.metric_data(:messages_statuses_between_users,
+                                               user_id: @user.event_id,
+                                               friend_ids: @user.connected_users.map(&:event_id))
   end
 
   # GET /users/new
