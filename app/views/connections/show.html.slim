@@ -26,4 +26,6 @@ table.table
 ' &nbsp;
 = link_to 'Edit', edit_connection_path(@connection), class: 'btn btn-default'
 ' &nbsp;
-= link_to 'Messages', messages_connection_path(@connection), class: 'btn btn-default'
+= link_to('Messages: creator -> target', messages_path(sender_id: @connection.creator.event_id, receiver_id: @connection.target.event_id, reverse: true), class: 'btn btn-default')
+' &nbsp;
+= link_to('Messages: target -> creator', messages_path(sender_id: @connection.target.event_id, receiver_id: @connection.creator.event_id, reverse: true), class: 'btn btn-default')

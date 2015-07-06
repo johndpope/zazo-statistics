@@ -65,17 +65,6 @@ class ConnectionsController < AdminController
     end
   end
 
-  def messages
-    @creator_to_target_messages = events_api.messages(
-      sender_id: @connection.creator.event_id,
-      receiver_id: @connection.target.event_id,
-      reverse: true).map { |m| Message.new(m) }
-    @target_to_creator_messages = events_api.messages(
-      sender_id: @connection.target.event_id,
-      receiver_id: @connection.creator.event_id,
-      reverse: true).map { |m| Message.new(m) }
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
