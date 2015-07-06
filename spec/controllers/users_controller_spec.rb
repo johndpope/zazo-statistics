@@ -210,29 +210,8 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
     let(:user) { create(:user) }
     subject { get :show, id: user.to_param }
 
-    around do |example|
-      VCR.use_cassette('events/metrics/aggregate_messaging_info', erb: {
-                         base_url: Figaro.env.events_api_base_url,
-                         user_id: user.event_id }) { example.run }
-    end
-
-    it 'calls EventsApi#metric_data with valid params' do
-      expect_any_instance_of(EventsApi).to receive(:metric_data).with(:aggregate_messaging_info, user_id: user.event_id).and_call_original
-      subject
-    end
-
-    it 'converts to Event instances' do
-      subject
-      expect(assigns(:aggregate_messaging_info)).to eq('outgoing' => {
-                                                         'total_sent' => 0,
-                                                         'total_received' => 0,
-                                                         'undelivered_percent' => nil
-                                                       },
-                                                       'incoming' => {
-                                                         'total_sent' => 0,
-                                                         'total_received' => 0,
-                                                         'undelivered_percent' => nil
-                                                       })
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
     end
   end
 end

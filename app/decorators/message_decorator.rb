@@ -14,10 +14,6 @@ class MessageDecorator < Draper::Decorator
     h.status_tag object.status
   end
 
-  def delivered_mark
-    h.content_tag :span, '', class: "#{object.delivered}-value"
-  end
-
   def sender
     sender = User.find_by(mkey: object.sender_id)
     h.link_to sender.name, sender
@@ -26,5 +22,24 @@ class MessageDecorator < Draper::Decorator
   def receiver
     receiver = User.find_by(mkey: object.receiver_id)
     h.link_to receiver.name, receiver
+  end
+
+  def delivered_mark
+    h.content_tag :span, '', class: "#{object.delivered}-value"
+  end
+
+  def complete_mark
+    h.content_tag :span, '', class: "#{object.complete}-value"
+  end
+
+  def viewed_mark
+    h.content_tag :span, '', class: "#{object.viewed}-value"
+  end
+
+  def missing_events
+    object.missing_events.map do |name|
+      _, namespace, action = name
+      "#{namespace.first.upcase}:#{action.first.upcase}"
+    end.join(' ')
   end
 end

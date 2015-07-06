@@ -4,4 +4,5 @@ class AdminController < ApplicationController
   def events_api
     EventsApi.new
   end
+  helper_method :events_api
 end

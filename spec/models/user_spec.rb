@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:first_name).of_type(:string) }
     it { is_expected.to have_db_column(:last_name).of_type(:string) }
     it { is_expected.to have_db_column(:mobile_number).of_type(:string) }
-    it { is_expected.to have_db_column(:email).of_type(:string) }
+    it { is_expected.to have_db_column(:emails).of_type(:text) }
     it { is_expected.to have_db_column(:user_name).of_type(:string) }
     it { is_expected.to have_db_column(:device_platform).of_type(:string) }
     it { is_expected.to have_db_column(:auth).of_type(:string) }
@@ -44,7 +44,10 @@ RSpec.describe User, type: :model do
     subject { described_class.search(query) }
     let!(:user1) { create(:user, first_name: 'Alex', last_name: 'Smith') }
     let!(:user2) { create(:user, first_name: 'Serhii', last_name: 'Ulianytskyi') }
-    let!(:user3) { create(:user, mobile_number: '+380939523746') }
+    let!(:user3) do
+      create(:user, first_name: 'Ivan', last_name: 'Ivanov',
+                    mobile_number: '+380939523746')
+    end
 
     context 'Alex' do
       let(:query) { 'Alex' }
