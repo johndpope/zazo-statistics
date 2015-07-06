@@ -21,4 +21,12 @@ class Message
   def unviewed?
     !viewed?
   end
+
+  def sender_id
+    @sender_id ||= file_name.split('-').first
+  end
+
+  def receiver_id
+    @receiver_id ||= file_name.split('-').second
+  end
 end

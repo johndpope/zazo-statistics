@@ -10,7 +10,7 @@ section
           ' from #{link_to(@sender.info, @sender)}
         - if @receiver
           ' to #{link_to(@receiver.info, @receiver)}
-        ' last #{params.fetch(:per, 100)} items
+        ' last #{@messages.size} (#{params.fetch(:per, 100)}) items
         - if params[:reverse]
           ' in reverse order
         - if @filter
