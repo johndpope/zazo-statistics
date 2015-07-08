@@ -12,6 +12,6 @@ class Fetch
   def do
     Classifier.new([prefix, name]).klass.new(options).execute
   rescue NameError
-    raise UnknownClass, "#{prefix.camelize}::#{name.camelize} not found"
+    raise UnknownClass, "#{[prefix, name].map(&:camelize).join '::'} class not found"
   end
 end
