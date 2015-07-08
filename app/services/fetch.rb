@@ -5,13 +5,13 @@ class Fetch
 
   def initialize(prefix, name, options = {})
     @options = options
-    @prefix  = prefix.to_s
-    @name    = name.to_s
+    @prefix  = prefix
+    @name    = name
   end
 
   def do
     Classifier.new([prefix, name]).klass.new(options).execute
   rescue NameError
-    raise UnknownClass, "#{[prefix, name].map(&:camelize).join '::'} class not found"
+    raise UnknownClass, "#{[prefix, name].compact.map(&:camelize).join '::'} class not found"
   end
 end

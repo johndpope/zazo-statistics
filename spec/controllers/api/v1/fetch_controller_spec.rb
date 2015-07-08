@@ -1,10 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::FetchController, type: :controller do
-  before  { routes.draw { get 'show' => 'api/v1/fetch#show' } }
+  describe 'GET #show' do
+    subject { get :show, id: '', name: :anything }
 
-  describe 'GET "filter/:id"' do
-    subject { get :show, id: name, prefix: :filter }
+    specify do
+      subject
+      expect(response).to have_http_status(:not_found)
+      expect(json_response).to eq('error' => 'Anything class not found')
+    end
+  end
+
+  describe 'GET "filter/:name"' do
+    subject { get :show, id: '', prefix: :filter, name: name }
 
     context 'unknown' do
       let(:name) { :unknown }
