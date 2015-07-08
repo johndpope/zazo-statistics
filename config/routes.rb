@@ -4,6 +4,8 @@ ZazoStatistics::Application.routes.draw do
   get 'dashboard/users_created'
   get 'dashboard/users_device_platform'
   get 'dashboard/users_status'
+  get 'status/new_users_today'
+  get 'status/new_verified_users_today'
 
   resources :connections
   resources :users do
