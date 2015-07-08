@@ -134,7 +134,7 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
 
   describe 'GET #index' do
     let(:user) { create(:user) }
-
+    
     describe 'search' do
       context 'by first_name' do
         let(:params) { { query: user.first_name } }
@@ -169,6 +169,16 @@ RSpec.describe UsersController, type: :controller, authenticate_with_http_basic:
         specify do
           get :index, params
           expect(response).to redirect_to(user)
+        end
+
+        context 'when mkey converts to integer' do
+          let!(:wrong_user) { create(:user, id: 1) }
+          let!(:user) { create(:user, id: 2, mkey: '01GGDDAAaWtDUZvPMTHx') }
+
+          specify do
+            get :index, params
+            expect(response).to redirect_to(user)
+          end
         end
       end
 
