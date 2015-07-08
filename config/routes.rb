@@ -17,8 +17,8 @@ ZazoStatistics::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :filters, only: [] do
-        get ':id' => :show, on: :collection
+      resources :fetch, only: [] do
+        get 'filter/:id' => :show, prefix: :filter, on: :collection
       end
     end
   end
