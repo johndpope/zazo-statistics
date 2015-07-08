@@ -8,8 +8,13 @@ class UsersController < AdminController
   # GET /users
   # GET /users.json
   def index
-    if params[:user_id_or_mkey].present?
-      user = User.where('id = ? OR mkey = ?', params[:user_id_or_mkey], params[:user_id_or_mkey]).first
+    term = params[:user_id_or_mkey]
+    if term.present?
+      user = if term =~ /^\d+$/i
+                User.find(term.to_i)
+             else
+                User.find_by_mkey(term)
+             end
       if user.present?
         redirect_to(user)
       else
