@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Filter::NotVerified, type: :model do
+RSpec.describe Fetch::Filter::NotVerified, type: :model do
   let(:instance) { described_class.new }
 
   let!(:conn) { FactoryGirl.create :connection }
