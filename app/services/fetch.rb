@@ -10,8 +10,8 @@ class Fetch
   end
 
   def do
-    Classifier.new([prefix, name]).klass.new(options).execute
+    Classifier.new([:fetch, prefix, name]).klass.new(options).execute
   rescue NameError
-    raise UnknownClass, "#{[prefix, name].compact.map(&:camelize).join '::'} class not found"
+    raise UnknownClass, "#{[prefix, name].compact.map(&:to_s).map(&:camelize).join '::'} class not found"
   end
 end

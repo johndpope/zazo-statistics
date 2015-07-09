@@ -19,6 +19,7 @@ ZazoStatistics::Application.routes.draw do
     namespace :v1 do
       resources :fetch, only: [:show] do
         get 'filter/:name' => :show, prefix: :filter, on: :collection, as: :filter
+        post 'by/:name' => :show, prefix: :by, on: :collection, as: :by
       end
     end
   end
