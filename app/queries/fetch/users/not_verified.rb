@@ -1,6 +1,7 @@
-class Fetch::Filter::NotVerified < Fetch::Base
+class Fetch::Users::NotVerified < Fetch::Base
   def execute
     data = query
+
     data.each do |row|
       row['invitee'].strip!
       row['inviter'].strip!

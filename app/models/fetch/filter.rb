@@ -1,3 +1,0 @@
-module Fetch::Filter
-
-end

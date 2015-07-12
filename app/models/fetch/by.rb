@@ -1,3 +1,0 @@
-module Fetch::By
-
-end
