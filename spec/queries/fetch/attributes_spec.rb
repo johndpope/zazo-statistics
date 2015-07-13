@@ -22,10 +22,20 @@ RSpec.describe Fetch::Attributes, type: :model do
   end
 
   describe 'validations' do
-    let(:options) { Hash.new }
+    context 'without options' do
+      let(:options) { Hash.new }
 
-    specify do
-      expect{ instance.do }.to raise_error(Fetch::InvalidOptions)
+      specify do
+        expect{ instance.do }.to raise_error(Fetch::InvalidOptions)
+      end
+    end
+
+    context 'with disallowed attrs' do
+      let(:options) { { user: conn.target.mkey, attrs: [:destroy] } }
+
+      specify do
+        expect{ instance.do }.to raise_error(Fetch::InvalidOptions, '{:attrs=>["attr destroy is not allowed"]}')
+      end
     end
   end
 end

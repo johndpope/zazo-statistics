@@ -4,7 +4,7 @@ class Api::V1::FetchController < ApplicationController
   rescue Fetch::InvalidOptions => error
     render json: { errors: error.message }, status: :unprocessable_entity
   rescue Fetch::UnknownClass => error
-    render json: { error: error.message }, status: :not_found
+    render json: { errors: error.message }, status: :not_found
   end
 
   private
