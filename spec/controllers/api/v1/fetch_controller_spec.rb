@@ -7,7 +7,7 @@ RSpec.describe Api::V1::FetchController, type: :controller do
     specify do
       subject
       expect(response).to have_http_status(:not_found)
-      expect(json_response).to eq('error' => 'Anything class not found')
+      expect(json_response).to eq('errors' => 'Anything class not found')
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::FetchController, type: :controller do
       specify do
         subject
         expect(response).to have_http_status(:not_found)
-        expect(json_response).to eq('error' => 'Users::Unknown class not found')
+        expect(json_response).to eq('errors' => 'Users::Unknown class not found')
       end
     end
 
