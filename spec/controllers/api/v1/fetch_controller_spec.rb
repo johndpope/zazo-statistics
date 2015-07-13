@@ -11,8 +11,8 @@ RSpec.describe Api::V1::FetchController, type: :controller do
     end
   end
 
-  describe 'GET "filter/:name"' do
-    subject { get :show, id: '', prefix: :filter, name: name }
+  describe 'GET "users/:name"' do
+    subject { get :show, id: '', prefix: :users, name: name }
 
     context 'unknown' do
       let(:name) { :unknown }
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::FetchController, type: :controller do
       specify do
         subject
         expect(response).to have_http_status(:not_found)
-        expect(json_response).to eq('error' => 'Filter::Unknown class not found')
+        expect(json_response).to eq('error' => 'Users::Unknown class not found')
       end
     end
 

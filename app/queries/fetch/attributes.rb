@@ -14,7 +14,7 @@ class Fetch::Attributes < Fetch::Base
   private
 
   def set_options
-    @user  = User.find_by mkey: options[:user]
-    @attrs = Array options[:attrs]
+    @user  = User.find_by mkey: options['user']
+    @attrs = Array options['attrs']
   end
 end

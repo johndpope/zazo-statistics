@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Fetch::Filter::NotVerified, type: :model do
+RSpec.describe Fetch::Users::NotVerified, type: :model do
   let(:instance) { described_class.new }
 
   let!(:conn) { FactoryGirl.create :connection }
 
-  describe '#generate' do
+  describe '#execute' do
     subject { instance.execute }
 
     specify do
