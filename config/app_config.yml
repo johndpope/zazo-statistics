@@ -36,6 +36,7 @@ defaults: &settings
     - usage_by_active_users
     - onboarding_info
     - invitation_funnel
+    - messages_failures
 
 development:
   <<: *settings

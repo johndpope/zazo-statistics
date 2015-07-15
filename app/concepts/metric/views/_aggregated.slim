@@ -1,0 +1,19 @@
+.col-md-12
+  table.table
+    thead
+      tr
+        - data.each_key do |key|
+          th
+            = key.titleize
+            - if key == total_attribute
+              '  (total)
+            - else
+              '  (% of total)
+    tbody
+      tr
+        - data.each do |key, value|
+          td
+            - if key == total_attribute
+              = value
+            - else
+              = part_and_percentage data[total_attribute], value
