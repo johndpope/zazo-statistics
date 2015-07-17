@@ -8,9 +8,6 @@
     tbody
       - data.each do |key, value|
         tr class=("total" if key == total_attribute)
-          td
-            = key.titleize
-          td
-            = value
-          td
-            = number_to_percentage(value * 100.0 / data[total_attribute], precision: 2)
+          td = key.titleize
+          td = value
+          td = number_to_percentage(value * 100.0 / data[total_attribute], precision: 2)
