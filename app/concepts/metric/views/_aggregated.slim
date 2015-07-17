@@ -2,18 +2,15 @@
   table.table
     thead
       tr
-        - data.each_key do |key|
-          th
-            = key.titleize
-            - if key == total_attribute
-              '  (total)
-            - else
-              '  (% of total)
+        th Parameter
+        th Value
+        th Part of total, %
     tbody
-      tr
-        - data.each do |key, value|
+      - data.each do |key, value|
+        tr class=("total" if key == total_attribute)
           td
-            - if key == total_attribute
-              = value
-            - else
-              = part_and_percentage data[total_attribute], value
+            = key.titleize
+          td
+            = value
+          td
+            = number_to_percentage(value * 100.0 / data[total_attribute], precision: 2)

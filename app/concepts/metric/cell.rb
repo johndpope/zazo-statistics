@@ -1,7 +1,6 @@
 class Metric::Cell < Cell::Concept
   include Chartkick::Helper
   include ActionView::Helpers::NumberHelper
-  include ApplicationHelper
 
   layout :layout
   property :type
