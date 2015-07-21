@@ -14,10 +14,4 @@ module UsersHelper
     }
     content_tag :div, '', id: 'visualization', data: data
   end
-
-  def part_and_percentage(total, part)
-    number = total.zero? ? 0 : part * 100.0 / total
-    percent = number_to_percentage(number, precision: 2)
-    "#{part} (#{percent})"
-  end
 end

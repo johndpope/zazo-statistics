@@ -1,5 +1,6 @@
 class Metric::Cell < Cell::Concept
   include Chartkick::Helper
+  include ActionView::Helpers::NumberHelper
 
   layout :layout
   property :type
@@ -26,7 +27,18 @@ class Metric::Cell < Cell::Concept
   end
 
   def metric_data(name)
-    EventsApi.new.metric_data(name)
+    @metric_data ||= EventsApi.new.metric_data(name)
+  end
+
+  def data
+    return @data if @data
+    @data = metric_data(name)
+    @data.key?('data') && @data = @data['data']
+    @data
+  end
+
+  def total_attribute
+    @metric_data['meta']['total']
   end
 
   def aggregated_by_timeframe(options)
@@ -35,13 +47,11 @@ class Metric::Cell < Cell::Concept
   end
 
   def onboarding_info(*)
-    data = metric_data :onboarding_info
-    data = data.keys.map { |key| { name: key, data: data[key] } }
+    data.keys.map { |key| { name: key, data: data[key] } }
     line_chart data, height: '800px', min: -5, max: 100, id: chart_id
   end
 
   def invitation_funnel(*)
-    data = metric_data :invitation_funnel
     data.keys.map do |key|
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
       klass.nil? ? { name: key, data: data[key] } : klass.new(data[key])
@@ -49,9 +59,12 @@ class Metric::Cell < Cell::Concept
   end
 
   def upload_duplications(*)
-    raw_data = metric_data :upload_duplications
-    mkeys = raw_data.map { |i| i['sender_id'] }
-    data = User.where(mkey: mkeys).group(:device_platform).count
-    pie_chart data, colors: ['grey', 'green', 'blue'], id: chart_id
+    mkeys = data.map { |i| i['sender_id'] }
+    new_data = User.where(mkey: mkeys).group(:device_platform).count
+    pie_chart new_data, colors: ['grey', 'green', 'blue'], id: chart_id
+  end
+
+  def aggregated(*)
+    pie_chart data.except(total_attribute), id: chart_id
   end
 end
