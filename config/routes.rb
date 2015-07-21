@@ -17,6 +17,18 @@ ZazoStatistics::Application.routes.draw do
   resources :metrics, only: [:index, :show]
   resources :messages, only: [:index, :show]
 
+  namespace :api do
+    namespace :v1 do
+      resources :fetch, only: [:show] do
+        collection do
+          get  ':name' => :show
+          get  'users/:name' => :show, prefix: :users
+          post 'users/:name' => :show, prefix: :users
+        end
+      end
+    end
+  end
+
   get 'landing' => 'landing#index'
   get 'l/:id' => 'landing#invite'
   get 'privacy' => 'landing#privacy'
