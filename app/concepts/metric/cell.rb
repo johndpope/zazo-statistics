@@ -47,8 +47,8 @@ class Metric::Cell < Cell::Concept
   end
 
   def onboarding_info(*)
-    data.keys.map { |key| { name: key, data: data[key] } }
-    line_chart data, height: '800px', min: -5, max: 100, id: chart_id
+    new_data = data.keys.map { |key| { name: key, data: data[key] } }
+    line_chart new_data, height: '800px', min: -5, max: 100, id: chart_id
   end
 
   def invitation_funnel(*)
