@@ -1,0 +1,35 @@
+form.form-horizontal.x-growth_calculator
+  .form-group
+    label.col-sm-3.control-label NMVs sent an invite
+    .col-sm-3
+      .input-group
+        input.form-control.x-nmv_sent_invite_rate value='#{nmv_sent_invite_rate}'
+        .input-group-addon %
+
+  .form-group
+    label.col-sm-3.control-label Total invites per NMV
+    .col-sm-3
+      input.form-control.x-total_invites_per_nmv
+
+  .form-group
+    label.col-sm-3.control-label Invited becoming registered
+    .col-sm-3
+      .input-group
+        input.form-control.x-invited_to_registered_rate
+        .input-group-addon %
+
+  .form-group
+    label.col-sm-3.control-label NMR becoming verified
+    .col-sm-3
+      .input-group
+        input.form-control.x-nmr_to_nmv_rate
+        .input-group-addon %
+
+  .form-group
+    label.col-sm-3.control-label Total delay in days
+    .col-sm-3
+      input.form-control.x-delay_in_days
+
+  .form-group
+    .col-sm-offset-3.col-sm-3
+      .btn.btn-default.pull-right.x-submit Calculate

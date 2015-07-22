@@ -6,9 +6,7 @@
 #= require vis.min
 #= require_self
 
-#= require dashboard
-#= require metrics
-
 @Zazo ||= {
   Visualization: {}
+  Metrics: {}
 }

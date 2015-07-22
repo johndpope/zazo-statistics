@@ -19,7 +19,7 @@ class GrowthCalculator
            @invites_per_nmv *
            @nmr_per_invite *
            @nmv_per_nmr
-    return if gain < 1
+    return @nmv if gain < 1
 
     @nmv = 1
     @invitees = 1
@@ -27,6 +27,7 @@ class GrowthCalculator
       @invitees *= gain
       @nmv += @invitees
     end
+    @nmv
   end
 
   private
