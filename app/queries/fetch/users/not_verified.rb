@@ -1,7 +1,6 @@
 class Fetch::Users::NotVerified < Fetch::Base
   def execute
     data = query
-
     data.each do |row|
       row['invitee'].strip!
       row['inviter'].strip!
@@ -14,6 +13,7 @@ class Fetch::Users::NotVerified < Fetch::Base
   def query
     sql = <<-SQL
       SELECT
+        main.id,
         main.mkey,
         MAX(connections.created_at) time_zero,
         CONCAT(main.first_name, ' ', main.last_name) invitee,
