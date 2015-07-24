@@ -1,4 +1,4 @@
-class Fetch::Users::Names < Fetch::Base
+class Fetch::Users::IdsAndNames < Fetch::Base
   attr_accessor :users
 
   after_initialize :set_options
@@ -7,7 +7,7 @@ class Fetch::Users::Names < Fetch::Base
 
   def execute
     User.where(mkey: users).each_with_object({}) do |user, memo|
-      memo[user.mkey] = user.name
+      memo[user.mkey] = { id: user.id, name: user.name }
     end
   end
 
