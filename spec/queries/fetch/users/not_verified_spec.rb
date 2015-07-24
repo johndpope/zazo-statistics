@@ -10,6 +10,7 @@ RSpec.describe Fetch::Users::NotVerified, type: :model do
 
     specify do
       result = {
+        'id'        => conn.target.id,
         'mkey'      => conn.target.mkey,
         'time_zero' => conn.created_at.to_s,
         'invitee'   => conn.target.name,
