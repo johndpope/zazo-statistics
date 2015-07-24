@@ -1,5 +1,5 @@
 class Fetch::Attributes < Fetch::Base
-  ALLOWED_ATTRS = %w(mkey status first_name last_name email mobile_number device_platform)
+  ALLOWED_ATTRS = %w(id mkey status first_name last_name email mobile_number device_platform)
 
   attr_accessor :user, :attrs
 
