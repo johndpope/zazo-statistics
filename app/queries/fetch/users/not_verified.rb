@@ -1,11 +1,6 @@
 class Fetch::Users::NotVerified < Fetch::Base
   def execute
-    data = query
-    data.each do |row|
-      row['invitee'].strip!
-      row['inviter'].strip!
-    end
-    data
+    strip_data query
   end
 
   private

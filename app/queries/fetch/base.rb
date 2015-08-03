@@ -15,4 +15,14 @@ class Fetch::Base
   def execute
     # Redefine this method in the inheritable class
   end
+
+  protected
+
+  def strip_data(data)
+    data.each do |row|
+      row['invitee'].strip!
+      row['inviter'].strip!
+    end
+    data
+  end
 end
