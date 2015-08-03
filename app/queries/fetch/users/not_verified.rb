@@ -8,16 +8,24 @@ class Fetch::Users::NotVerified < Fetch::Base
   def query
     sql = <<-SQL
       SELECT
-        main.id,
-        main.mkey,
-        MAX(connections.created_at) time_zero,
-        CONCAT(main.first_name, ' ', main.last_name) invitee,
-        CONCAT(sideline.first_name, ' ', sideline.last_name) inviter
-      FROM users main
-        INNER JOIN connections ON main.id = connections.target_id
-        INNER JOIN users sideline ON sideline.id = connections.creator_id
-      WHERE main.status NOT IN ('registered','verified')
-      GROUP BY main.mkey
+        users.id,
+        users.mkey,
+        max_time_zero.time_zero,
+        CONCAT(users.first_name, ' ', users.last_name) invitee,
+        CONCAT(inviters.first_name, ' ', inviters.last_name) inviter
+      FROM users
+        INNER JOIN (
+          SELECT
+            users.mkey,
+            MAX(connections.created_at) time_zero
+          FROM users
+            INNER JOIN connections ON users.id = connections.target_id
+          WHERE users.status NOT IN ('registered','verified')
+          GROUP BY users.mkey
+        ) AS max_time_zero ON max_time_zero.mkey = users.mkey
+        INNER JOIN connections ON connections.target_id = users.id AND
+                                  connections.created_at = max_time_zero.time_zero
+        INNER JOIN users inviters ON inviters.id = connections.creator_id
     SQL
     User.connection.select_all sql
   end
