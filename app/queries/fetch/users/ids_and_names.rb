@@ -11,6 +11,8 @@ class Fetch::Users::IdsAndNames < Fetch::Base
     end
   end
 
+  private
+
   def set_options
     @users = options['users']
   end

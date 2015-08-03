@@ -1,4 +1,10 @@
-class Fetch::Users::NotVerified < Fetch::Base
+class Fetch::Users::SpecificUsers < Fetch::Base
+  attr_accessor :users
+
+  after_initialize :set_options
+
+  validates :users, presence: true
+
   def execute
     strip_data query
   end
@@ -20,13 +26,18 @@ class Fetch::Users::NotVerified < Fetch::Base
             MAX(connections.created_at) time_zero
           FROM users
             INNER JOIN connections ON users.id = connections.target_id
-          WHERE users.status NOT IN ('registered','verified')
+          WHERE users.mkey IN (?)
           GROUP BY users.mkey
         ) AS max_time_zero ON max_time_zero.mkey = users.mkey
         INNER JOIN connections ON connections.target_id = users.id AND
                                   connections.created_at = max_time_zero.time_zero
         INNER JOIN users inviters ON inviters.id = connections.creator_id
     SQL
+    sql = User.send :sanitize_sql_array, [sql, users]
     User.connection.select_all sql
+  end
+
+  def set_options
+    @users = options['users']
   end
 end
