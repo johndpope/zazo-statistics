@@ -29,7 +29,7 @@ class Zazo.Metrics.GrowthCalculator
     invitedToRegisteredRate = parseFloat($('.x-invited_to_registered_rate').val())
     nmrToNmvRate            = parseFloat($('.x-nmr_to_nmv_rate').val())
     delayInDays             = parseFloat($('.x-delay_in_days').val())
-    growthDurationInDays    = 365
+    growthDurationInDays    = parseInt($('.x-growth_duration_in_days').val()) || 365
 
   setCallbacks = ->
     $('.x-submit').click =>
@@ -61,7 +61,7 @@ class Zazo.Metrics.GrowthCalculator
     invitedToRegisteredRate * nmrToNmvRate
 
   calculateGrowth: ->
-    gain   = @calculateGain()
+    gain = @calculateGain()
     return nmv if gain < 1
     period = Math.round growthDurationInDays / delayInDays
     for i in [1..period]
