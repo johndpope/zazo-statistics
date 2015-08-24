@@ -51,10 +51,12 @@ class Metric::Cell < Cell::Concept
     line_chart new_data, height: '800px', min: -5, max: 100, id: chart_id
   end
 
-  def invitation_funnel(*)
-    data.keys.map do |key|
+  def invitation_funnel(subject)
+    @data ||= metric_data :invitation_funnel
+    return @data if subject == :raw
+    @mapped ||= @data.keys.map do |key|
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
-      klass.nil? ? { name: key, data: data[key] } : klass.new(data[key])
+      klass.nil? ? { name: key, data: @data[key] } : klass.new(@data[key])
     end
   end
 

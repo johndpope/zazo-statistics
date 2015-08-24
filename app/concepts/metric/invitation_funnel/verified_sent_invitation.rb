@@ -26,6 +26,9 @@ class Metric::InvitationFunnel::VerifiedSentInvitation < Metric::InvitationFunne
   end
 
   def no_invite_six_weeks_old
-    reduced_with_rate @data['verified_not_invite_more_6_weeks_old'].to_i
+    reduced = @data['verified_not_invite_more_6_weeks_old'].to_i
+    total   = @data['total_verified_more_6_weeks_old'].to_f
+    rate    = (reduced * 100.0 / total).round 2
+    "#{reduced} = #{rate}%"
   end
 end
