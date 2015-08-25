@@ -91,6 +91,7 @@ gem 'chartkick'
 gem 'puma'
 gem 'hashie'
 gem 'neatjson'
+gem 'phonelib'
 
 group :development do
   gem 'better_errors'
