@@ -14,6 +14,7 @@ class Zazo.Metrics.GrowthCalculator
   growthDurationInDays    = null
 
   nmv       = 0
+  gain      = 0
   invitees  = 0
   chart     = null
   chartData = new Object()
@@ -35,11 +36,12 @@ class Zazo.Metrics.GrowthCalculator
     $('.x-submit').click =>
       resetData()
       setVariables()
-      console.log @calculateGrowth()
-      drawChart chartData
+      @calculateGrowth()
+      setViralIndex()
+      @showResults()
 
   drawChart = (data) ->
-    chart = new Chartkick.LineChart 'growth-chart', [{
+    chart = new Chartkick.LineChart 'x-growth_chart', [{
       name: 'growth rate',
       data: data
     }], {
@@ -47,14 +49,22 @@ class Zazo.Metrics.GrowthCalculator
       library: { hAxis: { textPosition: 'none' } }
     }
 
+  showNoGrowth = ->
+    $('#x-growth_chart').html '<p class="status_no_growth">No Growth</p>'
+
+  setViralIndex = ->
+    $('.x-viral_index').html gain.toFixed(4)
+
   #
   # public
   #
 
   init: ->
-    #
     setVariables()
     setCallbacks.call(@)
+    @calculateGrowth()
+    setViralIndex()
+    @showResults()
 
   calculateGain: ->
     nmvSentInviteRate * totalInvitesPerNmv *
@@ -69,6 +79,12 @@ class Zazo.Metrics.GrowthCalculator
       nmv      += invitees
       chartData[i] = Math.round nmv
     nmv
+
+  showResults: ->
+    if gain < 1
+      showNoGrowth()
+    else
+      drawChart(chartData)
 
   result: ->
     [nmv, invitees]
