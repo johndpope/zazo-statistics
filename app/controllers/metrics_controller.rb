@@ -13,6 +13,13 @@ class MetricsController < AdminController
     events_metric params[:id]
   end
 
+  def settings
+    old = session[Metric::Setting::SESSION_KEY] ||= {}
+    new = Metric::Setting.new(params[:id]).get_by_params(params)
+    session[Metric::Setting::SESSION_KEY] = old.merge new
+    redirect_to metrics_path
+  end
+
   private
 
   def events_metric(metric)
@@ -22,5 +29,11 @@ class MetricsController < AdminController
   def validate_group_by
     @group_by = params[:group_by].try(:to_sym) || :day
     @group_by.in?(Groupdate::FIELDS) || render_error("invalid group_by value: #{@group_by.inspect}, valid fields are #{Groupdate::FIELDS}")
+  end
+
+  def settings_params
+    @params ||= {
+      invitation_funnel: %w(start_date end_date)
+    }.stringify_keys
   end
 end

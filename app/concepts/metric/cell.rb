@@ -1,10 +1,14 @@
 class Metric::Cell < Cell::Concept
-  include Chartkick::Helper
+  include ActionView::RecordIdentifier
+  include ActionView::Helpers::FormHelper
+  include ActionView::Helpers::FormOptionsHelper
+  include SimpleForm::ActionViewExtensions::FormHelper
+  include ActionView::Helpers::CaptureHelper
   include ActionView::Helpers::NumberHelper
+  include Chartkick::Helper
 
   layout :layout
-  property :type
-  property :name
+  property :type, :name
 
   def show
     render '_' + type
@@ -30,20 +34,17 @@ class Metric::Cell < Cell::Concept
     @metric_data ||= EventsApi.new.metric_data(name)
   end
 
-  def data
-    return @data if @data
-    @data = metric_data(name)
-    @data.key?('data') && @data = @data['data']
-    @data
+  def settings
+    options[:settings][type.to_sym] || {}
   end
 
-  def total_attribute
-    @metric_data['meta']['total']
-  end
+  #
+  # metrics
+  #
 
   def aggregated_by_timeframe(options)
-    area_chart url_for(action: :show, id: name, group_by: options[:group_by], only_path: true),
-               id: chart_id
+    url = url_for(action: :show, id: name, group_by: options[:group_by], only_path: true)
+    area_chart url, id: chart_id
   end
 
   def onboarding_info(*)
@@ -68,5 +69,20 @@ class Metric::Cell < Cell::Concept
 
   def aggregated(*)
     pie_chart data.except(total_attribute), id: chart_id
+  end
+
+  #
+  # specific helpers
+  #
+
+  def data
+    return @data if @data
+    @data = metric_data(name)
+    @data = @data['data'] if @data.key?('data')
+    @data
+  end
+
+  def total_attribute
+    @metric_data['meta']['total']
   end
 end

@@ -14,7 +14,11 @@ ZazoStatistics::Application.routes.draw do
       get :visualization
     end
   end
-  resources :metrics, only: [:index, :show]
+
+  resources :metrics, only: [:index, :show] do
+    post :settings, on: :member
+  end
+
   resources :messages, only: [:index, :show]
 
   namespace :api do
