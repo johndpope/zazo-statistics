@@ -35,7 +35,9 @@ class Metric::Cell < Cell::Concept
   end
 
   def metric_options
-    options[:options][type.to_sym] || {}
+    options[:options][type.to_sym]
+  rescue NoMethodError
+    Hash.new
   end
 
   #
