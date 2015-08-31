@@ -1,4 +1,4 @@
-class Metric::Setting
+class Metric::Options
   SESSION_KEY = :metrics_settings
   ATTRIBUTES  = {
     invitation_funnel: [

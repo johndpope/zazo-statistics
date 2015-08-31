@@ -16,7 +16,7 @@ ZazoStatistics::Application.routes.draw do
   end
 
   resources :metrics, only: [:index, :show] do
-    post :settings, on: :member
+    post :options, on: :member
   end
 
   resources :messages, only: [:index, :show]

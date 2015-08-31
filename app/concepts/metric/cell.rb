@@ -30,12 +30,12 @@ class Metric::Cell < Cell::Concept
     "chart-#{SecureRandom.hex}"
   end
 
-  def metric_data(name)
-    @metric_data ||= EventsApi.new.metric_data(name)
+  def metric_data(name, options = {})
+    @metric_data ||= EventsApi.new.metric_data(name, options)
   end
 
-  def settings
-    options[:settings][type.to_sym] || {}
+  def metric_options
+    options[:options][type.to_sym] || {}
   end
 
   #
@@ -53,7 +53,7 @@ class Metric::Cell < Cell::Concept
   end
 
   def invitation_funnel(subject)
-    @data ||= metric_data :invitation_funnel
+    @data ||= metric_data :invitation_funnel, metric_options
     return @data if subject == :raw
     @mapped ||= @data.keys.map do |key|
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
@@ -64,7 +64,7 @@ class Metric::Cell < Cell::Concept
   def upload_duplications(*)
     mkeys = data.map { |i| i['sender_id'] }
     new_data = User.where(mkey: mkeys).group(:device_platform).count
-    pie_chart new_data, colors: ['grey', 'green', 'blue'], id: chart_id
+    pie_chart new_data, colors: %w(grey green blue), id: chart_id
   end
 
   def aggregated(*)

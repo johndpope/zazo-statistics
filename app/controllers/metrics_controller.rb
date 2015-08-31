@@ -13,10 +13,10 @@ class MetricsController < AdminController
     events_metric params[:id]
   end
 
-  def settings
-    old = session[Metric::Setting::SESSION_KEY] ||= {}
-    new = Metric::Setting.new(params[:id]).get_by_params(params)
-    session[Metric::Setting::SESSION_KEY] = old.merge new
+  def options
+    old = session[Metric::Options::SESSION_KEY] ||= {}
+    new = Metric::Options.new(params[:id]).get_by_params(params)
+    session[Metric::Options::SESSION_KEY] = old.merge new
     redirect_to metrics_path
   end
 
