@@ -18,6 +18,7 @@ class Metric::InvitationFunnel::VerifiedSentInvitation < Metric::InvitationFunne
   def invites_per_verified
     count = @data['invitations_count'].to_i
     count_per_user = (count / total.to_f).round 2
+    count_per_user = 0 if count_per_user.nan?
     "#{count_per_user} (total #{count})"
   end
 
@@ -28,7 +29,7 @@ class Metric::InvitationFunnel::VerifiedSentInvitation < Metric::InvitationFunne
   def no_invite_six_weeks_old
     reduced = @data['verified_not_invite_more_6_weeks_old'].to_i
     total   = @data['total_verified_more_6_weeks_old'].to_f
-    rate    = (reduced * 100.0 / total).round 2
+    rate    = rate_by_total_reduced total, reduced
     "#{reduced} = #{rate}%"
   end
 end

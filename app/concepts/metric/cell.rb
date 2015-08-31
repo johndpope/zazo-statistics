@@ -1,10 +1,14 @@
 class Metric::Cell < Cell::Concept
-  include Chartkick::Helper
+  include ActionView::RecordIdentifier
+  include ActionView::Helpers::FormHelper
+  include ActionView::Helpers::FormOptionsHelper
+  include SimpleForm::ActionViewExtensions::FormHelper
+  include ActionView::Helpers::CaptureHelper
   include ActionView::Helpers::NumberHelper
+  include Chartkick::Helper
 
   layout :layout
-  property :type
-  property :name
+  property :type, :name
 
   def show
     render '_' + type
@@ -26,24 +30,21 @@ class Metric::Cell < Cell::Concept
     "chart-#{SecureRandom.hex}"
   end
 
-  def metric_data(name)
-    @metric_data ||= EventsApi.new.metric_data(name)
+  def metric_data(name, options = {})
+    @metric_data ||= EventsApi.new.metric_data(name, options)
   end
 
-  def data
-    return @data if @data
-    @data = metric_data(name)
-    @data.key?('data') && @data = @data['data']
-    @data
+  def metric_options
+    options[:options][type.to_sym] || {}
   end
 
-  def total_attribute
-    @metric_data['meta']['total']
-  end
+  #
+  # metrics
+  #
 
   def aggregated_by_timeframe(options)
-    area_chart url_for(action: :show, id: name, group_by: options[:group_by], only_path: true),
-               id: chart_id
+    url = url_for(action: :show, id: name, group_by: options[:group_by], only_path: true)
+    area_chart url, id: chart_id
   end
 
   def onboarding_info(*)
@@ -52,7 +53,7 @@ class Metric::Cell < Cell::Concept
   end
 
   def invitation_funnel(subject)
-    @data ||= metric_data :invitation_funnel
+    @data ||= metric_data :invitation_funnel, metric_options
     return @data if subject == :raw
     @mapped ||= @data.keys.map do |key|
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
@@ -63,10 +64,25 @@ class Metric::Cell < Cell::Concept
   def upload_duplications(*)
     mkeys = data.map { |i| i['sender_id'] }
     new_data = User.where(mkey: mkeys).group(:device_platform).count
-    pie_chart new_data, colors: ['grey', 'green', 'blue'], id: chart_id
+    pie_chart new_data, colors: %w(grey green blue), id: chart_id
   end
 
   def aggregated(*)
     pie_chart data.except(total_attribute), id: chart_id
+  end
+
+  #
+  # specific helpers
+  #
+
+  def data
+    return @data if @data
+    @data = metric_data(name)
+    @data = @data['data'] if @data.key?('data')
+    @data
+  end
+
+  def total_attribute
+    @metric_data['meta']['total']
   end
 end
