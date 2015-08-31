@@ -44,8 +44,13 @@ module Metric::InvitationFunnel
 
     protected
 
+    def rate_by_total_reduced(total, reduced)
+      rate = reduced * 100.0 / total
+      rate.nan? ? 0 : rate.round(2)
+    end
+
     def rate_by_total(reduced)
-      (reduced * 100.0 / total).round 2
+      rate_by_total_reduced total, reduced
     end
 
     def reduced_with_rate(reduced)
