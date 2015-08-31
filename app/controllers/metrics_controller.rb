@@ -14,9 +14,7 @@ class MetricsController < AdminController
   end
 
   def options
-    old = session[Metric::Options::SESSION_KEY] ||= {}
-    new = Metric::Options.new(params[:id]).get_by_params(params)
-    session[Metric::Options::SESSION_KEY] = old.merge new
+    session[Metric::Options::SESSION_KEY] = Metric::Options.new(params[:id]).get_by_params(params)
     redirect_to metrics_path
   end
 
