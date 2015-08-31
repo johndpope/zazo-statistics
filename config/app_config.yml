@@ -35,6 +35,7 @@ defaults: &settings
     - messages_sent
     - usage_by_active_users
     - onboarding_info
+    - invited_becoming_registered
     - invitation_funnel
     - messages_failures
 
