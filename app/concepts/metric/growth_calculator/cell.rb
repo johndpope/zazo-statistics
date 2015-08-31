@@ -28,8 +28,7 @@ class Metric::GrowthCalculator::Cell < Cell::Concept
   end
 
   def delay_in_days
-    [
-      { keys: %w(verified_sent_invitations avg_delay_in_hours), convert: -> (val) { val.to_f / 24 } },
+    [ { keys: %w(verified_sent_invitations avg_delay_in_hours), convert: -> (val) { val.to_f / 24 } },
       { keys: %w(invited_to_registered avg_delay_in_hours),     convert: -> (val) { val.to_f / 24 } },
       { keys: %w(registered_to_verified avg_delay_in_minutes),  convert: -> (val) { val.to_f / 24 / 60 } }
     ].inject(0) { |sum, row| sum + row[:convert].call(model[row[:keys][0]][row[:keys][1]]) }.round 2
@@ -40,8 +39,9 @@ class Metric::GrowthCalculator::Cell < Cell::Concept
   #
 
   def rate(category_key, total_key, count_key)
-    total = model[category_key][total_key]
-    count = model[category_key][count_key]
-    (count.to_f / total.to_f).round 2
+    total = model[category_key] ? model[category_key][total_key] : 1
+    count = model[category_key] ? model[category_key][count_key] : 0
+    rate = (count.to_f / total.to_f)
+    rate.nan? ? 0 : rate.round(2)
   end
 end
