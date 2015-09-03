@@ -28,5 +28,6 @@ table.table
   tr.total
     td Total
     td
-    == render 'message_status_cells', data: @message_statuses['total'], user_id: user.event_id, outgoing_options: {}, incoming_options: {}
+      - if @message_statuses
+        == render 'message_status_cells', data: @message_statuses['total'], user_id: user.event_id, outgoing_options: {}, incoming_options: {}
     td
