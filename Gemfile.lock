@@ -328,6 +328,9 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    redis (3.2.1)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     request_store (1.1.0)
     rollbar (2.1.2)
     rsense (0.5.18)
@@ -512,6 +515,8 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  redis
+  redis-namespace
   rollbar
   rsense
   rspec-rails
