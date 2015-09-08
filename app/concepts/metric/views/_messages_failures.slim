@@ -6,7 +6,7 @@
       tr
         th Parameter
         - sections.each do |section|
-          th #{section.split('_to_').join('&rarr;')} (part, %)
+          th = section.gsub('_to_', '&rarr;')
     tbody
       - attributes.each do |attr|
         tr class=("total" if attr == total_attribute)
