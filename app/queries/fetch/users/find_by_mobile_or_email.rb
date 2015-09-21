@@ -4,7 +4,8 @@ class Fetch::Users::FindByMobileOrEmail < Fetch::Base
   after_initialize :set_options
 
   def execute
-    user = User.where('mobile_number = ? OR email = ?', mobile, email).first
+    user = User.where(mobile_number: mobile).first
+    user = User.where(email: email).first unless user
     { id: user.try(:id), mkey: user.try(:mkey) }
   end
 
