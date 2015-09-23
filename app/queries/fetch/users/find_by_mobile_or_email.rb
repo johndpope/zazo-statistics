@@ -5,7 +5,7 @@ class Fetch::Users::FindByMobileOrEmail < Fetch::Base
 
   def execute
     user = User.where(mobile_number: mobile).first
-    user = User.where(email: email).first unless user
+    user = User.where(email: email).first if !user && email
     { id: user.try(:id), mkey: user.try(:mkey) }
   end
 
