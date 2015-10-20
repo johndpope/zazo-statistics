@@ -10,6 +10,7 @@ class Fetch::Users::NotVerified < Fetch::Base
       SELECT
         users.id,
         users.mkey,
+        max_time_zero.connection_id,
         max_time_zero.time_zero,
         CONCAT(users.first_name, ' ', users.last_name) invitee,
         CONCAT(inviters.first_name, ' ', inviters.last_name) inviter
@@ -17,6 +18,7 @@ class Fetch::Users::NotVerified < Fetch::Base
         INNER JOIN (
           SELECT
             users.mkey,
+            connections.id connection_id,
             MAX(connections.created_at) time_zero
           FROM users
             INNER JOIN connections ON users.id = connections.target_id
