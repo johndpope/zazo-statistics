@@ -18,11 +18,11 @@ class Fetch::Users::NotVerified < Fetch::Base
         INNER JOIN (
           SELECT
             users.mkey,
-            connections.id connection_id,
+            MAX(connections.id) connection_id,
             MAX(connections.created_at) time_zero
           FROM users
             INNER JOIN connections ON users.id = connections.target_id
-          WHERE users.status NOT IN ('registered','verified')
+          WHERE users.status NOT IN ('registered', 'verified')
           GROUP BY users.mkey
         ) AS max_time_zero ON max_time_zero.mkey = users.mkey
         INNER JOIN connections ON connections.target_id = users.id AND
