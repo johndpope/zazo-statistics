@@ -12,9 +12,7 @@ module DigestAuthentication
   protected
 
   def authenticate
-    # allow to use api also without authentication
-    # todo: uncomment this when others services will use digest auth
-    # authenticate_with_digest
+    authenticate_with_digest
   end
 
   def authenticate_with_digest
