@@ -1,4 +1,4 @@
-class Api::V1::FetchController < ApplicationController
+class Api::V1::FetchController < ApiController
   def show
     render json: Fetch.new(params[:prefix], params[:name], options).do
   rescue Fetch::InvalidOptions => error

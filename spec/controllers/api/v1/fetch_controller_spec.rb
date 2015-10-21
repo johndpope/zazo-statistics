@@ -1,10 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::FetchController, type: :controller do
+  before do
+    allow_any_instance_of(described_class).to receive(:authenticate).and_return true
+  end
+
   describe 'GET #show' do
     subject { get :show, id: '', name: :anything }
 
-    specify do
+    it do
       subject
       expect(response).to have_http_status(:not_found)
       expect(json_response).to eq('errors' => 'Anything class not found')
@@ -17,7 +21,7 @@ RSpec.describe Api::V1::FetchController, type: :controller do
     context 'unknown' do
       let(:name) { :unknown }
 
-      specify do
+      it do
         subject
         expect(response).to have_http_status(:not_found)
         expect(json_response).to eq('errors' => 'Users::Unknown class not found')
@@ -27,7 +31,7 @@ RSpec.describe Api::V1::FetchController, type: :controller do
     context 'not_verified' do
       let(:name) { :not_verified }
 
-      specify do
+      it do
         subject
         expect(response).to have_http_status(:success)
         expect(json_response).to be_a(Array)

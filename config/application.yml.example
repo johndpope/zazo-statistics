@@ -17,6 +17,9 @@ gcm_uri: https://android.googleapis.com/gcm/send
 http_basic_password:
 http_basic_username:
 
+friendfinder_password:
+renotification_password:
+
 secret_key_base:
 
 smtp_address: email-smtp.us-east-1.amazonaws.com
