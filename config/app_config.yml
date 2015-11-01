@@ -38,6 +38,7 @@ defaults: &settings
     - non_marketing_registered_by_weeks
     - invitation_funnel
     - messages_failures
+    - messages_failures_autonotification
 
 development:
   <<: *settings
