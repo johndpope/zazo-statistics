@@ -22,7 +22,7 @@ RSpec.describe Fetch::Users::SpecificUsers, type: :model do
           'time_zero' => conn_1.created_at.to_s,
           'invitee'   => conn_1.target.name,
           'inviter'   => conn_1.creator.name
-        },{
+        }, {
           'id'        => conn_2.target.id,
           'mkey'      => conn_2.target.mkey,
           'time_zero' => conn_2.created_at.to_s,
