@@ -6,7 +6,7 @@ class Fetch::Users::RecentlyJoined < Fetch::Base
 
   def execute
     User.where('created_at > ?', Time.now - time_frame_in_days).map do |u|
-      [:id, :mkey, :mobile_number, :first_name,:last_name, :email, :status].each_with_object({}) do |attr, memo|
+      [:id, :mkey, :mobile_number, :first_name, :last_name, :emails, :status].each_with_object({}) do |attr, memo|
         memo[attr] = u.send attr
       end
     end

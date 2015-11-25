@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   include AASM
   include EventNotifiable
 
+  serialize :emails, Array
+
   has_many :connections_as_creator, class_name: 'Connection', foreign_key: :creator_id, dependent: :destroy
   has_many :connections_as_target, class_name: 'Connection', foreign_key: :target_id, dependent: :destroy
 
@@ -106,13 +108,15 @@ class User < ActiveRecord::Base
   # ==================
 
   def only_app_attrs_for_user
-    r = attributes.symbolize_keys.slice(:id, :auth, :mkey, :first_name, :last_name, :mobile_number, :device_platform)
+    r = attributes.symbolize_keys.slice(:id, :auth, :mkey, :first_name, :last_name,
+                                        :mobile_number, :device_platform, :emails)
     r[:id] = r[:id].to_s
     r
   end
 
   def only_app_attrs_for_friend
-    r = attributes.symbolize_keys.slice(:id, :mkey, :first_name, :last_name, :mobile_number, :device_platform)
+    r = attributes.symbolize_keys.slice(:id, :mkey, :first_name, :last_name,
+                                        :mobile_number, :device_platform, :emails)
     r[:id] = r[:id].to_s
     r[:has_app] = app?.to_s
     r
