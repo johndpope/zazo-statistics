@@ -15,7 +15,7 @@ class Fetch
     if instance.valid?
       instance.execute
     else
-      fail InvalidOptions, instance.errors.messages
+      fail InvalidOptions, instance.errors.messages.to_json
     end
   rescue NameError
     raise UnknownClass, "#{[prefix, name].compact.map(&:to_s).map(&:camelize).join '::'} class not found"

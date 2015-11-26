@@ -29,13 +29,13 @@ RSpec.describe Fetch::PushUser, type: :model do
     context 'without mkey' do
       let(:options) { Hash.new }
 
-      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{:mkey=>["can\'t be blank"]}') }
+      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{"mkey":["can\'t be blank"]}') }
     end
 
     context 'with invalid mkey' do
       let(:options) { { mkey: 'xxxxxxxxxxxx' } }
 
-      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{:push_user=>["mkey is not correct"]}') }
+      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{"push_user":["mkey is not correct"]}') }
     end
   end
 end

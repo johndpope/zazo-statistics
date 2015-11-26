@@ -23,17 +23,17 @@ RSpec.describe Fetch::Country, type: :model do
   describe 'validations' do
     context 'without options' do
       let(:options) { Hash.new }
-      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{:user=>["can\'t be blank"]}') }
+      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{"user":["can\'t be blank"]}') }
     end
 
     context 'without incorrect user' do
       let(:options) { { user: 'xxxxxxxxxxxx' } }
-      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{:user=>["can\'t be blank"]}') }
+      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{"user":["can\'t be blank"]}') }
     end
 
     context 'with incorrect phone' do
       let(:mobile) { '123456789' }
-      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{:phone=>["phone is incorrect"]}') }
+      it { expect { instance.do }.to raise_error(Fetch::InvalidOptions, '{"phone":["phone is incorrect"]}') }
     end
   end
 end
