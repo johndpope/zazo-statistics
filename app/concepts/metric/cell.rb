@@ -26,6 +26,10 @@ class Metric::Cell < Cell::Concept
     send type, options
   end
 
+  def metric
+    send type
+  end
+
   def chart_id
     "chart-#{SecureRandom.hex}"
   end
@@ -35,9 +39,7 @@ class Metric::Cell < Cell::Concept
   end
 
   def metric_options
-    options[:options][type.to_sym]
-  rescue NoMethodError
-    Hash.new
+    options[:options][type.to_sym] || {} rescue {}
   end
 
   #
@@ -61,6 +63,10 @@ class Metric::Cell < Cell::Concept
       klass = "Metric::InvitationFunnel::#{key.classify}".safe_constantize
       klass.nil? ? { name: key, data: @data[key] } : klass.new(@data[key])
     end
+  end
+
+  def non_marketing_users_data
+    @metric ||= Metric::NonMarketingUsersData.new metric_data(:non_marketing_users_data, metric_options)
   end
 
   def upload_duplications(*)

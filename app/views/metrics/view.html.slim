@@ -1,0 +1,5 @@
+- content_for(:page_specific_scripts) { javascript_include_tag 'metrics', 'data-turbolinks-track' => true }
+
+h1.title Metric view
+
+== concept 'metric/cell', @metric, options: Metric::Options.get_by_session(session)
