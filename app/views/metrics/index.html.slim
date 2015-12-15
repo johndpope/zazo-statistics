@@ -3,4 +3,4 @@
 h1.title Metrics
 
 - @metrics.each do |metric|
-  .well = link_to "#{metric.name.titleize} [#{metric.type.titleize}]", view_metrics_path(name: metric.name, type: metric.type)
+  .well = link_to "#{metric.name.titleize}", view_metrics_path(name: metric.name, type: metric.type)
