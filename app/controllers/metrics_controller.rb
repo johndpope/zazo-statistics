@@ -19,7 +19,7 @@ class MetricsController < AdminController
 
   def options
     session[Metric::Options::SESSION_KEY] = Metric::Options.new(params[:id]).get_by_params(params)
-    redirect_to metrics_path
+    redirect_to request.referer
   end
 
   private
