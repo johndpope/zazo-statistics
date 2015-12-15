@@ -3,7 +3,7 @@ users = User.where(mkey: results.map { |row| row['inviter'] }).each_with_object(
   memo[user.mkey] = user.device_platform.to_s
 end
 
-verified_date_from = Time.parse '2015-10-14'
+verified_date_from = Time.parse '2015-11-04'
 total_invites = { total: 0, android: 0, ios: 0, android_after_verified_date: 0 }
 nmv = { total: 0, android: 0, ios: 0 }
 nmr = { total: 0, android: 0, ios: 0 }
