@@ -9,13 +9,17 @@ class MetricsController < AdminController
     end
   end
 
+  def view
+    @metric = Metric.new metric_params
+  end
+
   def show
     events_metric params[:id]
   end
 
   def options
     session[Metric::Options::SESSION_KEY] = Metric::Options.new(params[:id]).get_by_params(params)
-    redirect_to metrics_path
+    redirect_to request.referer
   end
 
   private
@@ -33,5 +37,9 @@ class MetricsController < AdminController
     @params ||= {
       invitation_funnel: %w(start_date end_date)
     }.stringify_keys
+  end
+
+  def metric_params
+    [:name, :type].each_with_object(params) { |key, obj| obj.require key }.except(:action, :controller)
   end
 end

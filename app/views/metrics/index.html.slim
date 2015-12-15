@@ -1,5 +1,6 @@
 - content_for(:page_specific_scripts) { javascript_include_tag 'metrics', 'data-turbolinks-track' => true }
 
-h1 Metrics
+h1.title Metrics
 
-== concept 'metric/cell', collection: @metrics, options: Metric::Options.get_by_session(session)
+- @metrics.each do |metric|
+  .well = link_to "#{metric.name.titleize} [#{metric.type.titleize}]", view_metrics_path(name: metric.name, type: metric.type)

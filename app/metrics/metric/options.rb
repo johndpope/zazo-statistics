@@ -4,6 +4,10 @@ class Metric::Options
     invitation_funnel: [
       { name: :start_date, validate: :date_valid?, default: '' },
       { name: :end_date,   validate: :date_valid?, default: '' }
+    ],
+    non_marketing_users_data: [
+      { name: :start_date, validate: :date_valid?, default: '' },
+      { name: :end_date,   validate: :date_valid?, default: '' }
     ]
   }
 
