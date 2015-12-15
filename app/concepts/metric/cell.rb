@@ -86,7 +86,7 @@ class Metric::Cell < Cell::Concept
   def data
     return @data if @data
     @data = metric_data(name)
-    @data = @data['data'] if @data.key?('data')
+    @data = @data['data'] if @data.kind_of?(Hash) && @data.key?('data')
     @data
   end
 
