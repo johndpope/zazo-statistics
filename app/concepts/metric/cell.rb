@@ -66,7 +66,7 @@ class Metric::Cell < Cell::Concept
   end
 
   def non_marketing_users_data
-    @metric ||= Metric::NonMarketingUsersData.new metric_data(:non_marketing_users_data, metric_options)
+    @metric ||= Metric::NonMarketingUsersData.new metric_data(:non_marketing_users_data, metric_options), metric_options
   end
 
   def upload_duplications(*)
