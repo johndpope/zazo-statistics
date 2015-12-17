@@ -44,36 +44,40 @@
       thead
         tr
           th colspan='1'
-          th.text-center total
-          th.text-center android
-          th.text-center ios
+          th.text-center total (all/limited)
+          th.text-center android (all/limited)
+          th.text-center ios (all/limited)
       tbody
         - metric.tap do |m|
           tr
             td.text
               b Total-invites
-            td.text-center = m.total_invites[:total]
-            td.text-center = "#{m.total_invites[:android]} (#{m.total_invites[:android_after_verified_date]} after #{m.class::VERIFIED_DATE_FROM})"
-            td.text-center = m.total_invites[:ios]
+            td.text-center
+              = "#{m.total_invites[:all][:total]}/#{m.total_invites[:date_limited][:total]}"
+            td.text-center
+              = "#{m.total_invites[:all][:android]}/#{m.total_invites[:date_limited][:android]}"
+              = " (#{m.total_invites[:all][:android_after_verified_date]}/#{m.total_invites[:date_limited][:android_after_verified_date]} after #{m.class::VERIFIED_DATE_FROM})"
+            td.text-center
+              = "#{m.total_invites[:all][:ios]}/#{m.total_invites[:date_limited][:ios]}"
           tr
             td
               b NMV
-            td.text-center = m.nmv[:total]
-            td.text-center = m.nmv[:android]
-            td.text-center = m.nmv[:ios]
+            td.text-center = "#{m.nmv[:all][:total]}/#{m.nmv[:date_limited][:total]}"
+            td.text-center = "#{m.nmv[:all][:android]}/#{m.nmv[:date_limited][:android]}"
+            td.text-center = "#{m.nmv[:all][:ios]}/#{m.nmv[:date_limited][:ios]}"
           tr
             td
               b NMR
-            td.text-center = m.nmr[:total]
-            td.text-center = m.nmr[:android]
-            td.text-center = m.nmr[:ios]
+            td.text-center = "#{m.nmr[:all][:total]}/#{m.nmr[:date_limited][:total]}"
+            td.text-center = "#{m.nmr[:all][:android]}/#{m.nmr[:date_limited][:android]}"
+            td.text-center = "#{m.nmr[:all][:ios]}/#{m.nmr[:date_limited][:ios]}"
           tr
             td
               b NMV>0-Invites
-            td.text-center = m.nmv_more_then_zero_invites[:total]
-            td.text-center = m.nmv_more_then_zero_invites[:android]
-            td.text-center = m.nmv_more_then_zero_invites[:ios]
+            td.text-center = "#{m.nmv_more_then_zero_invites[:all][:total]}/#{m.nmv_more_then_zero_invites[:date_limited][:total]}"
+            td.text-center = "#{m.nmv_more_then_zero_invites[:all][:android]}/#{m.nmv_more_then_zero_invites[:date_limited][:android]}"
+            td.text-center = "#{m.nmv_more_then_zero_invites[:all][:ios]}/#{m.nmv_more_then_zero_invites[:date_limited][:ios]}"
           tr
             td
               b Click-store-link
-            td.text-center = m.app_link_clicks
+            td.text-center = "#{m.app_link_clicks[:all]}/#{m.app_link_clicks[:date_limited]}"
