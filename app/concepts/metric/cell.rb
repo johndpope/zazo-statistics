@@ -7,16 +7,24 @@ class Metric::Cell < Cell::Concept
   include ActionView::Helpers::NumberHelper
   include Chartkick::Helper
 
-  layout :layout
+  SPECIFIC_LAYOUTS = {
+    upload_duplications_data: false
+  }
+
   property :type, :name
 
   def show
-    render '_' + type
+    render layout: layout, view: '_' + type
   rescue Cell::TemplateMissingError
-    render :show
+    render layout: layout, view: :show
   end
 
   private
+
+  def layout
+    specific_layout = SPECIFIC_LAYOUTS[type.to_sym]
+    specific_layout.nil? ? :layout : specific_layout
+  end
 
   def title
     name.titleize
@@ -67,6 +75,11 @@ class Metric::Cell < Cell::Concept
 
   def non_marketing_users_data
     @metric ||= Metric::NonMarketingUsersData.new metric_data(:non_marketing_users_data, metric_options), metric_options
+  end
+
+  def upload_duplications_data
+    senders = metric_options[:senders] && metric_options[:senders].delete(' ').split(',')
+    @metric ||= Metric::UploadDuplicationsData.new metric_data(:upload_duplications_data, senders: senders), metric_options
   end
 
   def upload_duplications(*)
