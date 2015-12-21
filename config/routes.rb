@@ -20,7 +20,9 @@ ZazoStatistics::Application.routes.draw do
     get :view, on: :collection
   end
 
-  resources :messages, only: [:index, :show]
+  resources :messages, only: [:index, :show] do
+    get :duplications, on: :collection
+  end
 
   namespace :api do
     namespace :v1 do

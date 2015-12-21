@@ -8,6 +8,9 @@ class Metric::Options
     non_marketing_users_data: [
       { name: :start_date, validate: :date_valid?, default: '' },
       { name: :end_date,   validate: :date_valid?, default: '' }
+    ],
+    upload_duplications_data: [
+      { name: :senders, validate: :not_empty?, default: nil }
     ]
   }
 
@@ -58,5 +61,9 @@ class Metric::Options
     true
   rescue ArgumentError
     false
+  end
+
+  def not_empty?(value)
+    !value.empty?
   end
 end

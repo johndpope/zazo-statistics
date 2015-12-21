@@ -19,6 +19,10 @@ class MessagesController < AdminController
     head :not_found
   end
 
+  def duplications
+    @metric = Metric.new name: 'upload_duplications_data', type: 'upload_duplications_data'
+  end
+
   private
 
   def messages_params
