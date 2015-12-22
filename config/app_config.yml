@@ -37,6 +37,7 @@ defaults: &settings
     - onboarding_info
     - non_marketing_registered_by_weeks
     - invitation_funnel
+    - non_marketing_invitations_sent
     - non_marketing_users_data
     - active_friends_grouped_data
     - messages_failures
