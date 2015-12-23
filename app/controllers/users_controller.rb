@@ -2,7 +2,7 @@ class UsersController < AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :visualization,
                                   :new_connection, :establish_connection,
                                   :receive_test_video, :receive_corrupt_video,
-                                  :events]
+                                  :events, :request_logs]
   decorates_assigned :user
 
   # GET /users
@@ -120,6 +120,17 @@ class UsersController < AdminController
     allowed = UserVisualizationDataQuery::ALLOWED_SETTINGS
     @settings = allowed.each_with_object({}) do |attr, memo|
       memo[attr] = params[attr]
+    end
+  end
+
+  def request_logs
+    respond_to do |format|
+      service = RequestLogNotification.new(@user)
+      if service.do
+        format.html { redirect_to @user, notice: 'Logs was successfully requested.' }
+      else
+        format.html { redirect_to @user, alert: "Logs was not requested, errors: #{service.errors.messages}" }
+      end
     end
   end
 

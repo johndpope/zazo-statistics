@@ -32,6 +32,7 @@ gem 'aws-sdk', '~> 2'
 
 # Used in notifications
 gem 'faraday_middleware'
+gem 'faraday-digestauth'
 
 # gem 'npb_logging', github: 'etcetc/npb_logging'
 gem 'console_candy', github: 'etcetc/console_candy'
