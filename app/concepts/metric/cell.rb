@@ -77,6 +77,10 @@ class Metric::Cell < Cell::Concept
     @metric ||= Metric::NonMarketingUsersData.new metric_data(:non_marketing_users_data, metric_options), metric_options
   end
 
+  def non_marketing_invitations_sent
+    @metric ||= Metric::NonMarketingInvitationsSent.new metric_data(name, metric_options), metric_options
+  end
+
   def upload_duplications_data
     senders = metric_options[:senders] && metric_options[:senders].delete(' ').split(',')
     @metric ||= Metric::UploadDuplicationsData.new metric_data(:upload_duplications_data, senders: senders), metric_options

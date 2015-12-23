@@ -5,7 +5,7 @@ class Metric::Options
       { name: :start_date, validate: :date_valid?, default: '' },
       { name: :end_date,   validate: :date_valid?, default: '' }
     ],
-    non_marketing_users_data: [
+    non_marketing_invitations_sent: [
       { name: :start_date, validate: :date_valid?, default: '' },
       { name: :end_date,   validate: :date_valid?, default: '' }
     ],
