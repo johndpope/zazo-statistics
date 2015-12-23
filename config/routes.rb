@@ -12,6 +12,7 @@ ZazoStatistics::Application.routes.draw do
     member do
       get :events
       get :visualization
+      get :request_logs
     end
   end
 

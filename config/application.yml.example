@@ -20,6 +20,9 @@ http_basic_username:
 friendfinder_password:
 renotification_password:
 
+notification_api_base_url:
+notification_api_token:
+
 secret_key_base:
 
 smtp_address: email-smtp.us-east-1.amazonaws.com

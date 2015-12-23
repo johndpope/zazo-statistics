@@ -162,6 +162,9 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    faraday-digestauth (0.2.1)
+      faraday (~> 0.7)
+      net-http-digest_auth (~> 1.4)
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.8)
@@ -252,6 +255,7 @@ GEM
     mysql2 (0.3.18)
     neatjson (0.6)
     nenv (0.2.0)
+    net-http-digest_auth (1.4)
     newrelic_rpm (3.13.0.299)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -480,6 +484,7 @@ DEPENDENCIES
   enum_handler!
   factory_girl_rails
   faker
+  faraday-digestauth
   faraday_middleware
   figaro!
   gcm
