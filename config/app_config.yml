@@ -39,7 +39,7 @@ defaults: &settings
     - non_marketing_registered_by_weeks
     - invitation_funnel
     - non_marketing_invitations_sent
-    - non_marketing_users_data
+    - invitation_conversion_data
     - active_friends_grouped_data
     - messages_failures
     - messages_failures_autonotification
