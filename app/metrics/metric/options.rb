@@ -9,6 +9,10 @@ class Metric::Options
       { name: :start_date, validate: :date_valid?, default: '' },
       { name: :end_date,   validate: :date_valid?, default: '' }
     ],
+    invitation_conversion_data: [
+      { name: :start_date, validate: :date_valid?, default: '' },
+      { name: :end_date,   validate: :date_valid?, default: '' }
+    ],
     upload_duplications_data: [
       { name: :senders, validate: :not_empty?, default: nil }
     ]
