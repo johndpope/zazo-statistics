@@ -10,9 +10,10 @@ ZazoStatistics::Application.routes.draw do
   resources :connections
   resources :users do
     member do
-      get :events
-      get :visualization
-      get :request_logs
+      get  :events
+      get  :visualization
+      get  :request_logs
+      post :request_logs
     end
   end
 

@@ -1,20 +1,19 @@
 class RequestLogNotification
   include ActiveModel::Validations
 
-  attr_reader :push_user
+  attr_reader :push_user, :date_start, :date_end
   validate :push_user_must_be_valid
   validate :device_must_be_android
+  validate :start_end_date_restrictions
 
-  def initialize(user)
-    @push_user = PushUser.find_by_mkey(user.mkey)
+  def initialize(user, options = {})
+    @push_user  = PushUser.find_by_mkey user.mkey
+    @date_start = date_by_option options[:date_start]
+    @date_end   = date_by_option options[:date_end]
   end
 
   def do
-    if valid?
-      handle_response NotificationApi.new(notification_data).mobile
-    else
-      false
-    end
+    valid? ? handle_response(NotificationApi.new(notification_data).mobile) : false
   end
 
   private
@@ -23,21 +22,26 @@ class RequestLogNotification
     { subject: 'log_request',
       device_platform: 'android',
       device_token: push_user.push_token,
-      payload: {
-        host: "#{(Rails.env.production? ? 'prod' : 'staging')}.zazoapp.com",
-        type: 'log_request',
-        date_start: Time.now.strftime('%m/%d/%Y'),
-        date_end:   Time.now.strftime('%m/%d/%Y')
-      } }
+      payload: { host: payload_host,
+                 type: 'log_request',
+                 date_start: date_start.strftime('%m/%d/%Y'),
+                 date_end:   date_end.strftime('%m/%d/%Y') } }
   end
 
   def handle_response(res)
-    if res['status'] == 'success'
-      true
-    else
-      errors.add :response, res.to_s
-      false
-    end
+    return true if res['status'] == 'success'
+    errors.add :response, res.to_s
+    false
+  end
+
+  def date_by_option(date)
+    Time.parse date
+  rescue TypeError, ArgumentError
+    Time.now
+  end
+
+  def payload_host
+    "#{(Rails.env.production? ? 'prod' : 'staging')}.zazoapp.com"
   end
 
   #
@@ -52,5 +56,10 @@ class RequestLogNotification
     if push_user && push_user.device_platform != :android
       errors.add :push_user, 'must have android device platform'
     end
+  end
+
+  def start_end_date_restrictions
+    errors.add :date_start, 'must be earlier than end_date' if date_start > date_end
+    errors.add :date_end, 'should not be later than today'  if date_end > Time.now
   end
 end
