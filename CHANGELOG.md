@@ -1,5 +1,8 @@
 # Changelog
 
+### v0.17.6
+- :bulb: Added date options to request user logs feature
+
 ### v0.17.5
 - :bulb: Added `InvitationConversionData` metric
 
