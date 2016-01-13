@@ -125,13 +125,13 @@ class UsersController < AdminController
 
   def request_logs
     respond_to do |format|
-      service = RequestLogNotification.new(@user)
+      service = RequestLogNotification.new @user, params[:request_logs_options]
       if service.do
-        format.html { redirect_to @user, notice: 'Logs was successfully requested.' }
+        format.html { redirect_to request_logs_user_path, notice: "Logs was successfully requested." }
       else
-        format.html { redirect_to @user, alert: "Logs was not requested, errors: #{service.errors.messages}" }
+        format.html { redirect_to request_logs_user_path, alert: "Logs was not requested, errors: #{service.errors.messages}" }
       end
-    end
+    end if request.post?
   end
 
   private
